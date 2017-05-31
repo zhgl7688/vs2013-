@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4853EEE1-204A-4501-A2A6-7D14CA7DCD0E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FoWoSoft.Platform</RootNamespace>
+    <AssemblyName>FoWoSoft.Platform</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Soft\Oracle\ODP.NET_Managed121012\odp.net\managed\common\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppLibrary.cs" />
+    <Compile Include="DBConnection.cs" />
+    <Compile Include="Dictionary.cs" />
+    <Compile Include="Guid_id.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="MeetInfo.cs" />
+    <Compile Include="OnlineUsers.cs" />
+    <Compile Include="Organize.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="RoleApp.cs" />
+    <Compile Include="TempTestMeet.cs" />
+    <Compile Include="Users.cs" />
+    <Compile Include="UsersApp.cs" />
+    <Compile Include="UsersInfo.cs" />
+    <Compile Include="UsersRelation.cs" />
+    <Compile Include="UsersRole.cs" />
+    <Compile Include="WorkFlow.cs" />
+    <Compile Include="WorkFlowArchives.cs" />
+    <Compile Include="WorkFlowButtons.cs" />
+    <Compile Include="WorkFlowComment.cs" />
+    <Compile Include="WorkFlowData.cs" />
+    <Compile Include="WorkFlowDelegation.cs" />
+    <Compile Include="WorkFlowForm.cs" />
+    <Compile Include="WorkFlowTask.cs" />
+    <Compile Include="WorkGroup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FoWoSoft.Cache.Factory\FoWoSoft.Cache.Factory.csproj">
+      <Project>{972136cc-2945-44c6-9b77-f5a46e96ed91}</Project>
+      <Name>FoWoSoft.Cache.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoWoSoft.Cache.InProc\FoWoSoft.Cache.InProc.csproj">
+      <Project>{c89fe72b-e16e-417f-afb7-385d35072ec5}</Project>
+      <Name>FoWoSoft.Cache.InProc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoWoSoft.Cache.Interface\FoWoSoft.Cache.Interface.csproj">
+      <Project>{c3f609a8-6a7b-4bff-9e21-02b785ad4f20}</Project>
+      <Name>FoWoSoft.Cache.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoWoSoft.Cache.IO\FoWoSoft.Cache.IO.csproj">
+      <Project>{d9d1afc6-47d3-41c6-bc29-1e91b8d1d779}</Project>
+      <Name>FoWoSoft.Cache.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoWoSoft.Data.Factory\FoWoSoft.Data.Factory.csproj">
+      <Project>{335d369a-0ff4-4a01-bda3-31f14d7763f7}</Project>
+      <Name>FoWoSoft.Data.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoWoSoft.Data.Interface\FoWoSoft.Data.Interface.csproj">
+      <Project>{f57f8bde-0702-4642-b7ae-60dad5cc9eb8}</Project>
+      <Name>FoWoSoft.Data.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoWoSoft.Data.Model\FoWoSoft.Data.Model.csproj">
+      <Project>{f9df5064-fdaf-4cc7-99bb-c7520b2849f7}</Project>
+      <Name>FoWoSoft.Data.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoWoSoft.Data.MSSQL\FoWoSoft.Data.MSSQL.csproj">
+      <Project>{84169909-4a5f-4b1d-a00a-e9bc837c8d79}</Project>
+      <Name>FoWoSoft.Data.MSSQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoWoSoft.Utility\FoWoSoft.Utility.csproj">
+      <Project>{ce3b0adb-736e-4a7b-bede-801c9104f95e}</Project>
+      <Name>FoWoSoft.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LitJSON\LitJSON.csproj">
+      <Project>{28d9f7ba-2923-4364-9bea-9e1ccd70dd22}</Project>
+      <Name>LitJSON</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
