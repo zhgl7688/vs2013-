@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FoWoSoft.Platform
 {
-  public class MeetInfo
+    public class MeetInfo
     {
         private FoWoSoft.Data.Interface.IMeetInfo dataMeetInfo;
         public MeetInfo()
@@ -46,5 +46,13 @@ namespace FoWoSoft.Platform
         {
             return dataMeetInfo.GetByTemp1(temp1);
         }
-    }
+        public int DeleteByMeetId(string meetId)
+        {
+            return dataMeetInfo.DeleteByMeetId(meetId);
+        }
+        public int RoomisUpdate(FoWoSoft.Data.Model.MeetInfo meetInfo,out string testMeetid)
+        {
+            return dataMeetInfo.RoomisUpdate(meetInfo,out testMeetid);
+        }
+        }
 }

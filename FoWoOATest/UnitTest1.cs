@@ -25,7 +25,7 @@ namespace FoWoOATest
               //var  ConnectionString = item.ToString();
               //var ss = ((System.Configuration.ConnectionStringSettings)(item));
               //var name = ss.Name;
-                var meetId = 222;
+               // var meetId = 222;
                 string sql = @"select count(*) from MeetInfo where MeetId=@MeetId";
               SqlParameter[] parameters = new SqlParameter[]{
 				 	new SqlParameter("@MeetId",  222),
@@ -38,8 +38,9 @@ namespace FoWoOATest
         [TestMethod]
         public void EduUser()
         {
-            var user = new WebForm.EduWebService().GetUser("20121102");
-            Assert.IsNotNull(user);
+            var user = new WebForm.EduWebService().GetUser("99");
+            //Assert.IsNotNull(user);
+            Assert.AreEqual("", user.XM);
         }
         [TestMethod]
         public void MeetTest()
@@ -53,7 +54,7 @@ namespace FoWoOATest
         public void TestAdd()
         {
             
-            var meetinfo = new FoWoSoft.Data.Model.MeetInfo
+            var meetInfo = new FoWoSoft.Data.Model.MeetInfo
             {
                 MeetId = "200000022",
                 AdminId = "gy",
@@ -63,25 +64,33 @@ namespace FoWoOATest
                 temp1="22",
                 temp2="会议名称"
             };
-            // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
-            new WebForm.ashx.ROOMISHandler().Create(meetinfo );
+            var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
+            Assert.IsNotNull(adminUser);
+            var aplicatUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.ApplicatId);
+            Assert.IsNotNull(aplicatUser);
+             // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
+            new WebForm.ashx.ROOMISHandler().Create(meetInfo);
         }
         [TestMethod]
         public void TestRoomisModify()
         {
-
-            var meetinfo = new FoWoSoft.Data.Model.MeetInfo
+         
+            var meetInfo = new FoWoSoft.Data.Model.MeetInfo
             {
                 MeetId = "200000021",
                 AdminId = "gy",
-                MeetName = "21会议",
-                MeetTimes = "2019-09-20 11:20",
+                MeetName = "33会议",
+                MeetTimes = "2017-09-20 11:20",
                 ApplicatId = "20121102",
                 temp1 = "22",
                 temp2 = "会议名称"
             };
+            var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
+            Assert.IsNotNull(adminUser);
+            var aplicatUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.ApplicatId);
+            Assert.IsNotNull(aplicatUser);
             // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
-            new WebForm.ashx.ROOMISHandler().RoomisModify(meetinfo);
+            new WebForm.ashx.ROOMISHandler().RoomisModify(meetInfo);
         }
     }
 }

@@ -19,6 +19,10 @@ namespace FoWoSoft.Data.Interface
         int ModifyByTemp1(FoWoSoft.Data.Model.MeetInfo meetInfo);
 
         Model.MeetInfo GetByTemp1(string temp1);
+        int DeleteByMeetId(string meetId);
+        int RoomisUpdate(FoWoSoft.Data.Model.MeetInfo meetInfo,out string testMeetid);
+      
         
-    }
+        }
+        
 }

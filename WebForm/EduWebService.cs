@@ -37,7 +37,7 @@ namespace WebForm
         {
             EduUser user = null;
             header.Username = "PUB_USER";
-            header.Password = "EA83AB5DA244E73DB35F5C7AD3C9C42CB331B1EF690487C117481468BC61B1AB";
+            header.Password = "EA83AB5DA244E73D3D0BB7E5772635527AC72FEE1D7CA4A067FB4A9ADE985C8337942475A6CE8088";// "EA83AB5DA244E73DB35F5C7AD3C9C42CB331B1EF690487C117481468BC61B1AB";
             var usertable=  ecnuweb.PUBLIC_IDC_GET_XSJBXX(useId, "", 1, 1).Tables[0];
             if (usertable.Columns.Count>1&&usertable.Rows.Count>0){
                 user=new EduUser (){
@@ -63,10 +63,7 @@ namespace WebForm
                 var dr = dt.Rows[i];
                 #region 部门编号转换成GUID
                 string id = dr["BMBH"].ToString();
-                if (id.Trim() == "0")
-                {
-                    var ss = 5;
-                }
+                
                 var guidId = guidIdService.Get(id);
                 Guid org1ID;
                 if (guidId == null)

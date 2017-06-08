@@ -1971,7 +1971,10 @@ namespace FoWoSoft.Platform
         {
             return dataWorkFlowTask.GetBySubFlowGroupID(subflowGroupID);
         }
+        public int RoomisCreate(FoWoSoft.Data.Model.WorkFlowTask task)
+        {
+            return dataWorkFlowTask.RoomisCreate(task);
+        }
 
-        
-    }
+        }
 }

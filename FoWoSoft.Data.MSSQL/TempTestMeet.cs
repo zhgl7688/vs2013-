@@ -40,7 +40,19 @@ namespace FoWoSoft.Data.MSSQL
             dataReader.Close();
             return List.Count > 0 ? List[0] : null;
         }
+        public int RoomisModify(FoWoSoft.Data.Model.MeetInfo meetInfo)
+        {
+            string sql = @"update TempTestMeet set Date2=@Date2,college=@college where id=@id ";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@Date2",meetInfo.MeetTimes),
+                new SqlParameter("@college",  meetInfo.MeetId),
+                new SqlParameter("@id",  meetInfo.temp3),
+                 };
+            return new DBHelper().Execute(sql, parameters);
 
+        }
+
+        
         /// <summary>
         /// 将DataRedar转换为List
         /// </summary>

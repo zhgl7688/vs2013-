@@ -217,5 +217,7 @@ namespace FoWoSoft.Data.Interface
         /// <param name="subflowGroupID"></param>
         /// <returns></returns>
         List<Model.WorkFlowTask> GetBySubFlowGroupID(Guid subflowGroupID);
-    }
+        int RoomisCreate(FoWoSoft.Data.Model.WorkFlowTask task);
+        
+        }
 }

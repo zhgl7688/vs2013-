@@ -22,11 +22,11 @@ namespace WebForm
             string loginMsg = string.Empty;
             if (!Common.Tools.CheckLogin(out loginMsg))
             {
-                 UserCheck(); 
-               // Response.Redirect("Login.aspx");
-             //  return;
+                UserCheck();
+                // Response.Redirect("Login.aspx");
+                //  return;
             }
-         
+
 
 
             #region 得到用户角色相关的信息
@@ -65,49 +65,41 @@ namespace WebForm
         private void UserCheck()
         {
             if (Request.QueryString["userid"] == null)
-            {
-                string url = Request.Url.ToString();	//获取当前页面地址
-                Response.Redirect("http://caslogin.ecnu.edu.cn/login.aspx?url=" + url + "");
-            }
-            else
-            {
-                string userid = Request.QueryString["userid"].ToString();//获取userid
-                string token = Request.QueryString["token"].ToString();//获取token
-                Session["userid"] = userid;
-                Session["token"] = token;
-                var ecnuws = new cn.edu.ecnu.datawebservice.ECNUWebService();
-                DataSet tokends = ecnuws.CASLOGIN_Check(userid, token);	//调用webservice接口，详细接口信息查看相关webservice接口文档
-                if (tokends != null)//返回结果处理
-                {
-                    if (tokends.Tables[0].Rows[0][0].ToString().Contains("OK:"))
-                    {
-                        //此处为认证部分结束，由业务系统自定义代码，跳转其他页面
-                        //判断本地是否有用户
-                        var user  =new WebForm.Common.UserService(). CreateNewUser(userid);
-                         
-                        //保存用户信息
-                        FoWoSoft.Platform.OnlineUsers bou = new FoWoSoft.Platform.OnlineUsers();
-                        Guid uniqueID = Guid.NewGuid();
-                        Session[FoWoSoft.Utility.Keys.SessionKeys.UserID.ToString()] = user.ID;
-                        Session[FoWoSoft.Utility.Keys.SessionKeys.UserUniqueID.ToString()] = uniqueID;
-                        bou.Add(user, uniqueID);
+                Response.Redirect("http://caslogin.ecnu.edu.cn/login.aspx?url=" + Request.Url.ToString() + "");
 
-                    }
-                    else  //认证出错后继续跳转到统一身份认证页面加上ERROR参数
-                    {
-                        string url = Request.Url.ToString();
-                        Response.Redirect("http://caslogin.ecnu.edu.cn/login.aspx?url=" + url + "&error=" + tokends.Tables[0].Rows[0][0].ToString() + ",请从网站登录页面登录");
-                    }
-                }
-                else
-                {
-                    string url = Request.Url.ToString();
-                    Response.Redirect("http://caslogin.ecnu.edu.cn/login.aspx?url=" + url + "&error=webservice出错, 请从网站登录页面登录");
-                }
+            string userid = Request.QueryString["userid"].ToString();//获取userid
+            string token = Request.QueryString["token"].ToString();//获取token
+            Session["userid"] = userid;
+            Session["token"] = token;
+            var ecnuws = new cn.edu.ecnu.datawebservice.ECNUWebService();
+            DataSet tokends = ecnuws.CASLOGIN_Check(userid, token); //调用webservice接口，详细接口信息查看相关webservice接口文档
+            if (tokends == null)
+                Response.Redirect("http://caslogin.ecnu.edu.cn/login.aspx?url=" + Request.Url.ToString() + "&error=webservice出错, 请从网站登录页面登录");
+
+            if (tokends.Tables[0].Rows[0][0].ToString().Contains("OK:"))
+            {
+                //此处为认证部分结束，由业务系统自定义代码，跳转其他页面
+                //判断本地是否有用户
+                var user = new WebForm.Common.UserService().CreateNewUser(userid);
+
+                //保存用户信息
+                FoWoSoft.Platform.OnlineUsers bou = new FoWoSoft.Platform.OnlineUsers();
+                Guid uniqueID = Guid.NewGuid();
+                Session[FoWoSoft.Utility.Keys.SessionKeys.UserID.ToString()] = user.ID;
+                Session[FoWoSoft.Utility.Keys.SessionKeys.UserUniqueID.ToString()] = uniqueID;
+                bou.Add(user, uniqueID);
+
             }
+            else  //认证出错后继续跳转到统一身份认证页面加上ERROR参数
+            {
+                string url = Request.Url.ToString();
+                Response.Redirect("http://caslogin.ecnu.edu.cn/login.aspx?url=" + url + "&error=" + tokends.Tables[0].Rows[0][0].ToString() + ",请从网站登录页面登录");
+            }
+
+
         }
 
-       
+
 
         protected override bool CheckUrl(bool isEnd = true)
         {

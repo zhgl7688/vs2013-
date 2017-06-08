@@ -19,7 +19,7 @@ namespace FoWoSoft.Platform
         public int Add(FoWoSoft.Data.Model.UsersRole model)
         {
             int i = dataUsersRole.Add(model);
-            ClearCache();
+           // ClearCache();
             return i;
         }
         /// <summary>

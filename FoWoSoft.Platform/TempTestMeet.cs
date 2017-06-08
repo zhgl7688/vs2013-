@@ -28,5 +28,9 @@ namespace FoWoSoft.Platform
         {
             return dataTempTestMeet.Get(useId);
         }
-    }
+        public int RoomisModify(FoWoSoft.Data.Model.MeetInfo meetInfo)
+        {
+            return dataTempTestMeet.RoomisModify(meetInfo);
+        }
+        }
 }

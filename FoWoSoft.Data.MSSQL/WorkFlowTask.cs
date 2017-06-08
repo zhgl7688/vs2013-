@@ -27,32 +27,32 @@ namespace FoWoSoft.Data.MSSQL
 				(ID,PrevID,PrevStepID,FlowID,StepID,StepName,InstanceID,GroupID,Type,Title,SenderID,SenderName,SenderTime,ReceiveID,ReceiveName,ReceiveTime,OpenTime,CompletedTime,CompletedTime1,Comment,IsSign,Status,Note,Sort,SubFlowGroupID) 
 				VALUES(@ID,@PrevID,@PrevStepID,@FlowID,@StepID,@StepName,@InstanceID,@GroupID,@Type,@Title,@SenderID,@SenderName,@SenderTime,@ReceiveID,@ReceiveName,@ReceiveTime,@OpenTime,@CompletedTime,@CompletedTime1,@Comment,@IsSign,@Status,@Note,@Sort,@SubFlowGroupID)";
             SqlParameter[] parameters = new SqlParameter[]{
-				new SqlParameter("@ID", SqlDbType.UniqueIdentifier, -1){ Value = model.ID },
-				new SqlParameter("@PrevID", SqlDbType.UniqueIdentifier, -1){ Value = model.PrevID },
-				new SqlParameter("@PrevStepID", SqlDbType.UniqueIdentifier, -1){ Value = model.PrevStepID },
-				new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier, -1){ Value = model.FlowID },
-				new SqlParameter("@StepID", SqlDbType.UniqueIdentifier, -1){ Value = model.StepID },
-				new SqlParameter("@StepName", SqlDbType.NVarChar, 1000){ Value = model.StepName },
-				new SqlParameter("@InstanceID", SqlDbType.VarChar, 50){ Value = model.InstanceID },
-				new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier, -1){ Value = model.GroupID },
-				new SqlParameter("@Type", SqlDbType.Int, -1){ Value = model.Type },
-				new SqlParameter("@Title", SqlDbType.NVarChar, 4000){ Value = model.Title },
-				new SqlParameter("@SenderID", SqlDbType.UniqueIdentifier, -1){ Value = model.SenderID },
-				new SqlParameter("@SenderName", SqlDbType.NVarChar, 100){ Value = model.SenderName },
-				new SqlParameter("@SenderTime", SqlDbType.DateTime, 8){ Value = model.SenderTime },
-				new SqlParameter("@ReceiveID", SqlDbType.UniqueIdentifier, -1){ Value = model.ReceiveID },
-				new SqlParameter("@ReceiveName", SqlDbType.NVarChar, 100){ Value = model.ReceiveName },
-				new SqlParameter("@ReceiveTime", SqlDbType.DateTime, 8){ Value = model.ReceiveTime },
-				model.OpenTime == null ? new SqlParameter("@OpenTime", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@OpenTime", SqlDbType.DateTime, 8) { Value = model.OpenTime },
-				model.CompletedTime == null ? new SqlParameter("@CompletedTime", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@CompletedTime", SqlDbType.DateTime, 8) { Value = model.CompletedTime },
-				model.CompletedTime1 == null ? new SqlParameter("@CompletedTime1", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@CompletedTime1", SqlDbType.DateTime, 8) { Value = model.CompletedTime1 },
-				model.Comment == null ? new SqlParameter("@Comment", SqlDbType.VarChar, -1) { Value = DBNull.Value } : new SqlParameter("@Comment", SqlDbType.VarChar, -1) { Value = model.Comment },
-				model.IsSign == null ? new SqlParameter("@IsSign", SqlDbType.Int, -1) { Value = DBNull.Value } : new SqlParameter("@IsSign", SqlDbType.Int, -1) { Value = model.IsSign },
-				new SqlParameter("@Status", SqlDbType.Int, -1){ Value = model.Status },
-				model.Note == null ? new SqlParameter("@Note", SqlDbType.NVarChar, -1) { Value = DBNull.Value } : new SqlParameter("@Note", SqlDbType.NVarChar, -1) { Value = model.Note },
-				new SqlParameter("@Sort", SqlDbType.Int, -1){ Value = model.Sort },
-				model.SubFlowGroupID == null ? new SqlParameter("@SubFlowGroupID", SqlDbType.UniqueIdentifier, -1) { Value = DBNull.Value } : new SqlParameter("@SubFlowGroupID", SqlDbType.UniqueIdentifier, -1) { Value = model.SubFlowGroupID }
-			};
+                new SqlParameter("@ID", SqlDbType.UniqueIdentifier, -1){ Value = model.ID },
+                new SqlParameter("@PrevID", SqlDbType.UniqueIdentifier, -1){ Value = model.PrevID },
+                new SqlParameter("@PrevStepID", SqlDbType.UniqueIdentifier, -1){ Value = model.PrevStepID },
+                new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier, -1){ Value = model.FlowID },
+                new SqlParameter("@StepID", SqlDbType.UniqueIdentifier, -1){ Value = model.StepID },
+                new SqlParameter("@StepName", SqlDbType.NVarChar, 1000){ Value = model.StepName },
+                new SqlParameter("@InstanceID", SqlDbType.VarChar, 50){ Value = model.InstanceID },
+                new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier, -1){ Value = model.GroupID },
+                new SqlParameter("@Type", SqlDbType.Int, -1){ Value = model.Type },
+                new SqlParameter("@Title", SqlDbType.NVarChar, 4000){ Value = model.Title },
+                new SqlParameter("@SenderID", SqlDbType.UniqueIdentifier, -1){ Value = model.SenderID },
+                new SqlParameter("@SenderName", SqlDbType.NVarChar, 100){ Value = model.SenderName },
+                new SqlParameter("@SenderTime", SqlDbType.DateTime, 8){ Value = model.SenderTime },
+                new SqlParameter("@ReceiveID", SqlDbType.UniqueIdentifier, -1){ Value = model.ReceiveID },
+                new SqlParameter("@ReceiveName", SqlDbType.NVarChar, 100){ Value = model.ReceiveName },
+                new SqlParameter("@ReceiveTime", SqlDbType.DateTime, 8){ Value = model.ReceiveTime },
+                model.OpenTime == null ? new SqlParameter("@OpenTime", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@OpenTime", SqlDbType.DateTime, 8) { Value = model.OpenTime },
+                model.CompletedTime == null ? new SqlParameter("@CompletedTime", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@CompletedTime", SqlDbType.DateTime, 8) { Value = model.CompletedTime },
+                model.CompletedTime1 == null ? new SqlParameter("@CompletedTime1", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@CompletedTime1", SqlDbType.DateTime, 8) { Value = model.CompletedTime1 },
+                model.Comment == null ? new SqlParameter("@Comment", SqlDbType.VarChar, -1) { Value = DBNull.Value } : new SqlParameter("@Comment", SqlDbType.VarChar, -1) { Value = model.Comment },
+                model.IsSign == null ? new SqlParameter("@IsSign", SqlDbType.Int, -1) { Value = DBNull.Value } : new SqlParameter("@IsSign", SqlDbType.Int, -1) { Value = model.IsSign },
+                new SqlParameter("@Status", SqlDbType.Int, -1){ Value = model.Status },
+                model.Note == null ? new SqlParameter("@Note", SqlDbType.NVarChar, -1) { Value = DBNull.Value } : new SqlParameter("@Note", SqlDbType.NVarChar, -1) { Value = model.Note },
+                new SqlParameter("@Sort", SqlDbType.Int, -1){ Value = model.Sort },
+                model.SubFlowGroupID == null ? new SqlParameter("@SubFlowGroupID", SqlDbType.UniqueIdentifier, -1) { Value = DBNull.Value } : new SqlParameter("@SubFlowGroupID", SqlDbType.UniqueIdentifier, -1) { Value = model.SubFlowGroupID }
+            };
             return dbHelper.Execute(sql, parameters);
         }
         /// <summary>
@@ -65,32 +65,32 @@ namespace FoWoSoft.Data.MSSQL
 				PrevID=@PrevID,PrevStepID=@PrevStepID,FlowID=@FlowID,StepID=@StepID,StepName=@StepName,InstanceID=@InstanceID,GroupID=@GroupID,Type=@Type,Title=@Title,SenderID=@SenderID,SenderName=@SenderName,SenderTime=@SenderTime,ReceiveID=@ReceiveID,ReceiveName=@ReceiveName,ReceiveTime=@ReceiveTime,OpenTime=@OpenTime,CompletedTime=@CompletedTime,CompletedTime1=@CompletedTime1,Comment=@Comment,IsSign=@IsSign,Status=@Status,Note=@Note,Sort=@Sort,SubFlowGroupID=@SubFlowGroupID
 				WHERE ID=@ID";
             SqlParameter[] parameters = new SqlParameter[]{
-				new SqlParameter("@PrevID", SqlDbType.UniqueIdentifier, -1){ Value = model.PrevID },
-				new SqlParameter("@PrevStepID", SqlDbType.UniqueIdentifier, -1){ Value = model.PrevStepID },
-				new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier, -1){ Value = model.FlowID },
-				new SqlParameter("@StepID", SqlDbType.UniqueIdentifier, -1){ Value = model.StepID },
-				new SqlParameter("@StepName", SqlDbType.NVarChar, 1000){ Value = model.StepName },
-				new SqlParameter("@InstanceID", SqlDbType.VarChar, 50){ Value = model.InstanceID },
-				new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier, -1){ Value = model.GroupID },
-				new SqlParameter("@Type", SqlDbType.Int, -1){ Value = model.Type },
-				new SqlParameter("@Title", SqlDbType.NVarChar, 4000){ Value = model.Title },
-				new SqlParameter("@SenderID", SqlDbType.UniqueIdentifier, -1){ Value = model.SenderID },
-				new SqlParameter("@SenderName", SqlDbType.NVarChar, 100){ Value = model.SenderName },
-				new SqlParameter("@SenderTime", SqlDbType.DateTime, 8){ Value = model.SenderTime },
-				new SqlParameter("@ReceiveID", SqlDbType.UniqueIdentifier, -1){ Value = model.ReceiveID },
-				new SqlParameter("@ReceiveName", SqlDbType.NVarChar, 100){ Value = model.ReceiveName },
-				new SqlParameter("@ReceiveTime", SqlDbType.DateTime, 8){ Value = model.ReceiveTime },
-				model.OpenTime == null ? new SqlParameter("@OpenTime", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@OpenTime", SqlDbType.DateTime, 8) { Value = model.OpenTime },
-				model.CompletedTime == null ? new SqlParameter("@CompletedTime", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@CompletedTime", SqlDbType.DateTime, 8) { Value = model.CompletedTime },
-				model.CompletedTime1 == null ? new SqlParameter("@CompletedTime1", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@CompletedTime1", SqlDbType.DateTime, 8) { Value = model.CompletedTime1 },
-				model.Comment == null ? new SqlParameter("@Comment", SqlDbType.VarChar, -1) { Value = DBNull.Value } : new SqlParameter("@Comment", SqlDbType.VarChar, -1) { Value = model.Comment },
-				model.IsSign == null ? new SqlParameter("@IsSign", SqlDbType.Int, -1) { Value = DBNull.Value } : new SqlParameter("@IsSign", SqlDbType.Int, -1) { Value = model.IsSign },
-				new SqlParameter("@Status", SqlDbType.Int, -1){ Value = model.Status },
-				model.Note == null ? new SqlParameter("@Note", SqlDbType.NVarChar, -1) { Value = DBNull.Value } : new SqlParameter("@Note", SqlDbType.NVarChar, -1) { Value = model.Note },
-				new SqlParameter("@Sort", SqlDbType.Int, -1){ Value = model.Sort },
-				model.SubFlowGroupID == null ? new SqlParameter("@SubFlowGroupID", SqlDbType.UniqueIdentifier, -1) { Value = DBNull.Value } : new SqlParameter("@SubFlowGroupID", SqlDbType.UniqueIdentifier, -1) { Value = model.SubFlowGroupID },
-				new SqlParameter("@ID", SqlDbType.UniqueIdentifier, -1){ Value = model.ID }
-			};
+                new SqlParameter("@PrevID", SqlDbType.UniqueIdentifier, -1){ Value = model.PrevID },
+                new SqlParameter("@PrevStepID", SqlDbType.UniqueIdentifier, -1){ Value = model.PrevStepID },
+                new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier, -1){ Value = model.FlowID },
+                new SqlParameter("@StepID", SqlDbType.UniqueIdentifier, -1){ Value = model.StepID },
+                new SqlParameter("@StepName", SqlDbType.NVarChar, 1000){ Value = model.StepName },
+                new SqlParameter("@InstanceID", SqlDbType.VarChar, 50){ Value = model.InstanceID },
+                new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier, -1){ Value = model.GroupID },
+                new SqlParameter("@Type", SqlDbType.Int, -1){ Value = model.Type },
+                new SqlParameter("@Title", SqlDbType.NVarChar, 4000){ Value = model.Title },
+                new SqlParameter("@SenderID", SqlDbType.UniqueIdentifier, -1){ Value = model.SenderID },
+                new SqlParameter("@SenderName", SqlDbType.NVarChar, 100){ Value = model.SenderName },
+                new SqlParameter("@SenderTime", SqlDbType.DateTime, 8){ Value = model.SenderTime },
+                new SqlParameter("@ReceiveID", SqlDbType.UniqueIdentifier, -1){ Value = model.ReceiveID },
+                new SqlParameter("@ReceiveName", SqlDbType.NVarChar, 100){ Value = model.ReceiveName },
+                new SqlParameter("@ReceiveTime", SqlDbType.DateTime, 8){ Value = model.ReceiveTime },
+                model.OpenTime == null ? new SqlParameter("@OpenTime", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@OpenTime", SqlDbType.DateTime, 8) { Value = model.OpenTime },
+                model.CompletedTime == null ? new SqlParameter("@CompletedTime", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@CompletedTime", SqlDbType.DateTime, 8) { Value = model.CompletedTime },
+                model.CompletedTime1 == null ? new SqlParameter("@CompletedTime1", SqlDbType.DateTime, 8) { Value = DBNull.Value } : new SqlParameter("@CompletedTime1", SqlDbType.DateTime, 8) { Value = model.CompletedTime1 },
+                model.Comment == null ? new SqlParameter("@Comment", SqlDbType.VarChar, -1) { Value = DBNull.Value } : new SqlParameter("@Comment", SqlDbType.VarChar, -1) { Value = model.Comment },
+                model.IsSign == null ? new SqlParameter("@IsSign", SqlDbType.Int, -1) { Value = DBNull.Value } : new SqlParameter("@IsSign", SqlDbType.Int, -1) { Value = model.IsSign },
+                new SqlParameter("@Status", SqlDbType.Int, -1){ Value = model.Status },
+                model.Note == null ? new SqlParameter("@Note", SqlDbType.NVarChar, -1) { Value = DBNull.Value } : new SqlParameter("@Note", SqlDbType.NVarChar, -1) { Value = model.Note },
+                new SqlParameter("@Sort", SqlDbType.Int, -1){ Value = model.Sort },
+                model.SubFlowGroupID == null ? new SqlParameter("@SubFlowGroupID", SqlDbType.UniqueIdentifier, -1) { Value = DBNull.Value } : new SqlParameter("@SubFlowGroupID", SqlDbType.UniqueIdentifier, -1) { Value = model.SubFlowGroupID },
+                new SqlParameter("@ID", SqlDbType.UniqueIdentifier, -1){ Value = model.ID }
+            };
             return dbHelper.Execute(sql, parameters);
         }
         /// <summary>
@@ -100,8 +100,8 @@ namespace FoWoSoft.Data.MSSQL
         {
             string sql = "DELETE FROM WorkFlowTask WHERE ID=@ID";
             SqlParameter[] parameters = new SqlParameter[]{
-				new SqlParameter("@ID", SqlDbType.UniqueIdentifier){ Value = id }
-			};
+                new SqlParameter("@ID", SqlDbType.UniqueIdentifier){ Value = id }
+            };
             return dbHelper.Execute(sql, parameters);
         }
         /// <summary>
@@ -177,8 +177,8 @@ namespace FoWoSoft.Data.MSSQL
         {
             string sql = "SELECT * FROM WorkFlowTask WHERE ID=@ID";
             SqlParameter[] parameters = new SqlParameter[]{
-				new SqlParameter("@ID", SqlDbType.UniqueIdentifier){ Value = id }
-			};
+                new SqlParameter("@ID", SqlDbType.UniqueIdentifier){ Value = id }
+            };
             SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters);
             List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
             dataReader.Close();
@@ -193,7 +193,7 @@ namespace FoWoSoft.Data.MSSQL
             string sql = "DELETE FROM WorkFlowTask WHERE GroupID=@GroupID";
             List<SqlParameter> parameters = new List<SqlParameter>(){
                 new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID }
-			};
+            };
             if (!flowID.IsEmptyGuid())
             {
                 sql += " AND FlowID=@FlowID";
@@ -201,7 +201,7 @@ namespace FoWoSoft.Data.MSSQL
             }
             return dbHelper.Execute(sql, parameters.ToArray());
         }
-       
+
         /// <summary>
         /// 更新打开时间
         /// </summary>
@@ -211,12 +211,12 @@ namespace FoWoSoft.Data.MSSQL
         public void UpdateOpenTime(Guid id, DateTime openTime, bool isStatus = false)
         {
             string sql = "UPDATE WorkFlowTask SET OpenTime=@OpenTime " + (isStatus ? ", Status=1" : "") + " WHERE ID=@ID AND OpenTime IS NULL";
-            
+
             SqlParameter[] parameters = new SqlParameter[]{
                 openTime==DateTime.MinValue? new SqlParameter("@OpenTime", SqlDbType.DateTime){ Value = DBNull.Value} :
                     new SqlParameter("@OpenTime", SqlDbType.DateTime){ Value = openTime },
-				new SqlParameter("@ID", SqlDbType.UniqueIdentifier){ Value = id }
-			};
+                new SqlParameter("@ID", SqlDbType.UniqueIdentifier){ Value = id }
+            };
             dbHelper.Execute(sql, parameters);
         }
 
@@ -233,7 +233,7 @@ namespace FoWoSoft.Data.MSSQL
         /// <param name="date2"></param>
         /// <param name="type">0待办 1已完成</param>
         /// <returns></returns>
-        public List<FoWoSoft.Data.Model.WorkFlowTask> GetTasks(Guid userID, out string pager, string query="", string title="", string flowid="", string sender="", string date1="", string date2="", int type=0)
+        public List<FoWoSoft.Data.Model.WorkFlowTask> GetTasks(Guid userID, out string pager, string query = "", string title = "", string flowid = "", string sender = "", string date1 = "", string date2 = "", int type = 0)
         {
             List<SqlParameter> parList = new List<SqlParameter>();
             StringBuilder sql = new StringBuilder("SELECT *,ROW_NUMBER() OVER(ORDER BY " + (type == 0 ? "ReceiveTime DESC" : "CompletedTime1 DESC") + ") AS PagerAutoRowNumber FROM WorkFlowTask WHERE ReceiveID=@ReceiveID");
@@ -268,14 +268,14 @@ namespace FoWoSoft.Data.MSSQL
                 sql.Append(" AND ReceiveTime<=@ReceiveTime1");
                 parList.Add(new SqlParameter("@ReceiveTime1", SqlDbType.DateTime) { Value = date2.ToDateTime().AddDays(1).Date });
             }
-            
+
             long count;
             int size = FoWoSoft.Utility.Tools.GetPageSize();
             int number = FoWoSoft.Utility.Tools.GetPageNumber();
             string sql1 = dbHelper.GetPaerSql(sql.ToString(), size, number, out count, parList.ToArray());
             pager = FoWoSoft.Utility.Tools.GetPagerHtml(count, size, number, query);
 
-            
+
             SqlDataReader dataReader = dbHelper.GetDataReader(sql1, parList.ToArray());
             List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
             dataReader.Close();
@@ -313,7 +313,7 @@ namespace FoWoSoft.Data.MSSQL
                     sql.Append(" AND a.Status IN(2,3,4)");
                 }
             }
-            
+
             if (flowID != null && flowID.Length > 0)
             {
                 sql.Append(string.Format(" AND a.FlowID IN({0})", FoWoSoft.Utility.Tools.GetSqlInString(flowID)));
@@ -372,7 +372,7 @@ namespace FoWoSoft.Data.MSSQL
             int number = FoWoSoft.Utility.Tools.GetPageNumber();
             string sql1 = dbHelper.GetPaerSql(sql.ToString(), size, number, out count, parList.ToArray());
             pager = FoWoSoft.Utility.Tools.GetPagerHtml(count, size, number, query);
-          
+
             SqlDataReader dataReader = dbHelper.GetDataReader(sql1, parList.ToArray());
             List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
             dataReader.Close();
@@ -389,10 +389,10 @@ namespace FoWoSoft.Data.MSSQL
         {
             string sql = "SELECT SenderID FROM WorkFlowTask WHERE FlowID=@FlowID AND GroupID=@GroupID AND PrevID=@PrevID";
             SqlParameter[] parameters = new SqlParameter[]{
-				new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
+                new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
                 new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID },
                 new SqlParameter("@PrevID", SqlDbType.UniqueIdentifier){ Value = Guid.Empty }
-			};
+            };
             string senderID = dbHelper.GetFieldValue(sql, parameters);
             return senderID.ToGuid();
         }
@@ -407,10 +407,10 @@ namespace FoWoSoft.Data.MSSQL
         {
             string sql = "SELECT ReceiveID FROM WorkFlowTask WHERE FlowID=@FlowID AND StepID=@StepID AND GroupID=@GroupID";
             SqlParameter[] parameters = new SqlParameter[]{
-				new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
+                new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
                 new SqlParameter("@StepID", SqlDbType.UniqueIdentifier){ Value = stepID },
                 new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID }
-			};
+            };
             DataTable dt = dbHelper.GetDataTable(sql, parameters);
             List<Guid> senderList = new List<Guid>();
             foreach (DataRow dr in dt.Rows)
@@ -433,10 +433,10 @@ namespace FoWoSoft.Data.MSSQL
         {
             string sql = "SELECT ReceiveID FROM WorkFlowTask WHERE ID=(SELECT PrevID FROM WorkFlowTask WHERE FlowID=@FlowID AND StepID=@StepID AND GroupID=@GroupID)";
             SqlParameter[] parameters = new SqlParameter[]{
-				new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
+                new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
                 new SqlParameter("@StepID", SqlDbType.UniqueIdentifier){ Value = stepID },
                 new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID }
-			};
+            };
             DataTable dt = dbHelper.GetDataTable(sql, parameters);
             List<Guid> senderList = new List<Guid>();
             foreach (DataRow dr in dt.Rows)
@@ -457,17 +457,17 @@ namespace FoWoSoft.Data.MSSQL
         /// <param name="comment"></param>
         /// <param name="isSign"></param>
         /// <returns></returns>
-        public int Completed(Guid taskID, string comment = "", bool isSign = false, int status = 2, string note="")
+        public int Completed(Guid taskID, string comment = "", bool isSign = false, int status = 2, string note = "")
         {
             string sql = "UPDATE WorkFlowTask SET Comment=@Comment,CompletedTime1=@CompletedTime1,IsSign=@IsSign,Status=@Status" + (note.IsNullOrEmpty() ? "" : ",Note=@Note") + " WHERE ID=@ID";
             SqlParameter[] parameters = new SqlParameter[]{
-				comment.IsNullOrEmpty() ? new SqlParameter("@Comment", SqlDbType.VarChar){ Value = DBNull.Value } : new SqlParameter("@Comment", SqlDbType.VarChar){ Value = comment },
+                comment.IsNullOrEmpty() ? new SqlParameter("@Comment", SqlDbType.VarChar){ Value = DBNull.Value } : new SqlParameter("@Comment", SqlDbType.VarChar){ Value = comment },
                 new SqlParameter("@CompletedTime1", SqlDbType.DateTime){ Value = FoWoSoft.Utility.DateTimeNew.Now },
                 new SqlParameter("@IsSign", SqlDbType.Int){ Value = isSign?1:0 },
                 new SqlParameter("@Status", SqlDbType.Int){ Value = status },
                 note.IsNullOrEmpty()?new SqlParameter("@Note", SqlDbType.NVarChar){ Value = DBNull.Value }:new SqlParameter("@Note", SqlDbType.NVarChar){ Value = note },
                 new SqlParameter("@ID", SqlDbType.UniqueIdentifier){ Value = taskID }
-			};         
+            };
             return dbHelper.Execute(sql, parameters);
         }
 
@@ -484,7 +484,7 @@ namespace FoWoSoft.Data.MSSQL
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@Status", SqlDbType.Int){ Value = status },
                 new SqlParameter("@PrevID", SqlDbType.UniqueIdentifier){ Value = taskID }
-			};
+            };
             return dbHelper.Execute(sql, parameters);
         }
 
@@ -499,10 +499,10 @@ namespace FoWoSoft.Data.MSSQL
         {
             string sql = "SELECT * FROM WorkFlowTask WHERE FlowID=@FlowID AND StepID=@StepID AND GroupID=@GroupID";
             SqlParameter[] parameters = new SqlParameter[]{
-				new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
+                new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
                 new SqlParameter("@StepID", SqlDbType.UniqueIdentifier){ Value = stepID },
                 new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID }
-			};
+            };
             SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters);
             List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
             dataReader.Close();
@@ -521,11 +521,11 @@ namespace FoWoSoft.Data.MSSQL
         {
             string sql = "SELECT * FROM WorkFlowTask WHERE FlowID=@FlowID AND StepID=@StepID AND GroupID=@GroupID AND ReceiveID=@ReceiveID";
             SqlParameter[] parameters = new SqlParameter[]{
-				new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
+                new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
                 new SqlParameter("@StepID", SqlDbType.UniqueIdentifier){ Value = stepID },
                 new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID },
                 new SqlParameter("@ReceiveID", SqlDbType.UniqueIdentifier){ Value = userID }
-			};
+            };
             SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters);
             List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
             dataReader.Close();
@@ -548,15 +548,15 @@ namespace FoWoSoft.Data.MSSQL
                 sql = "SELECT * FROM WorkFlowTask WHERE GroupID=@GroupID";
                 parameters = new SqlParameter[]{
                     new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID }
-			    };
+                };
             }
             else
             {
                 sql = "SELECT * FROM WorkFlowTask WHERE FlowID=@FlowID AND GroupID=@GroupID";
                 parameters = new SqlParameter[]{
-				    new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
+                    new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
                     new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID }
-			    };
+                };
             }
             SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters);
             List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
@@ -581,7 +581,7 @@ namespace FoWoSoft.Data.MSSQL
             SqlParameter[] parameters1 = new SqlParameter[]{
                 new SqlParameter("@PrevID", SqlDbType.UniqueIdentifier){ Value = task.PrevID },
                 new SqlParameter("@StepID", SqlDbType.UniqueIdentifier){ Value = isStepID ? task.StepID : task.PrevStepID }
-			};
+            };
             SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters1);
             List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
             dataReader.Close();
@@ -599,7 +599,7 @@ namespace FoWoSoft.Data.MSSQL
             string sql = "SELECT * FROM WorkFlowTask WHERE ID=(SELECT PrevID FROM WorkFlowTask WHERE ID=@ID)";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@ID", SqlDbType.UniqueIdentifier){ Value = taskID }
-			};
+            };
             SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters);
             List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
             dataReader.Close();
@@ -617,7 +617,7 @@ namespace FoWoSoft.Data.MSSQL
             string sql = "SELECT * FROM WorkFlowTask WHERE PrevID=@PrevID";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@PrevID", SqlDbType.UniqueIdentifier){ Value = taskID }
-			};
+            };
             SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters);
             List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
             dataReader.Close();
@@ -635,7 +635,7 @@ namespace FoWoSoft.Data.MSSQL
             string sql = "SELECT TOP 1 ID FROM WorkFlowTask WHERE FlowID=@FlowID";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID }
-			};
+            };
             SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters);
             bool has = dataReader.HasRows;
             dataReader.Close();
@@ -655,7 +655,7 @@ namespace FoWoSoft.Data.MSSQL
                 new SqlParameter("@StepID", SqlDbType.UniqueIdentifier){ Value = stepID },
                 new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID },
                 new SqlParameter("@ReceiveID", SqlDbType.UniqueIdentifier){ Value = userID }
-			};
+            };
             SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters);
             bool has = dataReader.HasRows;
             dataReader.Close();
@@ -674,14 +674,14 @@ namespace FoWoSoft.Data.MSSQL
         {
             string sql = "UPDATE WorkFlowTask SET CompletedTime=@CompletedTime,ReceiveTime=@ReceiveTime,SenderTime=@SenderTime,Status=0 WHERE FlowID=@FlowID AND StepID=@StepID AND GroupID=@GroupID AND Status=-1";
             SqlParameter[] parameters = new SqlParameter[]{
-                !completedTime.HasValue ? new SqlParameter("@CompletedTime", SqlDbType.DateTime) { Value = DBNull.Value } : 
+                !completedTime.HasValue ? new SqlParameter("@CompletedTime", SqlDbType.DateTime) { Value = DBNull.Value } :
                 new SqlParameter("@CompletedTime", SqlDbType.DateTime) { Value = completedTime.Value },
                 new SqlParameter("@ReceiveTime", SqlDbType.DateTime){ Value = receiveTime },
                 new SqlParameter("@SenderTime", SqlDbType.DateTime){ Value = receiveTime },
                 new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
                 new SqlParameter("@StepID", SqlDbType.UniqueIdentifier){ Value = stepID },
                 new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID }
-			};
+            };
             return dbHelper.Execute(sql, parameters);
         }
 
@@ -700,7 +700,7 @@ namespace FoWoSoft.Data.MSSQL
                 new SqlParameter("@FlowID", SqlDbType.UniqueIdentifier){ Value = flowID },
                 new SqlParameter("@StepID", SqlDbType.UniqueIdentifier){ Value = stepID },
                 new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier){ Value = groupID }
-			};
+            };
             if (!prevStepID.IsEmptyGuid())
             {
                 sql += " AND PrevStepID=@PrevStepID";
@@ -719,7 +719,7 @@ namespace FoWoSoft.Data.MSSQL
             string sql = "SELECT Status FROM WorkFlowTask WHERE ID=@ID";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@ID", SqlDbType.UniqueIdentifier){ Value = taskID }
-			};
+            };
             string status = dbHelper.GetFieldValue(sql, parameters);
             int s;
             return status.IsInt(out s) ? s : -1;
@@ -735,11 +735,28 @@ namespace FoWoSoft.Data.MSSQL
             string sql = "SELECT * FROM WorkFlowTask WHERE SubFlowGroupID=@SubFlowGroupID";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@SubFlowGroupID", SqlDbType.UniqueIdentifier){ Value = subflowGroupID }
-			};
+            };
             SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters);
             List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
             dataReader.Close();
             return List;
+        }
+
+        public int RoomisCreate(FoWoSoft.Data.Model.WorkFlowTask task)
+        {
+
+            var sql = @"INSERT INTO WorkFlowTask(ID, PrevID, PrevStepID, FlowID, StepID, StepName,
+InstanceID, GroupID, Type, Title, SenderID, SenderName, SenderTime, ReceiveID, ReceiveName, ReceiveTime,     Status,  Sort )
+VALUES  (   @ID ,'00000000-0000-0000-0000-000000000000' ,'00000000-0000-0000-0000-000000000000' ,'2EA49481-3EE2-4805-AB85-53604D696976','307552C3-547D-445B-9C6B-E42737568B10','发起视频会议',
+@InstanceID, @GroupID ,'0',@Title,@SenderID,@SenderName,GETDATE(), @SenderID,@SenderName,GETDATE(),  0 ,1)";
+            var parameters = new SqlParameter[]{
+                new SqlParameter("@ID",   Guid.NewGuid()),
+                new SqlParameter("@InstanceID",task.InstanceID ),
+                new SqlParameter("@GroupID",Guid.NewGuid() ),
+                new SqlParameter("@Title",  task.Title ),
+                new SqlParameter("@SenderID", task.SenderID),
+                new SqlParameter("@SenderName", task.SenderName)  };
+           return new DBHelper().Execute(sql, parameters);
         }
     }
 }

@@ -66,7 +66,7 @@ namespace WebForm.Common
             }
 
             //#if DEBUG
-            return true; //正式使用时请注释掉这一行
+           // return true; //正式使用时请注释掉这一行
             //#endif
 
             string uniqueIDSessionKey = FoWoSoft.Utility.Keys.SessionKeys.UserUniqueID.ToString();
