@@ -4,14 +4,27 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Configuration;
+using System.Net.Http.Headers;
+using FoWoSoft.Data.Model;
 
 namespace WebForm.Common
 {
+    public enum RoomisOperation
+    {
+        put_reject,
+        put_approve
+    }
     public class Meet
     {
+        private static string meetUrl = ConfigurationManager.AppSettings["meetUrl"].ToString();
         public static List<CMeet> GetMeetList()
         {
             string result = "";
@@ -81,6 +94,100 @@ namespace WebForm.Common
                 return cms;
             }
         }
+        public  object Roomis(string installId, RoomisOperation operation)
+        {
+            var temptestmeet = new FoWoSoft.Platform.TempTestMeet().Get(Guid.Parse(installId));
+            if (temptestmeet == null || temptestmeet.Reason != "校内") return "";
+            //根据会议id
+            var meetInfo = new FoWoSoft.Platform.MeetInfo().GetByMeetId(temptestmeet.college);
+            string eventId = meetInfo.temp1;
+            string approverId = meetInfo.ApplicatId;// FoWoSoft.Platform.Users.CurrentUser.Account;
+            Func<string, string, object> put = null;
+            switch (operation)
+            {
+                case RoomisOperation.put_reject: put = put_reject;
+                    break;
+                case RoomisOperation.put_approve: put = put_approve;
+                    break;
+            }
+
+            return put(eventId, approverId);
+        }
+
+        /// <summary>
+        /// 会议审核拒绝
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="apperot"></param>
+        /// <returns></returns>
+        public static string put_reject(string eventId, string apperot)
+        {
+            var method = string.Format("api/booking/events/{0}/reject", eventId);
+
+            string Url = meetUrl;
+            string Data = JsonConvert.SerializeObject(new
+            {
+                approver ="3"// apperot
+            });
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //string strDecodeBody = HttpUtility.UrlEncode(Data);
+                // HttpContent content = new StringContent( strDecodeBody);
+                HttpContent content = new StringContent(Data, Encoding.UTF8);
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                client.BaseAddress = new Uri(Url);
+                client.DefaultRequestHeaders.Add("X-Consumer-Custom-ID", "10251025");
+                var response = client.PutAsync(method, content).Result;
+                // var ss = client.PutAsJsonAsync(method, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return "Success";
+                }
+                else
+                    return "Error";
+            }
+        }
+        /// <summary>
+        /// 会议审核通过
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="apperot"></param>
+        /// <returns></returns>
+        public static string put_approve(string eventId, string apperot)
+        {
+            var method = string.Format("api/booking/events/{0}/approve", eventId);
+
+            string Url = meetUrl;
+            string Data = JsonConvert.SerializeObject(new
+            {
+                approver = apperot
+            });
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //string strDecodeBody = HttpUtility.UrlEncode(Data);
+                // HttpContent content = new StringContent( strDecodeBody);
+                HttpContent content = new StringContent(Data, Encoding.UTF8);
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                client.BaseAddress = new Uri(Url);
+                client.DefaultRequestHeaders.Add("X-Consumer-Custom-ID", "10251025");
+                var response = client.PutAsync(method, content).Result;
+                // var ss = client.PutAsJsonAsync(method, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return "Success";
+                }
+                else
+                    return "Error";
+            }
+        }
+     
+       
         public static string GetMeetOptions(string value)
         {
             StringBuilder options = new StringBuilder();
@@ -106,6 +213,47 @@ namespace WebForm.Common
                 });
             }
             return cList;
+        }
+        private static readonly string DefaultUserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)";
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+        {
+            return true; //总是接受     
+        }
+
+        public static HttpWebResponse CreatePostHttpResponse(string url, IDictionary<string, string> parameters, Encoding charset)
+        {
+            HttpWebRequest request = null;
+            //HTTPSQ请求  
+            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            request = WebRequest.Create(url) as HttpWebRequest;
+            request.ProtocolVersion = HttpVersion.Version10;
+            request.Method = "PUT";
+            request.ContentType = "application/json";
+            request.UserAgent = DefaultUserAgent;
+            //如果需要POST数据     
+            if (!(parameters == null || parameters.Count == 0))
+            {
+                StringBuilder buffer = new StringBuilder();
+                int i = 0;
+                foreach (string key in parameters.Keys)
+                {
+                    if (i > 0)
+                    {
+                        buffer.AppendFormat("&{0}={1}", key, parameters[key]);
+                    }
+                    else
+                    {
+                        buffer.AppendFormat("{0}={1}", key, parameters[key]);
+                    }
+                    i++;
+                }
+                byte[] data = charset.GetBytes(buffer.ToString());
+                using (Stream stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+            }
+            return request.GetResponse() as HttpWebResponse;
         }
 
     }

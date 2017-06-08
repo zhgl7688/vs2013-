@@ -1,4 +1,8 @@
-﻿<script type="text/javascript">
+﻿2017-6-9
+1、增加roomis会议审核
+2、增加roomis会议取消
+
+<script type="text/javascript">
                              function onchange_27a9bf064a4b1410f3e5c9a4eaa6b983(obj){
                                     var college = document.getElementById('college');
                                     college.style.display="none";
@@ -25,7 +29,8 @@ get方式：
 会议室 MeetId
 会议室名称 MeetName
 管理员职工号：AdminId
-Demo:http://localhost:8010/ashx/roomishandler.ashx?model=add&ApplicatId=11&MeetTimes=2015-1-1%2011:13&MeetId=222&MeetName=555&AdminId=44444
+审请会议Id:temp1
+Demo:http://localhost:8010/ashx/roomishandler.ashx?model=add&ApplicatId=11&MeetTimes=2015-1-1%2011:13&MeetId=222&MeetName=555&AdminId=44444&tem1=333
 返回1成功0不成功,有会议编号相同的返回-1
 二、功能：修改会议(根据会议室ID修改会议信息）
 http://localhost:8010/ashx/roomishandler.ashx?model=modify
@@ -57,3 +62,8 @@ Id INT IDENTITY(1,1) PRIMARY KEY,
   temp3 VARCHAR(500)    NULL,
  writeTime DATETIME DEFAULT(GETDATE())
 )
+roomis流程
+
+用户删除时执行取消rommis
+
+流程完成时执行roomis审核

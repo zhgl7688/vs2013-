@@ -28,18 +28,23 @@ namespace WebForm
             return ecnuweb.IDC_GET_SJBM(BMBH);
         }
         FoWoSoft.Platform.Organize borganize = new FoWoSoft.Platform.Organize();
+        /// <summary>
+        /// 根据用户id获取用户信息
+        /// </summary>
+        /// <param name="useId"></param>
+        /// <returns></returns>
         public EduUser GetUser(string useId)
         {
             EduUser user = null;
             header.Username = "PUB_USER";
             header.Password = "EA83AB5DA244E73DB35F5C7AD3C9C42CB331B1EF690487C117481468BC61B1AB";
             var usertable=  ecnuweb.PUBLIC_IDC_GET_XSJBXX(useId, "", 1, 1).Tables[0];
-            if (usertable.Rows.Count>0){
+            if (usertable.Columns.Count>1&&usertable.Rows.Count>0){
                 user=new EduUser (){
                      XH=usertable.Rows[0]["XH"].ToString(),
-                    XM   =usertable.Rows[0]["XM"].ToString(),
+                     XM =usertable.Rows[0]["XM"].ToString(),
                      BMBH  =usertable.Rows[0]["BMBH"].ToString(),
-                  BMMC     =usertable.Rows[0]["BMMC"].ToString(),
+                  BMMC  =usertable.Rows[0]["BMMC"].ToString(),
 
                 };
             }

@@ -55,7 +55,7 @@ namespace FoWoSoft.Data.Factory
         {
             return new Data.MSSQL.Dictionary();
         }
-
+         
         public static Data.Interface.ILog GetLog()
         {
             return new Data.MSSQL.Log();

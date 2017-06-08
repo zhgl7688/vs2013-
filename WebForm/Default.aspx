@@ -9,6 +9,7 @@
     <style type="text/css">
         html,body {overflow:hidden; }
     </style>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
 <form id="form1" runat="server">
@@ -20,13 +21,17 @@
             <div>
                 <span class="indexwelcome">欢迎您：<asp:Literal ID="UserName" runat="server"></asp:Literal></span>
                 <span style="margin-right:6px;"></span>
-                <span style="margin-right:6px;"><select id="roleselect" onchange="roleChange(this.value)" class="roleselect"><asp:Literal ID="RoleOptions" runat="server"></asp:Literal></select></span>
+                <span style="margin-right:6px;display:none"><select id="roleselect" onchange="roleChange(this.value)" class="roleselect"><asp:Literal ID="RoleOptions" runat="server"></asp:Literal></select></span>
                 <span style="margin-right:6px;display:none" >日期：<span id="CurrentDateTimeSpan"><asp:Literal ID="CurrentTime" runat="server"></asp:Literal></span></span>
-               <%-- <span style="">主题：</span>
-                <span class="mainTheme_blue" onclick="changeTheme('Blue', true);"></span>
-                <span class="mainTheme_green" onclick="changeTheme('Green', true);"></span>
-                <span class="mainTheme_gray" onclick="changeTheme('Gray', true);"></span>--%>
-            </div>
+              <%  string pager;
+                 var  taskList =new FoWoSoft.Platform.WorkFlowTask().GetTasks(FoWoSoft.Platform.Users.CurrentUserID,
+                     out pager);
+             
+                       %>
+        
+              <span class="glyphicon glyphicon-envelope" style="color:#ffd800" >
+                   <%=taskList.Count>0?"有"+taskList.Count.ToString()+"条待办":"" %>
+          </span>  </div>
             <div style="margin-top:4px;">
                 <span style="margin-right:4px;"><a href="http://www.fowosoft.com" class="white" target="_blank">官方网站</a></span>
                 <span style="margin-right:6px;">|</span>
@@ -128,7 +133,7 @@
             }
         });
     }
-
+   
     function treeClick(json)
     {
         if (json)
@@ -136,7 +141,7 @@
             openApp(json.link, json.model, json.title, json.id, parseInt(json.width), parseInt(json.height), true);
         }
     }
-
+    // openApp(url,"Platform/WorkFlowTasks/WaitList.aspx")
     function openApp(url, model, title, id, width, height, isAppendParams)
     {
         if (!url || url.toString().length == 0)

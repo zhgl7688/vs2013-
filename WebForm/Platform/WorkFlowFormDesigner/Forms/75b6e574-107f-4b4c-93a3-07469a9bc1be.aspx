@@ -25,6 +25,7 @@
     if (StepID == null || StepID == new FoWoSoft.Platform.WorkFlow().GetWorkFlowRunModel(FlowID).FirstStepID.ToString())
     {
         meet = new FoWoSoft.Platform.MeetInfo().Get(FoWoSoft.Platform.Users.CurrentUser.Account);
+        if (meet!=null)
         meet.AdminId = new FoWoSoft.Platform.Users().GetByAccount(meet.AdminId).ID.ToString();
         //meet = new FoWoSoft.Data.Model.MeetInfo
         //{
@@ -170,22 +171,21 @@
                     <option value="国内异地">国内异地</option>
                     <option value="国外" >国外</option>
                 </select><script type="text/javascript">function onchange_27a9bf064a4b1410f3e5c9a4eaa6b983(obj) {
+
     if (obj.value == '校内') {
-
-
-        if (meetinfo == null) {
+       if (meetinfo == null) {
             alert("没有申请会场信息!"); return;
         } else {
-
             document.getElementById('TempTestMeet.Date2').value = meetinfo.MeetTimes;
             document.getElementById('TempTestMeet.Date2').readOnly = true;
-            document.getElementById('TempTestMeet.Date2').removeEventListener();
+            $('#TempTestMeet.Date2').unbind();
         }
     } else {
         document.getElementById('TempTestMeet.Date2').disabled = false;
     }
-
+    alert(obj.value);
     var index = ReasonArray.indexOf(obj.value);
+    alert(index);
     console.log(index);
     for (var i = 0; i < 3; i++) {
         if (index == i) document.getElementById('Reason' + i).style = "";

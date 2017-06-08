@@ -93,6 +93,9 @@
                     case FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Save:
                         break;
                     case FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Completed:
+                        //操作roomis审核
+                        new  WebForm.Common.Meet().Roomis(execute.InstanceID,WebForm.Common.RoomisOperation.put_approve);
+ 
                         break;
                     case FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Redirect:
                         break;
@@ -239,5 +242,6 @@
         {
             Response.Write("<script type=\"text/javascript\">top.mainTab.closeTab();</script>");
         }
-    }    
+    }  
+      
 %>

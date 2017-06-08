@@ -6,6 +6,8 @@ using FoWoSoft.Data.MSSQL;
 using System.Web;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
+using System.Net;
 
 namespace FoWoOATest
 {
@@ -34,19 +36,52 @@ namespace FoWoOATest
            // }
         }
         [TestMethod]
+        public void EduUser()
+        {
+            var user = new WebForm.EduWebService().GetUser("20121102");
+            Assert.IsNotNull(user);
+        }
+        [TestMethod]
+        public void MeetTest()
+        {
+              string Meetid = "1377";
+              //string result=  WebForm.Common.Meet.put_approve(Meetid, "3");
+              string result = WebForm.Common.Meet.put_reject(Meetid, "3");
+             Assert.AreEqual("", "");
+        }
+        [TestMethod]
         public void TestAdd()
         {
             
             var meetinfo = new FoWoSoft.Data.Model.MeetInfo
             {
-                MeetId = "200000021",
+                MeetId = "200000022",
                 AdminId = "gy",
                 MeetName = "100会议",
                 MeetTimes = "2017-09-20 11:20",
-                ApplicatId = "20121102"
+                ApplicatId = "20121102",
+                temp1="22",
+                temp2="会议名称"
             };
             // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
             new WebForm.ashx.ROOMISHandler().Create(meetinfo );
+        }
+        [TestMethod]
+        public void TestRoomisModify()
+        {
+
+            var meetinfo = new FoWoSoft.Data.Model.MeetInfo
+            {
+                MeetId = "200000021",
+                AdminId = "gy",
+                MeetName = "21会议",
+                MeetTimes = "2019-09-20 11:20",
+                ApplicatId = "20121102",
+                temp1 = "22",
+                temp2 = "会议名称"
+            };
+            // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
+            new WebForm.ashx.ROOMISHandler().RoomisModify(meetinfo);
         }
     }
 }

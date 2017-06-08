@@ -13,6 +13,8 @@ namespace FoWoSoft.Data.Model
         public string MeetId { get; set; }
         public string MeetName { get; set; }
         public string AdminId { get; set; }
-
+        public string temp1 { get; set; }
+        public string temp2 { get; set; }
+        public string temp3 { get; set; }
     }
 }

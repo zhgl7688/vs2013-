@@ -14,6 +14,7 @@ namespace WebForm.Common
              
             //根据UserId获取从远程用户信息
             var userInfoEdu =new EduWebService().GetUser(userid);
+            if (userInfoEdu == null) return null;
             //更新用户信息
             user = new FoWoSoft.Data.Model.Users()
             {

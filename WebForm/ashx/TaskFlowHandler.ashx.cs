@@ -73,6 +73,8 @@ namespace WebForm.ashx
             if (task != null)
             {
                 btask.Delete(task.ID);
+                new WebForm.Common.Meet().Roomis(task.InstanceID, WebForm.Common.RoomisOperation.put_reject);
+ 
             
             }
         }

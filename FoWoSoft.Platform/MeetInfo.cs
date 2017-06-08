@@ -13,15 +13,38 @@ namespace FoWoSoft.Platform
             this.dataMeetInfo = Data.Factory.Factory.GetMeetInfo();
         }
         /// <summary>
-        /// 根据useId查询一条记录
+        /// 根据applicatId查询一条记录
         /// </summary>
-        public FoWoSoft.Data.Model.MeetInfo Get(string useId)
+        public FoWoSoft.Data.Model.MeetInfo Get(string applicatId)
         {
-            return dataMeetInfo.Get(useId);
+            return dataMeetInfo.Get(applicatId);
+        }
+        /// <summary>
+        /// 根据meetId查询一条记录
+        /// </summary>
+        public FoWoSoft.Data.Model.MeetInfo GetByMeetId(string meetId)
+        {
+            return dataMeetInfo.GetByMeetId(meetId);
         }
         public List<FoWoSoft.Data.Model.MeetInfo> GetAll()
         {
             return dataMeetInfo.GetAll();
+        }
+        public bool MeetInfoRepeat(string temp1)
+        {
+            return dataMeetInfo.MeetInfoRepeat(temp1);
+        }
+        public int Create(FoWoSoft.Data.Model.MeetInfo meetInfo)
+        {
+            return dataMeetInfo.Create(meetInfo);
+        }
+        public int ModifyByTemp1(FoWoSoft.Data.Model.MeetInfo meetInfo)
+        {
+            return dataMeetInfo.ModifyByTemp1(meetInfo);
+        }
+        public FoWoSoft.Data.Model.MeetInfo GetByTemp1(string temp1)
+        {
+            return dataMeetInfo.GetByTemp1(temp1);
         }
     }
 }
