@@ -54,5 +54,9 @@ namespace FoWoSoft.Platform
         {
             return dataMeetInfo.RoomisUpdate(meetInfo,out testMeetid);
         }
+        public FoWoSoft.Data.Model.MeetInfo GetByTemp3(string temp3)
+        {
+            return dataMeetInfo.GetByTemp3(temp3);
+        }
         }
 }

@@ -45,9 +45,10 @@ namespace FoWoOATest
         [TestMethod]
         public void MeetTest()
         {
-              string Meetid = "1377";
-              //string result=  WebForm.Common.Meet.put_approve(Meetid, "3");
-              string result = WebForm.Common.Meet.put_reject(Meetid, "3");
+              string Meetid = "34";
+            string adminId = "20121102";
+               //string result=  WebForm.Common.Meet.put_approve(Meetid, adminId);
+               var result = WebForm.Common.Meet.put_reject(Meetid, adminId);
              Assert.AreEqual("", "");
         }
         [TestMethod]

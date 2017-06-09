@@ -96,12 +96,10 @@ namespace WebForm.Common
         }
         public  object Roomis(string installId, RoomisOperation operation)
         {
-            var temptestmeet = new FoWoSoft.Platform.TempTestMeet().Get(Guid.Parse(installId));
-            if (temptestmeet == null || temptestmeet.Reason != "校内") return "";
-            //根据会议id
-            var meetInfo = new FoWoSoft.Platform.MeetInfo().GetByMeetId(temptestmeet.college);
+            var meetInfo = new FoWoSoft.Platform.MeetInfo().GetByTemp3(installId);
+            if (meetInfo == null) return null;
             string eventId = meetInfo.temp1;
-            string approverId = meetInfo.ApplicatId;// FoWoSoft.Platform.Users.CurrentUser.Account;
+            string approverId = meetInfo.AdminId;// FoWoSoft.Platform.Users.CurrentUser.Account;
             Func<string, string, object> put = null;
             switch (operation)
             {
@@ -127,7 +125,7 @@ namespace WebForm.Common
             string Url = meetUrl;
             string Data = JsonConvert.SerializeObject(new
             {
-                approver ="3"// apperot
+                approver = apperot
             });
             using (var client = new HttpClient())
             {
@@ -139,7 +137,7 @@ namespace WebForm.Common
                 HttpContent content = new StringContent(Data, Encoding.UTF8);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 client.BaseAddress = new Uri(Url);
-                client.DefaultRequestHeaders.Add("X-Consumer-Custom-ID", "10251025");
+                client.DefaultRequestHeaders.Add("X-Consumer-Custom-ID", "004");
                 var response = client.PutAsync(method, content).Result;
                 // var ss = client.PutAsJsonAsync(method, content).Result;
                 if (response.IsSuccessStatusCode)

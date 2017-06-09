@@ -53,6 +53,17 @@ namespace FoWoSoft.Data.MSSQL
             dataReader.Close();
             return List.Count > 0 ? List[0] : null;
         }
+        public Model.MeetInfo GetByTemp3(string temp3)
+        {
+            string sql = selectfileds + "   WHERE temp3=@temp3";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@temp3",SqlDbType.VarChar){ Value = temp3 }
+            };
+            SqlDataReader dataReader = dbHelper.GetDataReader(sql, parameters);
+            List<FoWoSoft.Data.Model.MeetInfo> List = DataReaderToList(dataReader);
+            dataReader.Close();
+            return List.Count > 0 ? List[0] : null;
+        }
         public List<Model.MeetInfo> GetAll()
         {
             string sql = selectfileds;

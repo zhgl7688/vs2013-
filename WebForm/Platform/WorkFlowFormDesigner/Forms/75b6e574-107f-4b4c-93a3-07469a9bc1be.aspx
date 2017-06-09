@@ -24,7 +24,7 @@
     FoWoSoft.Data.Model.MeetInfo meet = null;
     if (StepID == null || StepID == new FoWoSoft.Platform.WorkFlow().GetWorkFlowRunModel(FlowID).FirstStepID.ToString())
     {
-        meet = new FoWoSoft.Platform.MeetInfo().Get(FoWoSoft.Platform.Users.CurrentUser.Account);
+        meet = new FoWoSoft.Platform.MeetInfo().GetByTemp3(InstanceID);
         if (meet!=null)
         meet.AdminId = new FoWoSoft.Platform.Users().GetByAccount(meet.AdminId).ID.ToString();
         //meet = new FoWoSoft.Data.Model.MeetInfo
