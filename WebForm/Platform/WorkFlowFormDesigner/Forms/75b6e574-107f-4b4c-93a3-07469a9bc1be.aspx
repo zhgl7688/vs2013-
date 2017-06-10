@@ -22,19 +22,12 @@
 
     #region 根据用户信息查获会议信息
     FoWoSoft.Data.Model.MeetInfo meet = null;
+    string seconId = "";
     if (StepID == null || StepID == new FoWoSoft.Platform.WorkFlow().GetWorkFlowRunModel(FlowID).FirstStepID.ToString())
     {
-        meet = new FoWoSoft.Platform.MeetInfo().GetByTemp3(InstanceID);
-        if (meet!=null)
-        meet.AdminId = new FoWoSoft.Platform.Users().GetByAccount(meet.AdminId).ID.ToString();
-        //meet = new FoWoSoft.Data.Model.MeetInfo
-        //{
-        //    MeetTimes = "2015-2-2 11:22",
-        //    MeetId = "200000001",
-        //    AdminId = "47D6A05F-D4B9-4DDC-AF28-AA77F8989ADE"
-
-        //};
-        
+       if(InstanceID!=null) meet = new FoWoSoft.Platform.MeetInfo().GetByTemp3(InstanceID);
+        if (meet!=null) meet.AdminId = new FoWoSoft.Platform.Users().GetByAccount(meet.AdminId).ID.ToString();
+       
     }
     #endregion
 
@@ -47,7 +40,7 @@
     string abroad = "";
     string ID = "";
     string inland = "";
-    string Reason = "";
+    string Reason = "国内异地";
     string Type = "";
     var test1 = "";
     var test = "";
@@ -183,11 +176,8 @@
     } else {
         document.getElementById('TempTestMeet.Date2').disabled = false;
     }
-    alert(obj.value);
     var index = ReasonArray.indexOf(obj.value);
-    alert(index);
-    console.log(index);
-    for (var i = 0; i < 3; i++) {
+     for (var i = 0; i < 3; i++) {
         if (index == i) document.getElementById('Reason' + i).style = "";
         else document.getElementById('Reason' + i).style.display = "none";
     }
@@ -233,7 +223,7 @@
     document.getElementById('Reason' + reasonindex).style = "";
     //TempTestMeet.UserID
     var reasonindex = UserIDArray.indexOf("<%=UserID%>");
-
+    console.log("<%=UserID%>");
     var UserID = document.getElementById('TempTestMeet.UserID');
     UserID.options[reasonindex].setAttribute("selected", "selected");
     //$.get("/ashx/getmeethandler.ashx", function (result) {

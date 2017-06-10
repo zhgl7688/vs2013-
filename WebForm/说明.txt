@@ -1,4 +1,8 @@
-﻿2017-6-9
+﻿mstsc：202.120.80.9:61212
+
+lgong2/ Lgong20!^
+http://202.120.85.70/ashx/roomishandler.ashx?model=add&ApplicatId=20121102&MeetTimes=2019-1-1%2011:13&MeetId=22&MeetName=101会议室&AdminId=lb&temp1=1&temp2=预约名称
+2017-6-9
 1、增加roomis会议审核
 2、增加roomis会议取消
 
@@ -67,3 +71,6 @@ roomis流程
 用户删除时执行取消rommis
 
 流程完成时执行roomis审核
+
+
+

@@ -734,6 +734,7 @@
     <Content Include="ashx\GetMeetHandler.ashx" />
     <Content Include="ashx\TaskFlowHandler.ashx" />
     <Content Include="ashx\ROOMISHandler.ashx" />
+    <None Include="Properties\PublishProfiles\202.120.85.70.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

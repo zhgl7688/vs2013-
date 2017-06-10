@@ -52,6 +52,15 @@ namespace FoWoOATest
              Assert.AreEqual("", "");
         }
         [TestMethod]
+        public void MeetOptions()
+        {
+            string Meetid = null;
+             
+            //string result=  WebForm.Common.Meet.put_approve(Meetid, adminId);
+            var result = WebForm.Common.Meet.GetMeetOptions(Meetid);
+            Assert.AreEqual("", "");
+        }
+        [TestMethod]
         public void TestAdd()
         {
             

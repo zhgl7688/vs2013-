@@ -60,7 +60,7 @@ function confirmt(meetinfo) {
 
     var member = "u_" + meetinfo.AdminId;
 
-    opts.steps.push({ id: "6e38c78f-69a4-43e8-a727-83e4fb9da2d0", member: member });
+    opts.steps.push({ id: "88b44e40-e9eb-44f9-9f2b-18b0aae70a5a", member: member });
  
     this.formSubmit(opts);
 

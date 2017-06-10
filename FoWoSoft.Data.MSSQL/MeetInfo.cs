@@ -71,7 +71,7 @@ namespace FoWoSoft.Data.MSSQL
             SqlDataReader dataReader = dbHelper.GetDataReader(sql);
             List<FoWoSoft.Data.Model.MeetInfo> List = DataReaderToList(dataReader);
             dataReader.Close();
-            return List.Count > 0 ? List : null;
+            return   List  ;
         }
         public int Create(FoWoSoft.Data.Model.MeetInfo meetInfo)
         {
