@@ -251,7 +251,7 @@ namespace FoWoSoft.Platform
         /// 得到一组机构字符串下所有人员ID
         /// </summary>
         /// <param name="idString"></param>
-        /// <returns></returns>
+        /// <returns>new List<Guid>()</returns>
         public List<Guid> GetAllUsersIdList(Guid id)
         {
             var users = GetAllUsers(id);

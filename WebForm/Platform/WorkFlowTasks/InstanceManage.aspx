@@ -41,7 +41,8 @@
             <td><%=task.Comment %></td>
             <td>
             <%if (task.Status.In(0,1)){ %>
-                <a style="background:url(<%=WebForm.Common.Tools.BaseUrl%>/Images/ico/arrow_medium_lower_left.png) no-repeat left center; padding-left:16px;" href="javascript:void(0);" onclick="designate('<%=task.ID %>');">指派</a>
+                <%--<a style="background:url(<%=WebForm.Common.Tools.BaseUrl%>/Images/ico/arrow_medium_lower_left.png) no-repeat left center; padding-left:16px;" href="javascript:void(0);" onclick="designate('<%=task.ID %>');">指派</a>--%>
+                 <a style="background:url(<%=WebForm.Common.Tools.BaseUrl%>/Images/ico/arrow_medium_lower_left.png) no-repeat left center; padding-left:16px;" href="javascript:void(0);" onclick="designate1('<%=task.ID %>');">审核</a>
             <%}%>
             </td>
         </tr>
@@ -68,6 +69,12 @@
         new RoadUI.Window().open({
             url: top.rootdir + '/Platform/WorkFlowTasks/Designate.aspx?taskid=' + taskid,
             width: 500, height: 200, title: "任务指派", openerid: iframeid
+        });
+    }
+    function designate1(taskid) {
+        new RoadUI.Window().open({
+            url: top.rootdir + '/Platform/WorkFlowTasks/Designate.aspx?taskid=' + taskid,
+            width: 500, height: 200, title: "跳转信息办", openerid: iframeid
         });
     }
 </script>

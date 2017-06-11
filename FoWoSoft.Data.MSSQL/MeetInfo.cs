@@ -116,17 +116,8 @@ namespace FoWoSoft.Data.MSSQL
         public int RoomisUpdate(FoWoSoft.Data.Model.MeetInfo meetInfo ,out string testMeetid)
         {
              testMeetid = Guid.NewGuid().ToString();
-            new DBHelper().Execute("update meetInfo set temp3='" + testMeetid.ToString().ToUpper() + "' where temp1=" + meetInfo.temp1);
-            string sql = @"INSERT INTO TempTestMeet( ID , Title , Date2 ,Reason ,college )
-VALUES  (   @ID , @Title , @Date2 ,@Reason ,@college   )";
-            SqlParameter[] parameters = new SqlParameter[]{
-                new SqlParameter("@ID",  testMeetid),
-                new SqlParameter("@Title",meetInfo.MeetName+"视频会议" ),
-                new SqlParameter("@Date2",meetInfo.MeetTimes),
-                new SqlParameter("@Reason", "校内"),
-                new SqlParameter("@college",  meetInfo.MeetId),
-                 };
-            return new DBHelper().Execute(sql, parameters);
+         return   new DBHelper().Execute("update meetInfo set temp3='" + testMeetid.ToString().ToUpper() + "' where temp1=" + meetInfo.temp1);
+           
 
         }
         /// <summary>

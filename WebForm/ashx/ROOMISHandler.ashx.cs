@@ -91,6 +91,15 @@ namespace WebForm.ashx
         {
             string testMeetid;
             meetInfoService.RoomisUpdate(meetInfo, out testMeetid);
+            var tempmeet = new FoWoSoft.Data.Model.TempTestMeet
+            {
+                ID = Guid.Parse(testMeetid),
+                Title = meetInfo.temp2,
+                Date2 = Convert.ToDateTime(meetInfo.MeetTimes),
+                college = meetInfo.MeetId
+            };
+            new FoWoSoft.Platform.TempTestMeet().RoomisAdd(tempmeet);
+           
             var aplicatUser = new FoWoSoft.Platform.Users().GetByAccount(meetInfo.ApplicatId);
             var task = new FoWoSoft.Data.Model.WorkFlowTask
             {

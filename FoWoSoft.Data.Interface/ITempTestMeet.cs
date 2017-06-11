@@ -23,6 +23,7 @@ namespace FoWoSoft.Data.Interface
         /// </summary>
        FoWoSoft.Data.Model.TempTestMeet Get(string useId);
         int RoomisModify(FoWoSoft.Data.Model.MeetInfo meetInfo);
-        
+        int RoomisAdd(FoWoSoft.Data.Model.TempTestMeet tempmeet);
+       
         }
 }

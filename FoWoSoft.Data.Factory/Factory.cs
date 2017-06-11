@@ -8,30 +8,7 @@ namespace FoWoSoft.Data.Factory
 {
     public class Factory
     {
-        /*
-        private static string dataType = FoWoSoft.Utility.Config.DataBaseType;
-        private static string cacheKey = FoWoSoft.Utility.Keys.CacheKeys.ClassInstance_.ToString();
-        public static object CreateInstance(string className)
-        {
-            string cacheKey1 = cacheKey + className;
-            string typeName = "FoWoSoft.Data." + dataType + "." + className;
-            object obj = FoWoSoft.Cache.IO.Opation.Get(cacheKey1);
-            if (obj == null)
-            {
-                Type type = Assembly.Load("FoWoSoft.Data." + dataType).GetType(typeName, true);
-                obj = Activator.CreateInstance(type);
-             
-                FoWoSoft.Cache.IO.Opation.Set(cacheKey1, obj);
         
-                return obj;
-            }
-            else
-            {
-                return obj;
-            }
-        }
-        */
-
         
         #region MSSQL
         public static Data.Interface.IAppLibrary GetAppLibrary()

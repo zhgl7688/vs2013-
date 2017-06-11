@@ -9,11 +9,12 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div style="text-align:center; padding-top:50px;">
-        指派给：<input type="text" class="mymember" style="width:140px;" id="user" name="user" validate="empty" errmsg="请选择要指派的人员" />
-        <input type="submit" class="mybutton" value="确&nbsp;定" onclick="return new RoadUI.Validate().validateForm(document.forms[0]);" />
+        <div style="text-align:center; padding-top:50px;padding-right:50px">
+        指派给：信息办 <%--<input type="text" class="mymember" style="width:140px;" id="user" name="user" validate="empty" errmsg="请选择要指派的人员"  value="信息办" />--%>
+        <input style="margin-left:50px;" type="submit" class="mybutton" value="确&nbsp;定" onclick="return new RoadUI.Validate().validateForm(document.forms[0]);" />
         <span type="msg"></span>
         </div>
     </form>
 </body>
 </html>
+ 

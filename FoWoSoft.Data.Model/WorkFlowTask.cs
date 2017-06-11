@@ -172,7 +172,7 @@ namespace FoWoSoft.Data.Model.WorkFlowExecute
         /// 处理类型
         /// </summary>
         public enum ExecuteType
-        { 
+        {
             /// <summary>
             /// 提交
             /// </summary>
@@ -230,10 +230,13 @@ namespace FoWoSoft.Data.Model.WorkFlowExecute
         /// 标题
         /// </summary>
         public string Title { get; set; }
+
         /// <summary>
         /// 操作类型
         /// </summary>
         public EnumType.ExecuteType ExecuteType { get; set; }
+
+
         /// <summary>
         /// 发送人员
         /// </summary>

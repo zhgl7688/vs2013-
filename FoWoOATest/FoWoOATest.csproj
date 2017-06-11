@@ -68,6 +68,10 @@
       <Project>{84169909-4a5f-4b1d-a00a-e9bc837c8d79}</Project>
       <Name>FoWoSoft.Data.MSSQL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FoWoSoft.Platform\FoWoSoft.Platform.csproj">
+      <Project>{4853eee1-204a-4501-a2a6-7d14ca7dcd0e}</Project>
+      <Name>FoWoSoft.Platform</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebForm\WebForm.csproj">
       <Project>{b6034628-4321-44a0-9a9d-d40844c25fde}</Project>
       <Name>WebForm</Name>

@@ -28,7 +28,10 @@ namespace FoWoSoft.Data.MSSQL
             dataReader.Close();
             return List.Count > 0 ? List[0] : null;
         }
-
+        public int UpdateFinish(string sql)
+        {
+            return new DBHelper().Execute(sql);
+        }
         public Model.TempTestMeet Get(string Title)
         {
             string sql = "SELECT * FROM Guid_id WHERE Title=@Title";
@@ -51,7 +54,20 @@ namespace FoWoSoft.Data.MSSQL
             return new DBHelper().Execute(sql, parameters);
 
         }
+        public int RoomisAdd(FoWoSoft.Data.Model.TempTestMeet tempmeet)
+        {
+           string sql = @"INSERT INTO TempTestMeet( ID , Title , Date2 ,Reason ,college )
+VALUES  (   @ID , @Title , @Date2 ,@Reason ,@college   )";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@ID",  tempmeet.ID),
+                new SqlParameter("@Title",tempmeet.Title ),
+                new SqlParameter("@Date2",tempmeet.Date2),
+                new SqlParameter("@Reason", "校内"),
+                new SqlParameter("@college",  tempmeet.college),
+                 };
+            return new DBHelper().Execute(sql, parameters);
 
+        }
         
         /// <summary>
         /// 将DataRedar转换为List

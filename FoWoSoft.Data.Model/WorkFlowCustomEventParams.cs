@@ -21,5 +21,16 @@ namespace FoWoSoft.Data.Model
         public Guid TaskID { get; set; }
 
         public string InstanceID { get; set; }
+        public WorkFlowCustomEventParams set(FoWoSoft.Data.Model.WorkFlowExecute.Execute execute)
+        {
+            FlowID = execute.FlowID;
+            GroupID = execute.GroupID;
+            StepID = execute.StepID;
+            TaskID = execute.TaskID;
+            InstanceID = execute.InstanceID;
+            return this;
+        }
+
+        
     }
 }

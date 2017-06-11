@@ -38,9 +38,26 @@ namespace FoWoOATest
         [TestMethod]
         public void EduUser()
         {
-            var user = new WebForm.EduWebService().GetUser("99");
+            var id = "B02211218";
+              // var id = "42017271204";
+            var user = new WebForm.EduWebService().GetUser(id);
             //Assert.IsNotNull(user);
             Assert.AreEqual("", user.XM);
+        }
+        [TestMethod]
+        public void RoosTest()
+        {
+            string instance="1eb6d23d-71a0-46e0-8507-a35660a1f51d";
+            new WebForm.Common.Meet().Roomis(instance, WebForm.Common.RoomisOperation.put_approve);
+            
+        }
+        [TestMethod]
+        public void jumplastTest()
+        {
+            Guid taskID = Guid.Parse("26A94FCC-401D-441D-B2C2-F1246B602B72");
+            var users = new List<FoWoSoft.Data.Model.Users>();
+            new FoWoSoft.Platform.WorkFlowTask().JumpLast(taskID,users);
+
         }
         [TestMethod]
         public void MeetTest()
@@ -71,7 +88,7 @@ namespace FoWoOATest
                 MeetName = "100会议",
                 MeetTimes = "2017-09-20 11:20",
                 ApplicatId = "20121102",
-                temp1="22",
+                temp1="21",
                 temp2="会议名称"
             };
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
@@ -102,5 +119,30 @@ namespace FoWoOATest
             // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
             new WebForm.ashx.ROOMISHandler().RoomisModify(meetInfo);
         }
+        [TestMethod]
+        public void TestEnum()
+        {
+            var ss =(testen) Enum.Parse(typeof(testen), "red");
+            Assert.AreEqual<testen>(testen.red, ss);
+            var kk =testen.black== (testen.red | testen.green);
+            Assert.AreEqual(false ,kk);
+        }
+        [TestMethod]
+        public void Teststruct()
+        {
+            var execute = new FoWoSoft.Data.Model.WorkFlowExecute.Execute();
+             
+                 execute.FlowID=Guid.NewGuid();
+          
+            var param= new FoWoSoft.Data.Model.WorkFlowCustomEventParams().set(execute);
+            Assert.AreEqual(execute.FlowID, param.FlowID);
+           // execute.FlowID = Guid.NewGuid();
+           // Assert.AreEqual(execute.FlowID, param.FlowID);
+
+        }
+    }
+    enum testen
+    {
+        green,red,black
     }
 }

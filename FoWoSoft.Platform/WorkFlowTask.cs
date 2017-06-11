@@ -12,53 +12,53 @@ namespace FoWoSoft.Platform
         private FoWoSoft.Data.Model.WorkFlowInstalled wfInstalled;
         private FoWoSoft.Data.Model.WorkFlowExecute.Result result;
         private List<FoWoSoft.Data.Model.WorkFlowTask> nextTasks = new List<FoWoSoft.Data.Model.WorkFlowTask>();
-		public WorkFlowTask()
-		{
+        public WorkFlowTask()
+        {
             this.dataWorkFlowTask = Data.Factory.Factory.GetWorkFlowTask();
-		}
-        
-		/// <summary>
-		/// 新增
-		/// </summary>
-		public int Add(FoWoSoft.Data.Model.WorkFlowTask model)
-		{
-			return dataWorkFlowTask.Add(model);
-		}
-		/// <summary>
-		/// 更新
-		/// </summary>
-		public int Update(FoWoSoft.Data.Model.WorkFlowTask model)
-		{
-			return dataWorkFlowTask.Update(model);
-		}
-		/// <summary>
-		/// 查询所有记录
-		/// </summary>
-		public List<FoWoSoft.Data.Model.WorkFlowTask> GetAll()
-		{
-			return dataWorkFlowTask.GetAll();
-		}
-		/// <summary>
-		/// 查询单条记录
-		/// </summary>
-		public FoWoSoft.Data.Model.WorkFlowTask Get(Guid id)
-		{
-			return dataWorkFlowTask.Get(id);
-		}
-		/// <summary>
-		/// 删除
-		/// </summary>
-		public int Delete(Guid id)
-		{
-			return dataWorkFlowTask.Delete(id);
-		}
-		/// <summary>
-		/// 查询记录条数
-		/// </summary>
-		public long GetCount()
-		{
-			return dataWorkFlowTask.GetCount();
-		}
+        }
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        public int Add(FoWoSoft.Data.Model.WorkFlowTask model)
+        {
+            return dataWorkFlowTask.Add(model);
+        }
+        /// <summary>
+        /// 更新
+        /// </summary>
+        public int Update(FoWoSoft.Data.Model.WorkFlowTask model)
+        {
+            return dataWorkFlowTask.Update(model);
+        }
+        /// <summary>
+        /// 查询所有记录
+        /// </summary>
+        public List<FoWoSoft.Data.Model.WorkFlowTask> GetAll()
+        {
+            return dataWorkFlowTask.GetAll();
+        }
+        /// <summary>
+        /// 查询单条记录
+        /// </summary>
+        public FoWoSoft.Data.Model.WorkFlowTask Get(Guid id)
+        {
+            return dataWorkFlowTask.Get(id);
+        }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        public int Delete(Guid id)
+        {
+            return dataWorkFlowTask.Delete(id);
+        }
+        /// <summary>
+        /// 查询记录条数
+        /// </summary>
+        public long GetCount()
+        {
+            return dataWorkFlowTask.GetCount();
+        }
 
         /// <summary>
         /// 去除重复的接收人，在退回任务时去重，避免一个人收到多条任务。
@@ -96,7 +96,7 @@ namespace FoWoSoft.Platform
         /// <returns></returns>
         public Guid GetFirstSnderID(Guid flowID, Guid groupID, bool isDefault = false)
         {
-            Guid senderID=dataWorkFlowTask.GetFirstSnderID(flowID, groupID);
+            Guid senderID = dataWorkFlowTask.GetFirstSnderID(flowID, groupID);
             return senderID.IsEmptyGuid() && isDefault ? Users.CurrentUserID : senderID;
         }
 
@@ -110,7 +110,7 @@ namespace FoWoSoft.Platform
         {
             if (flowID.IsEmptyGuid() || groupID.IsEmptyGuid())
             {
-                return Users.CurrentDeptID; 
+                return Users.CurrentDeptID;
             }
             var senderID = dataWorkFlowTask.GetFirstSnderID(flowID, groupID);
             var dept = new Users().GetDeptByUserID(senderID);
@@ -195,7 +195,7 @@ namespace FoWoSoft.Platform
             execute.Comment = jsondata["comment"].ToString();
             string op = jsondata["type"].ToString().ToLower();
             switch (op)
-            { 
+            {
                 case "submit":
                     execute.ExecuteType = FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Submit;
                     break;
@@ -212,7 +212,7 @@ namespace FoWoSoft.Platform
             execute.IsSign = jsondata["issign"].ToString().ToInt() == 1;
             execute.StepID = jsondata["stepid"].ToString().ToGuid();
             execute.TaskID = jsondata["taskid"].ToString().ToGuid();
-           
+
             var stepsjson = jsondata["steps"];
             Dictionary<Guid, List<FoWoSoft.Data.Model.Users>> steps = new Dictionary<Guid, List<FoWoSoft.Data.Model.Users>>();
             if (stepsjson.IsArray)
@@ -249,7 +249,7 @@ namespace FoWoSoft.Platform
         /// <param name="users"></param>
         /// <param name="instanceID"></param>
         /// <returns></returns>
-        public bool StartFlow(Guid flowID, List<Data.Model.Users> users, string title, string instanceID="")
+        public bool StartFlow(Guid flowID, List<Data.Model.Users> users, string title, string instanceID = "")
         {
             if (users.Count == 0)
             {
@@ -292,7 +292,7 @@ namespace FoWoSoft.Platform
                 result.Messages = "执行参数错误";
                 return result;
             }
-            
+
 
             wfInstalled = bWorkFlow.GetWorkFlowRunModel(executeModel.FlowID);
             if (wfInstalled == null)
@@ -319,6 +319,7 @@ namespace FoWoSoft.Platform
                     case FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Submit:
                     case FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Completed:
                         executeSubmit(executeModel);
+                  
                         break;
                     case FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Redirect:
                         executeRedirect(executeModel);
@@ -357,7 +358,7 @@ namespace FoWoSoft.Platform
                     result.Messages = "未能创建或找到当前任务";
                     return;
                 }
-                else if (currentTask.Status.In(2,3,4,5))
+                else if (currentTask.Status.In(2, 3, 4, 5))
                 {
                     result.DebugMessages = "当前任务已处理";
                     result.IsSuccess = false;
@@ -376,11 +377,11 @@ namespace FoWoSoft.Platform
                 }
 
                 //如果当前步骤是子流程步骤，并且策略是 子流程完成后才能提交 则要判断子流程是否已完成
-                if (currentStep.Type == "subflow" 
+                if (currentStep.Type == "subflow"
                     && currentStep.SubFlowID.IsGuid()
-                    && currentStep.Behavior.SubFlowStrategy == 0 
-                    && currentTask.SubFlowGroupID.HasValue 
-                    && !currentTask.SubFlowGroupID.Value.IsEmptyGuid() 
+                    && currentStep.Behavior.SubFlowStrategy == 0
+                    && currentTask.SubFlowGroupID.HasValue
+                    && !currentTask.SubFlowGroupID.Value.IsEmptyGuid()
                     && !GetInstanceIsCompleted(currentStep.SubFlowID.ToGuid(), currentTask.SubFlowGroupID.Value))
                 {
                     result.DebugMessages = "当前步骤的子流程实例未完成,子流程：" + currentStep.SubFlowID + ",实例组：" + currentTask.SubFlowGroupID.ToString();
@@ -419,9 +420,18 @@ namespace FoWoSoft.Platform
                             break;
                         case 1://一人同意即可
                             var taskList1 = GetTaskList(currentTask.FlowID, currentTask.StepID, currentTask.GroupID).FindAll(p => p.Sort == currentTask.Sort && p.Type != 5);
+                            //取同一部门的
+                            var usersRelations = new FoWoSoft.Platform.UsersRelation().GetAllByUserID(currentTask.SenderID);
+                            List<Guid> usersIds = new List<Guid>();
+                            foreach (var item in usersRelations)
+                            {
+                                var usersId = new FoWoSoft.Platform.Organize().GetAllUsersIdList(item.OrganizeID);
+                                if (usersId.Count > 0) usersIds.AddRange(usersId);
+                            }
+
                             foreach (var task in taskList1)
                             {
-                                if (task.ID != currentTask.ID)
+                                if (task.ID != currentTask.ID && usersIds.Contains(task.ID))
                                 {
                                     if (task.Status.In(0, 1))
                                     {
@@ -459,6 +469,36 @@ namespace FoWoSoft.Platform
                         case 3://独立处理
                             Completed(currentTask.ID, executeModel.Comment, executeModel.IsSign);
                             break;
+                        case 4://发给多个部门，部门一个处理其他人都结束
+                            var taskList4 = GetTaskList(currentTask.FlowID, currentTask.StepID, currentTask.GroupID).FindAll(p => p.Sort == currentTask.Sort && p.Type != 5);
+                           
+                            //取同一部门的
+                            var usersRelations = new FoWoSoft.Platform.UsersRelation().GetAllByUserID(currentTask.SenderID);
+                            List<Guid> usersIds = new List<Guid>();
+                            foreach (var item in usersRelations)
+                            {
+                                 var usersId = new FoWoSoft.Platform.Organize().GetAllUsersIdList(item.OrganizeID);
+                                 if (usersId.Count > 0) usersIds.AddRange(usersId);
+                            }
+                            
+                            foreach (var task in taskList4)
+                            {
+                                if (task.ID != currentTask.ID&& usersIds.Contains( task.ID) )
+                                {
+                                    
+                                    
+                                    if (task.Status.In(0, 1))
+                                    {
+                                        Completed(task.ID, "", false, 4);
+                                    }
+                                }
+                                else
+                                {
+                                    Completed(task.ID, executeModel.Comment, executeModel.IsSign);
+                                }
+                            }
+                            
+                            break;
                     }
                 }
                 else
@@ -485,7 +525,7 @@ namespace FoWoSoft.Platform
                     scope.Complete();
                     return;
                 }
-                
+
                 foreach (var step in executeModel.Steps)
                 {
                     foreach (var user in step.Value)
@@ -508,7 +548,7 @@ namespace FoWoSoft.Platform
                         {
                             var prevSteps = bWorkFlow.GetPrevSteps(executeModel.FlowID, nextStep.ID);
                             switch (nextStep.Behavior.Countersignature)
-                            { 
+                            {
                                 case 1://所有步骤同意
                                     isPassing = true;
                                     foreach (var prevStep in prevSteps)
@@ -1014,7 +1054,7 @@ namespace FoWoSoft.Platform
 
                     //删除临时任务
                     var nextSteps = bWorkFlow.GetNextSteps(executeModel.FlowID, executeModel.StepID);
-                    foreach(var step in nextSteps)
+                    foreach (var step in nextSteps)
                     {
                         dataWorkFlowTask.DeleteTempTasks(currentTask.FlowID, step.ID, currentTask.GroupID,
                             IsCountersignature ? Guid.Empty : currentStep.ID
@@ -1138,16 +1178,21 @@ namespace FoWoSoft.Platform
             }
 
             #region 更新业务表标识字段的值为1
+
             if (wfInstalled.TitleField != null && wfInstalled.TitleField.LinkID != Guid.Empty && !wfInstalled.TitleField.Table.IsNullOrEmpty()
                 && !wfInstalled.TitleField.Field.IsNullOrEmpty() && wfInstalled.DataBases.Count() > 0)
             {
                 var firstDB = wfInstalled.DataBases.First();
-                new DBConnection().UpdateFieldValue(
-                    wfInstalled.TitleField.LinkID,
-                    wfInstalled.TitleField.Table,
-                    wfInstalled.TitleField.Field,
-                    "1",
-                   string.Format("{0}='{1}'", firstDB.PrimaryKey, task.InstanceID));
+
+                //new DBConnection().UpdateFieldValue(
+                //    wfInstalled.TitleField.LinkID,
+                //    wfInstalled.TitleField.Table,
+                //    wfInstalled.TitleField.Field,
+                //    "1",
+                //   string.Format("{0}='{1}'", firstDB.PrimaryKey, task.InstanceID)); 
+                string where = string.Format("{0}='{1}'", firstDB.PrimaryKey, task.InstanceID);
+                string sql = string.Format("UPDATE {0} SET {1}=1 WHERE {2}", wfInstalled.TitleField.Table, wfInstalled.TitleField.Field, where);
+                new FoWoSoft.Data.MSSQL.DBHelper().Execute(sql);
             }
             #endregion
 
@@ -1319,7 +1364,7 @@ namespace FoWoSoft.Platform
             }
             bool isPassing = true;
             switch (step.Behavior.HanlderModel)
-            { 
+            {
                 case 0://所有人必须处理
                 case 3://独立处理
                     isPassing = tasks.Where(p => p.Status != 2).Count() == 0;
@@ -1352,10 +1397,10 @@ namespace FoWoSoft.Platform
             {
                 case 0://所有人必须处理
                 case 3://独立处理
-                    isBack = tasks.Where(p => p.Status.In(3,5)).Count() > 0;
+                    isBack = tasks.Where(p => p.Status.In(3, 5)).Count() > 0;
                     break;
                 case 1://一人同意即可
-                    isBack = tasks.Where(p => p.Status.In(2,4)).Count() == 0;
+                    isBack = tasks.Where(p => p.Status.In(2, 4)).Count() == 0;
                     break;
                 case 2://依据人数比例
                     isBack = (((decimal)(tasks.Where(p => p.Status.In(3, 5)).Count() + 1) / (decimal)tasks.Count) * 100).Round() >= 100 - (step.Behavior.Percentage <= 0 ? 100 : step.Behavior.Percentage);
@@ -1376,7 +1421,7 @@ namespace FoWoSoft.Platform
             {
                 wfInstalled = bWorkFlow.GetWorkFlowRunModel(executeModel.FlowID);
             }
-            
+
             var nextSteps = wfInstalled.Steps.Where(p => p.ID == wfInstalled.FirstStepID);
             if (nextSteps.Count() == 0)
             {
@@ -1481,7 +1526,7 @@ namespace FoWoSoft.Platform
                 throw new MissingMethodException(typeName, methodName);
             }
         }
-        
+
         /// <summary>
         /// 删除流程实例
         /// </summary>
@@ -1601,7 +1646,7 @@ namespace FoWoSoft.Platform
             }
             var step = steps.First();
             switch (backType)
-            { 
+            {
                 case 0://退回前一步
                     var task = Get(taskID);
                     if (task != null)
@@ -1653,7 +1698,7 @@ namespace FoWoSoft.Platform
                         var task0 = Get(taskID);
                         if (task0 != null)
                         {
-                            var taskList = GetTaskList(task0.FlowID, task0.GroupID).Where(p => p.Status.In(2,3,4)).OrderBy(p => p.Sort);
+                            var taskList = GetTaskList(task0.FlowID, task0.GroupID).Where(p => p.Status.In(2, 3, 4)).OrderBy(p => p.Sort);
                             foreach (var task1 in taskList)
                             {
                                 if (!dict.Keys.Contains(task1.StepID) && task1.StepID != stepID)
@@ -1684,7 +1729,7 @@ namespace FoWoSoft.Platform
             {
                 i += dataWorkFlowTask.UpdateNextTaskStatus(task.ID, status);
             }
-            
+
             return i;
         }
 
@@ -1771,7 +1816,7 @@ namespace FoWoSoft.Platform
             if (taskList.Count == 0) return false;
             foreach (var task in taskList)
             {
-                if (task.Status.In(1,2,3,4,5))
+                if (task.Status.In(1, 2, 3, 4, 5))
                 {
                     return false;
                 }
@@ -1794,7 +1839,7 @@ namespace FoWoSoft.Platform
                     var taskList2 = GetNextTaskList(task.ID);
                     foreach (var task2 in taskList2)
                     {
-                        if (task2.Status.In(-1,0,1,5))
+                        if (task2.Status.In(-1, 0, 1, 5))
                         {
                             Delete(task2.ID);
                         }
@@ -1850,7 +1895,7 @@ namespace FoWoSoft.Platform
         public string BackTask(Guid taskID)
         {
             var task = Get(taskID);
-            if (task == null) 
+            if (task == null)
             {
                 return "未找到任务";
             }
@@ -1858,7 +1903,7 @@ namespace FoWoSoft.Platform
             {
                 return "该任务已处理";
             }
-            if(wfInstalled==null) 
+            if (wfInstalled == null)
             {
                 wfInstalled = bWorkFlow.GetWorkFlowRunModel(task.FlowID);
             }
@@ -1873,7 +1918,7 @@ namespace FoWoSoft.Platform
             executeModel.TaskID = task.ID;
             executeModel.Title = task.Title;
             var steps = wfInstalled.Steps.Where(p => p.ID == task.StepID);
-            if(steps.Count()==0) 
+            if (steps.Count() == 0)
             {
                 return "未找到步骤";
             }
@@ -1890,6 +1935,7 @@ namespace FoWoSoft.Platform
             executeModel.Steps = execSteps;
             var result = Execute(executeModel);
             return result.Messages;
+
         }
 
         /// <summary>
@@ -1900,7 +1946,7 @@ namespace FoWoSoft.Platform
         {
             return tasks.OrderBy(p => p.Sort).ToList();
         }
-       
+
         /// <summary>
         /// 得到一个任务的状态
         /// </summary>
@@ -1975,6 +2021,48 @@ namespace FoWoSoft.Platform
         {
             return dataWorkFlowTask.RoomisCreate(task);
         }
+        //流程跳到最后一步
+        public string JumpLast(Guid taskID, List<FoWoSoft.Data.Model.Users> users)
+        {
+            var task = Get(taskID);
+            if (task == null)
+            {
+                return "未找到任务";
+            }
+            task.Status = 2;
+            Update(task);
+            foreach (var user in users)
+            {
 
+
+                var taskLast = new Data.Model.WorkFlowTask
+                {
+                    ID = Guid.NewGuid(),
+                    PrevID = task.ID,
+                    PrevStepID = Guid.Parse("72578AB0-B803-4F0B-B0C0-1FAF3C99EA7E"),
+                    FlowID = task.FlowID,
+                    StepID = Guid.Parse("45E6F561-1BA6-4ED0-8281-7AE905E0804C"),
+                    StepName = "信息办",
+                    InstanceID = task.InstanceID,
+                    GroupID = task.GroupID,
+                    Type = 0,
+                    Title = task.Title,
+                    SenderID = Guid.Empty,
+                    SenderName = "管理员",
+                    SenderTime = DateTime.Now,
+                    ReceiveID = user.ID,
+                    ReceiveName = user.Name,
+                    ReceiveTime = DateTime.Now,
+                    Status = 0,
+                    Sort = 6
+
+
+                };
+
+                Add(taskLast);
+            }
+            return "指派成功";
         }
+
+    }
 }

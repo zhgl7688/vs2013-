@@ -118,9 +118,26 @@ namespace WebForm.Common
         /// <param name="eventId"></param>
         /// <param name="apperot"></param>
         /// <returns></returns>
-        public static string put_reject(string eventId, string apperot)
+        public static string put_reject( string eventId, string apperot)
         {
-            var method = string.Format("api/booking/events/{0}/reject", eventId);
+            string address = "api/booking/events/{0}/reject";
+            return put(eventId, apperot,address);
+        }
+        /// <summary>
+        /// 会议审核通过
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="apperot"></param>
+        /// <returns></returns>
+        public static string put_approve(string eventId, string apperot)
+        {
+            string address = "api/booking/events/{0}/approve";
+            return put(eventId, apperot, address);
+
+        }
+        private static string put(string eventId, string apperot,string address)
+        {
+            var method = string.Format(address, eventId);
 
             string Url = meetUrl;
             string Data = JsonConvert.SerializeObject(new
@@ -131,9 +148,6 @@ namespace WebForm.Common
             {
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //string strDecodeBody = HttpUtility.UrlEncode(Data);
-                // HttpContent content = new StringContent( strDecodeBody);
                 HttpContent content = new StringContent(Data, Encoding.UTF8);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 client.BaseAddress = new Uri(Url);
@@ -148,42 +162,7 @@ namespace WebForm.Common
                     return "Error";
             }
         }
-        /// <summary>
-        /// 会议审核通过
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <param name="apperot"></param>
-        /// <returns></returns>
-        public static string put_approve(string eventId, string apperot)
-        {
-            var method = string.Format("api/booking/events/{0}/approve", eventId);
-
-            string Url = meetUrl;
-            string Data = JsonConvert.SerializeObject(new
-            {
-                approver = apperot
-            });
-            using (var client = new HttpClient())
-            {
-
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //string strDecodeBody = HttpUtility.UrlEncode(Data);
-                // HttpContent content = new StringContent( strDecodeBody);
-                HttpContent content = new StringContent(Data, Encoding.UTF8);
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                client.BaseAddress = new Uri(Url);
-                client.DefaultRequestHeaders.Add("X-Consumer-Custom-ID", "10251025");
-                var response = client.PutAsync(method, content).Result;
-                // var ss = client.PutAsJsonAsync(method, content).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return "Success";
-                }
-                else
-                    return "Error";
-            }
-        }
+        
      
        
         public static string GetMeetOptions(string value)

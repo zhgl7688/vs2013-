@@ -32,5 +32,10 @@ namespace FoWoSoft.Platform
         {
             return dataTempTestMeet.RoomisModify(meetInfo);
         }
+        public int RoomisAdd(FoWoSoft.Data.Model.TempTestMeet tempmeet)
+        {
+            return dataTempTestMeet.RoomisAdd(tempmeet);
+        }
+       
         }
 }

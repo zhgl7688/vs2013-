@@ -149,6 +149,7 @@
                     <option value="1">一人同意即可</option>
                     <option value="2">依据人数比例</option>
                     <option value="3">独立处理</option>
+                    <option value="4">多单位一同人同意</option>
                 </select>
             </td>
             <th>退回类型：</th>
