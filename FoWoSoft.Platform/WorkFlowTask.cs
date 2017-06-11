@@ -431,7 +431,8 @@ namespace FoWoSoft.Platform
 
                             foreach (var task in taskList1)
                             {
-                                if (task.ID != currentTask.ID && usersIds.Contains(task.ID))
+                                if (!usersIds.Contains(task.ID)) continue ;
+                                if (task.ID != currentTask.ID)
                                 {
                                     if (task.Status.In(0, 1))
                                     {
