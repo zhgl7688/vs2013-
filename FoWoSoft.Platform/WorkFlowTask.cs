@@ -473,17 +473,17 @@ namespace FoWoSoft.Platform
                             var taskList4 = GetTaskList(currentTask.FlowID, currentTask.StepID, currentTask.GroupID).FindAll(p => p.Sort == currentTask.Sort && p.Type != 5);
                            
                             //取同一部门的
-                            var usersRelations = new FoWoSoft.Platform.UsersRelation().GetAllByUserID(currentTask.SenderID);
-                            List<Guid> usersIds = new List<Guid>();
-                            foreach (var item in usersRelations)
-                            {
-                                 var usersId = new FoWoSoft.Platform.Organize().GetAllUsersIdList(item.OrganizeID);
-                                 if (usersId.Count > 0) usersIds.AddRange(usersId);
-                            }
+                           // var usersRelations = new FoWoSoft.Platform.UsersRelation().GetAllByUserID(currentTask.SenderID);
+                           // List<Guid> usersIds = new List<Guid>();
+                            //foreach (var item in usersRelations)
+                            //{
+                            //     var usersId = new FoWoSoft.Platform.Organize().GetAllUsersIdList(item.OrganizeID);
+                            //     if (usersId.Count > 0) usersIds.AddRange(usersId);
+                            //}
                             
                             foreach (var task in taskList4)
                             {
-                                if (task.ID != currentTask.ID&& usersIds.Contains( task.ID) )
+                                if (task.ID != currentTask.ID)//&& usersIds.Contains( task.ID) )
                                 {
                                     
                                     

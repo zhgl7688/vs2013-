@@ -1,4 +1,5 @@
-﻿using FoWoSoft.Data.Model.WorkFlowExecute;
+﻿using FoWoSoft.Data.Model;
+using FoWoSoft.Data.Model.WorkFlowExecute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace WebForm.Platform.WorkFlowRun
             string title = Request.Form[Request.Form["Form_TitleField"]];
             var execute = CreateExecute(instanceid, flowid, wfInstalled, comment, stepid, opationJSON, title);
 
-            var eventParams = new FoWoSoft.Data.Model.WorkFlowCustomEventParams().set(execute);
+            var eventParams = WorkFlowCustomEventParamsSet(execute);
 
 
             //保存业务数据 "1" != Request.QueryString["isSystemDetermine"]:当前步骤流转类型如果是系统判断，则先保存数据，在这里就不需要保存数据了。
@@ -88,7 +89,19 @@ namespace WebForm.Platform.WorkFlowRun
             }
 
         }
+        public WorkFlowCustomEventParams WorkFlowCustomEventParamsSet(FoWoSoft.Data.Model.WorkFlowExecute.Execute execute)
+        {
+            var eventParams = new FoWoSoft.Data.Model.WorkFlowCustomEventParams()
+            {
+                FlowID = execute.FlowID,
+                GroupID = execute.GroupID,
+                StepID = execute.StepID,
+                TaskID = execute.TaskID,
+                InstanceID = execute.InstanceID,
+            };
 
+            return eventParams;
+        }
         private void DisplayHtml(Result reslut)
         {
             //判断是打开任务还是关闭窗口
