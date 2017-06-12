@@ -37,7 +37,9 @@ namespace WebForm
         {
             EduUser user = null;
             header.Username = "PUB_USER";
-            header.Password = "EA83AB5DA244E73D3D0BB7E5772635527AC72FEE1D7CA4A067FB4A9ADE985C8337942475A6CE8088";// "EA83AB5DA244E73DB35F5C7AD3C9C42CB331B1EF690487C117481468BC61B1AB";
+            header.Password = "EA83AB5DA244E73D3D0BB7E5772635527AC72FEE1D7CA4A067FB4A9ADE985C8337942475A6CE8088";
+            // "EA83AB5DA244E73D3D0BB7E5772635527AC72FEE1D7CA4A067FB4A9ADE985C8337942475A6CE8088";
+            // "EA83AB5DA244E73DB35F5C7AD3C9C42CB331B1EF690487C117481468BC61B1AB";
             var usertable=  ecnuweb.PUBLIC_IDC_GET_XSJBXX(useId, "", 1, 1).Tables[0];
             if (usertable.Columns.Count>1&&usertable.Rows.Count>0){
                 user=new EduUser (){
@@ -49,6 +51,32 @@ namespace WebForm
                 };
             }
             return user;
+
+        }
+        /// <summary>
+        /// 根据部门id获取部门下用户信息
+        /// </summary>
+        /// <param name="useId"></param>
+        /// <returns></returns>
+        public DataTable GetAllUserByDPCODE(string DPCODE)
+        {
+            EduUser user = null;
+            header.Username = "PUB_USER";
+            header.Password = "EA83AB5DA244E73D3D0BB7E577263552E0D88B8DFADB966F63CD5E6CB99A080F8A5A7EBC1CC9F3A1";
+            //"FAED74BF942BA9F7B0EBF88BACE2CE3EB262CE34F3470DAFCE4BFF112FA7A6700BD796F9B9C9648040463E82B7FDC4DDF940DD5457EBE7C10666BB48686E252FE4DA2291BDE0F89B491137C8F46F66830AE46C1E65C4B62A";// "EA83AB5DA244E73DB35F5C7AD3C9C42CB331B1EF690487C117481468BC61B1AB";
+            var usertable = ecnuweb.PUBLIC_IDC_GET_XSJBXX(DPCODE, "", 100, 1).Tables[0];
+            //if (usertable.Columns.Count > 1 && usertable.Rows.Count > 0)
+            //{
+            //    user = new EduUser()
+            //    {
+            //        XH = usertable.Rows[0]["XH"].ToString(),
+            //        XM = usertable.Rows[0]["XM"].ToString(),
+            //        BMBH = usertable.Rows[0]["BMBH"].ToString(),
+            //        BMMC = usertable.Rows[0]["BMMC"].ToString(),
+
+            //    };
+            //}
+            return usertable;
 
         }
 

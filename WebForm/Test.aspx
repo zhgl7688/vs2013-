@@ -13,10 +13,21 @@
     <div>
         <input id="xxx" disabled="1" value="xxx1" />
     </div>
+        <a href="http://202.120.85.70/test1.ashx?all=50" target="_blank" >a1</a>
+        <a href="http://202.120.85.70/test1.ashx?all=100"  target="_blank">a1</a>
+        <a href="http://202.120.85.70/test1.ashx?all=150"  target="_blank">a1</a>
+        <a href="http://202.120.85.70/test1.ashx?all=200"  target="_blank">a1</a>
+        <a href="http://202.120.85.70/test1.ashx?all=250"  target="_blank">a1</a>
+        <a href="http://202.120.85.70/test1.ashx?all=300"  target="_blank">a1</a>
+        <a href="http://202.120.85.70/test1.ashx?all=350"  target="_blank">a1</a>
+        <a href="http://202.120.85.70/test1.ashx?all=400"  target="_blank">a1</a>
+        <a href="http://202.120.85.70/test1.ashx?all=450"  target="_blank">a1</a>
+        <a href="http://202.120.85.70/test1.ashx?all=500"  target="_blank">a1</a>
+        <a href="http://202.120.85.70/test1.ashx?all=550"  target="_blank">a1</a>
+
     </form>
 </body>
 </html>
 <script>
-    alert($('#xxx').attr("disabled")=='disabled');
-    alert($('#xxx').disabled==false);
+ 
 </script>

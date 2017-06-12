@@ -162,9 +162,28 @@ namespace WebForm.Common
                     return "Error";
             }
         }
-        
-     
-       
+        public static  void gethttp(  string Url)
+        {
+             
+           
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                 client.BaseAddress = new Uri(Url);
+                client.DefaultRequestHeaders.Add("X-Consumer-Custom-ID", "004");
+                var response = client.GetAsync(Url);//.PutAsync(method, content).Result;
+                // var ss = client.PutAsJsonAsync(method, content).Result;
+                //if (response.Status=)
+                //{
+                //    return "Success";
+                //}
+                //else
+                //    return "Error";
+            }
+        }
+
+
         public static string GetMeetOptions(string value)
         {
             StringBuilder options = new StringBuilder();

@@ -1,19 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace WebForm.Common
 {
     public class UserService
     {
-        public   FoWoSoft.Data.Model.Users CreateNewUser(string userid)
+        public void CreateAllUser(string number1)
         {
-          var  user = new FoWoSoft.Platform.Users().GetByAccount(userid);
-            if (user != null) return user;
+            var number = Convert.ToInt32(number1);
+            var ss = new FoWoSoft.Platform.Guid_id().GetAll();
+
+            for (int i = number; i < ss.Count; i++)
+            {
+
+                if (i > number + 10) break;
+                Task.Factory.StartNew(new Action(() =>
+                {
+                    var users = new EduWebService().GetAllUserByDPCODE(ss[i].useId.Trim());
+                    if (users.Columns.Count > 1 && users.Rows.Count > 0)
+                    {
+                        for (int j = 0; j < users.Rows.Count; j++)
+                        {
+                            CreateNewUser(users.Rows[j][0].ToString());
+                        }
+                    }
+                }));
+
+
+            }
+        }
+        public void CreateUser(string number1)
+        {
              
+                    var users = new EduWebService().GetAllUserByDPCODE(number1);
+                    if (users.Columns.Count > 1 && users.Rows.Count > 0)
+                    {
+                        for (int j = 0; j < users.Rows.Count; j++)
+                        {
+                            CreateNewUser(users.Rows[j][0].ToString());
+                        }
+                    }
+                
+
+
+           
+        }
+        public FoWoSoft.Data.Model.Users CreateNewUser(string userid)
+        {
+            var user = new FoWoSoft.Platform.Users().GetByAccount(userid);
+            if (user != null) return user;
+
             //根据UserId获取从远程用户信息
-            var userInfoEdu =new EduWebService().GetUser(userid);
+            var userInfoEdu = new EduWebService().GetUser(userid);
             if (userInfoEdu == null) return null;
             //更新用户信息
             user = new FoWoSoft.Data.Model.Users()

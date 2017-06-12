@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FoWoSoft.Platform
 {
-   public class Guid_id
+    public class Guid_id
     {
         private FoWoSoft.Data.Interface.IGuid_id dataGuid_id;
         public Guid_id()
@@ -13,13 +13,13 @@ namespace FoWoSoft.Platform
             this.dataGuid_id = Data.Factory.Factory.GetGuid_id();
         }
 
-       
+
         /// <summary>
         /// 新增
         /// </summary>
         public int Add(FoWoSoft.Data.Model.Guid_id model)
         {
-            
+
             return dataGuid_id.Add(model);
         }
         /// <summary>
@@ -42,6 +42,12 @@ namespace FoWoSoft.Platform
         public FoWoSoft.Data.Model.Guid_id Get(string useId)
         {
             return dataGuid_id.Get(useId);
+        }
+
+        public List<FoWoSoft.Data.Model.Guid_id> GetAll()
+        {
+            return dataGuid_id.GetAll();
+
         }
     }
 }

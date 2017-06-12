@@ -31,6 +31,18 @@ namespace FoWoSoft.Data.MSSQL
             return dbHelper.Execute(sql, parameters);
         }
         /// <summary>
+        ///
+        /// </summary>
+        public List<FoWoSoft.Data.Model.Guid_id> GetAll()
+        {
+            string sql = "SELECT id, GuidId, useId FROM Guid_id ";
+             
+            SqlDataReader dataReader = dbHelper.GetDataReader(sql);
+            List<FoWoSoft.Data.Model.Guid_id> List = DataReaderToList(dataReader);
+            dataReader.Close();
+            return List;
+        }
+        /// <summary>
         /// 根据主键查询一条记录
         /// </summary>
         public FoWoSoft.Data.Model.Guid_id Get(int id)

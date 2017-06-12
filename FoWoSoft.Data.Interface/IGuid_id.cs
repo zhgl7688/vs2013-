@@ -27,6 +27,8 @@ namespace  FoWoSoft.Data.Interface
         /// 根据useId查询一条记录
         /// </summary>
          FoWoSoft.Data.Model.Guid_id Get(string useId);
-      
-    }
+
+        List<FoWoSoft.Data.Model.Guid_id> GetAll();
+        
+        }
 }
