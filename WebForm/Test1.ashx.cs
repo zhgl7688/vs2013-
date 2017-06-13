@@ -19,17 +19,17 @@ namespace WebForm
             string orgina = context.Request.QueryString["orgina"];
             if (title != null)
             {
- var ss = new WebForm.EduWebService().GetUser(title);
-            if (ss!=null)
-            context.Response.Write("{\"count\":" + ss.BMBH + ",\"data\":\"" + ss.BMMC + "\"}");
-           else context.Response.Write(string.Format("没有{0}账号信息",title));
+                var ss = new WebForm.EduWebService().GetUser(title);
+                if (ss != null)
+                    context.Response.Write("{\"BMBH\":" + ss.BMBH + ",\"BMMC\":\"" + ss.BMMC + "\"}");
+                else context.Response.Write(string.Format("没有{0}账号信息", title));
             }
-            else if (all!=null)
+            else if (all != null)
             {
                 new WebForm.Common.UserService().CreateUser(all);
             }
-            else if(orgina!=null)
-            
+            else if (orgina != null)
+
             {
                 Guid first = Guid.Parse("04F12BEB-D99D-43DF-AC9A-3042957D6BDA");
                 var rist = new FoWoSoft.Platform.Organize().GetChilds(first)[0];
