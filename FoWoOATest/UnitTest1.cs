@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using System.Net;
+using WebForm;
 
 namespace FoWoOATest
 {
@@ -34,6 +35,15 @@ namespace FoWoOATest
             var ss = Convert.ToInt16(result) > 0 ? true : false;
             Assert.IsTrue(ss);
             // }
+        }
+
+    
+             [TestMethod]
+        public void OrganizeTest()
+        {
+            Guid first = Guid.Parse("04F12BEB-D99D-43DF-AC9A-3042957D6BDA");
+            var rist = new FoWoSoft.Platform.Organize().GetChilds(first)[0];
+            new EduWebService().organizeResize1("04F12BEB-D99D-43DF-AC9A-3042957D6BDA", first,1); 
         }
         [TestMethod]
         public void createallUserTest()

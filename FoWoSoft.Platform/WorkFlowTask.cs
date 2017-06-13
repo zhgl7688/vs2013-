@@ -421,17 +421,17 @@ namespace FoWoSoft.Platform
                         case 1://一人同意即可
                             var taskList1 = GetTaskList(currentTask.FlowID, currentTask.StepID, currentTask.GroupID).FindAll(p => p.Sort == currentTask.Sort && p.Type != 5);
                             //取同一部门的
-                            var usersRelations = new FoWoSoft.Platform.UsersRelation().GetAllByUserID(currentTask.SenderID);
-                            List<Guid> usersIds = new List<Guid>();
-                            foreach (var item in usersRelations)
-                            {
-                                var usersId = new FoWoSoft.Platform.Organize().GetAllUsersIdList(item.OrganizeID);
-                                if (usersId.Count > 0) usersIds.AddRange(usersId);
-                            }
+                            //var usersRelations = new FoWoSoft.Platform.UsersRelation().GetAllByUserID(currentTask.SenderID);
+                           // List<Guid> usersIds = new List<Guid>();
+                            //foreach (var item in usersRelations)
+                            //{
+                            //    var usersId = new FoWoSoft.Platform.Organize().GetAllUsersIdList(item.OrganizeID);
+                            //    if (usersId.Count > 0) usersIds.AddRange(usersId);
+                            //}
 
                             foreach (var task in taskList1)
                             {
-                                if (!usersIds.Contains(task.ID)) continue ;
+                                //if (!usersIds.Contains(task.ID)) continue ;
                                 if (task.ID != currentTask.ID)
                                 {
                                     if (task.Status.In(0, 1))
@@ -1771,7 +1771,7 @@ namespace FoWoSoft.Platform
                     title = "待处理";
                     break;
                 case 1:
-                    title = "已打开";
+                    title = "审核中";
                     break;
                 case 2:
                     title = "已完成";

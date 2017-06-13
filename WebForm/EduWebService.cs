@@ -180,7 +180,32 @@ namespace WebForm
             }
 
         }
+        FoWoSoft.Platform.UsersRelation usersRelations = new FoWoSoft.Platform.UsersRelation();
+        /// <summary>
+        /// 重建组织结构
+        /// </summary>
+        /// <param name="g">首Guid</param>
+        public void organizeResize1(string number,Guid g,int depth)
+        {
 
+            var first = borganize.Get(g);
+            var s = borganize.GetChilds(first.ID);
+             foreach (var org in s)
+            {
+                var ss = borganize.GetChilds(org.ID);
+                var uu = usersRelations.GetAllByOrganizeID(org.ID);
+                org.Type = 2;
+                org.Number = number + "," + org.ID.ToString().ToLower();
+                org.Depth = depth;
+                org.ChildsLength =ss.Count+uu.Count;
+                borganize.Update(org);
+                
+                if (ss.Count>0)
+                organizeResize1( org.Number,org.ID,depth+1);
+
+            }
+
+        }
         public Guid GetGuid(string id)
         {
 

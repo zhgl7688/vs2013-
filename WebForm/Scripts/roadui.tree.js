@@ -197,18 +197,22 @@
             if ($.isFunction(this.opts.onclick))
             {
 
-                $title.bind("click", function ()
+                //$title.bind("click", function ()
+                $ul.bind("click", function ()
                 {
-                    var jid = $(this).parent().parent().data("json");
+                    //var jid = $(this).parent().parent().data("json");
+                    var jid = $(this).parent().data("json");
                     instance.opts.onclick(jid);
                 });
             }
             if ($.isFunction(this.opts.ondblclick))
             {
 
-                $title.bind("dblclick", function ()
+                //$title.bind("dblclick", function ()
+                $ul.bind("dblclick", function ()
                 {
-                    var jid = $(this).parent().parent().data("json");
+                    //var jid = $(this).parent().parent().data("json");
+                    var jid = $(this).parent().data("json");
                     instance.opts.ondblclick(jid);
                 });
             }
