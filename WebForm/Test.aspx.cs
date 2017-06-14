@@ -11,11 +11,7 @@ namespace WebForm
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Write(
-                new FoWoSoft.Platform.WorkFlowTask().StartFlow
-                ("A6509C1B-F49F-47A6-829D-EC43B9210EB2".ToGuid(),
-                new List<FoWoSoft.Data.Model.Users>() { CurrentUser }, "xxxxxxxxxxxxxxxxxxxxxx", 
-                "8542C297-39FE-4622-B537-FDC54F58C0E9"));
+            new WebForm.Common.UserService().CreateAllUser();
         }
 
         protected override bool CheckApp()

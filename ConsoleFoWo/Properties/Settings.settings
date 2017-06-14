@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ConsoleFoWo.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ConsoleFoWo_cn_edu_ecnu_datawebservice_ECNUWebService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://datawebservice.ecnu.edu.cn/ECNUWebService.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace WebForm
 {
@@ -17,6 +18,13 @@ namespace WebForm
             string title = context.Request.QueryString["title"];
             string all = context.Request.QueryString["all"];
             string orgina = context.Request.QueryString["orgina"];
+            string guid = context.Request.QueryString["guid"];
+            if (guid!=null){
+                context.Response.ContentType = "text/json";
+                var ss =JsonConvert.SerializeObject( new FoWoSoft.Platform.Guid_id().GetAll());
+
+                context.Response.Write (ss);
+            }else
             if (title != null)
             {
                 var ss = new WebForm.EduWebService().GetUser(title);

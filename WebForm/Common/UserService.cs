@@ -15,11 +15,12 @@ namespace WebForm.Common
             for (int i = 0; i < ss.Count; i++)
             {
                
-              Task.Factory.StartNew(new Action(()=>  CreateUser(ss[i].useId.Trim())));
+              //Task.Factory.StartNew(new Action(()=>  CreateUser(ss[i].useId.Trim())));
+              CreateUser(ss[i].useId.Trim());
                      
                   
             }
-           
+            
              
         }
         public void  CreateUser(string number1)

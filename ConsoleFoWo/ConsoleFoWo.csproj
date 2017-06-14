@@ -32,8 +32,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,11 +56,106 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EduUser.cs" />
+    <Compile Include="FowoModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FowoModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FowoModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FowoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FowoModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FowoModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Guid_id.cs">
+      <DependentUpon>FowoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Organize.cs">
+      <DependentUpon>FowoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>FowoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsersRelation.cs">
+      <DependentUpon>FowoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsersRole.cs">
+      <DependentUpon>FowoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\cn.edu.ecnu.datawebservice\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="FowoModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FowoModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="FowoModel.edmx.diagram">
+      <DependentUpon>FowoModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
+    <None Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\cn.edu.ecnu.datawebservice\ECNUWebService.wsdl" />
+    <None Include="Web References\cn.edu.ecnu.datawebservice\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FowoModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FowoModel.edmx</DependentUpon>
+      <LastGenOutput>FowoModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="FowoModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FowoModel.edmx</DependentUpon>
+      <LastGenOutput>FowoModel.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\cn.edu.ecnu.datawebservice\ECNUWebService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://datawebservice.ecnu.edu.cn/ECNUWebService.asmx%3fop=PUBLIC_IDC_GET_JZGJBXX">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\cn.edu.ecnu.datawebservice\</RelPath>
+      <UpdateFromURL>http://datawebservice.ecnu.edu.cn/ECNUWebService.asmx%3fop=PUBLIC_IDC_GET_JZGJBXX</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ConsoleFoWo_cn_edu_ecnu_datawebservice_ECNUWebService</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

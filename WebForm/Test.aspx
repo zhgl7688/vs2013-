@@ -29,7 +29,24 @@
 </body>
 </html>
 <script>
-    $.get("", function (data) {
-
-    })
+    //var datat;
+    //$.get("test1.ashx?guid=guid", function (data) {
+    //    datat = data;
+    //    console.log(datat[0].useId);
+    //   var id= setInterval(function(){
+    //        i++;
+    //        console.log(i);
+    //        if (i > j+51) window.clearInterval(id);
+    //       window.open( "http://202.120.85.70/test1.ashx?all=" + datat[i].useId,'_blank');
+    //    },3000);
+    //})
+    //var i = 50;
+    //var j = i;
+    //function jump() {
+    //    i++;
+    //    console.log(i);
+    //   // window.open( "http://202.120.85.70/test1.ashx?all=" + datat[i].useId,'_blank');
+        
+    //}
+    
 </script>
