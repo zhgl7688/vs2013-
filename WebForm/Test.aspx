@@ -29,5 +29,7 @@
 </body>
 </html>
 <script>
- 
+    $.get("", function (data) {
+
+    })
 </script>

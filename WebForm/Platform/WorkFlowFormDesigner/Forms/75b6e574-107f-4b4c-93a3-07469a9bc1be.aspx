@@ -81,25 +81,35 @@
     var ReasonArray = ["校内", "国内异地", "国外"];
     var UserIDArray = ["论坛", "报告", "讲座", "答辩", "例会", "其他"];
     var meetinfo = null;
+    var memberId = null;
+    var currentStep = -1;
     <%if (meet != null)
       {  %>
     meetinfo = {
         MeetTimes: '<%=meet.MeetTimes%>', MeetId: '<%=meet.MeetId%>', AdminId: '<%=meet.AdminId%>'
        };
     <%}%>
-    
-   
- 
+    <%if (StepID == "04dbab0d-e751-4579-8007-8f9f59683a24")
+    {
+        var currentTask = BWorkFlowTask.Get(Guid.Parse(TaskID));
+        %>
+    currentStep = 4;
+      memberId ="<%=currentTask.SenderID%>"
+        <%}%>
+
+
+
+
 </script>
 <style>
     .tableleft {
-        width: 130px;
-    }
+            width: 130px;
+        }
 
     .tableDate {
-        width: 100px;
-        text-align: center;
-    }
+            width: 100px;
+            text-align: center;
+        }
 </style>
 <p style="text-align: center;margin-top:50px"><span style="font-size: 24px;"><strong></strong></span></p>
 <p style="text-align: center;"><span style="font-size: 24px;"><strong><span style="font-size: 18px;">视 频 会 议 </span></strong></span></p>

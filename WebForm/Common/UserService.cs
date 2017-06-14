@@ -8,31 +8,21 @@ namespace WebForm.Common
 {
     public class UserService
     {
-        public void CreateAllUser(string number1)
+        public void CreateAllUser()
         {
-            var number = Convert.ToInt32(number1);
+            
             var ss = new FoWoSoft.Platform.Guid_id().GetAll();
-
-            for (int i = number; i < ss.Count; i++)
+            for (int i = 0; i < ss.Count; i++)
             {
-
-                if (i > number + 10) break;
-                Task.Factory.StartNew(new Action(() =>
-                {
-                    var users = new EduWebService().GetAllUserByDPCODE(ss[i].useId.Trim());
-                    if (users.Columns.Count > 1 && users.Rows.Count > 0)
-                    {
-                        for (int j = 0; j < users.Rows.Count; j++)
-                        {
-                            CreateNewUser(users.Rows[j][0].ToString());
-                        }
-                    }
-                }));
-
-
+               
+              Task.Factory.StartNew(new Action(()=>  CreateUser(ss[i].useId.Trim())));
+                     
+                  
             }
+           
+             
         }
-        public void CreateUser(string number1)
+        public void  CreateUser(string number1)
         {
              
                     var users = new EduWebService().GetAllUserByDPCODE(number1);

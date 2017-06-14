@@ -44,7 +44,10 @@ function flowSend(isSubmit) {
         saveData('flowSend');
     }
     else {
-   
+        //alert(currentStep);
+        if (currentStep == 4) {
+            confirm4(memberId) 
+        }else
         if ( meetinfo != null) {
             confirmt(meetinfo)
         }else{
@@ -62,6 +65,19 @@ function confirmt(meetinfo) {
 
     opts.steps.push({ id: "88b44e40-e9eb-44f9-9f2b-18b0aae70a5a", member: member });
  
+    this.formSubmit(opts);
+
+}
+function confirm4(memberId) {
+    var opts = {};
+    opts.type = "submit";
+    opts.steps = [];
+    var isSubmit = true;
+
+    var member = "u_" + memberId;
+
+    opts.steps.push({ id: "3DAF19F5-CE5E-4773-A783-581500722498", member: member });
+
     this.formSubmit(opts);
 
 }

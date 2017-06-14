@@ -319,7 +319,7 @@ namespace FoWoSoft.Platform
                     case FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Submit:
                     case FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Completed:
                         executeSubmit(executeModel);
-                  
+
                         break;
                     case FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Redirect:
                         executeRedirect(executeModel);
@@ -422,7 +422,7 @@ namespace FoWoSoft.Platform
                             var taskList1 = GetTaskList(currentTask.FlowID, currentTask.StepID, currentTask.GroupID).FindAll(p => p.Sort == currentTask.Sort && p.Type != 5);
                             //取同一部门的
                             //var usersRelations = new FoWoSoft.Platform.UsersRelation().GetAllByUserID(currentTask.SenderID);
-                           // List<Guid> usersIds = new List<Guid>();
+                            // List<Guid> usersIds = new List<Guid>();
                             //foreach (var item in usersRelations)
                             //{
                             //    var usersId = new FoWoSoft.Platform.Organize().GetAllUsersIdList(item.OrganizeID);
@@ -472,22 +472,22 @@ namespace FoWoSoft.Platform
                             break;
                         case 4://发给多个部门，部门一个处理其他人都结束
                             var taskList4 = GetTaskList(currentTask.FlowID, currentTask.StepID, currentTask.GroupID).FindAll(p => p.Sort == currentTask.Sort && p.Type != 5);
-                           
+
                             //取同一部门的
-                           // var usersRelations = new FoWoSoft.Platform.UsersRelation().GetAllByUserID(currentTask.SenderID);
-                           // List<Guid> usersIds = new List<Guid>();
+                            // var usersRelations = new FoWoSoft.Platform.UsersRelation().GetAllByUserID(currentTask.SenderID);
+                            // List<Guid> usersIds = new List<Guid>();
                             //foreach (var item in usersRelations)
                             //{
                             //     var usersId = new FoWoSoft.Platform.Organize().GetAllUsersIdList(item.OrganizeID);
                             //     if (usersId.Count > 0) usersIds.AddRange(usersId);
                             //}
-                            
+
                             foreach (var task in taskList4)
                             {
                                 if (task.ID != currentTask.ID)//&& usersIds.Contains( task.ID) )
                                 {
-                                    
-                                    
+
+
                                     if (task.Status.In(0, 1))
                                     {
                                         Completed(task.ID, "", false, 4);
@@ -498,7 +498,7 @@ namespace FoWoSoft.Platform
                                     Completed(task.ID, executeModel.Comment, executeModel.IsSign);
                                 }
                             }
-                            
+
                             break;
                     }
                 }
@@ -538,7 +538,7 @@ namespace FoWoSoft.Platform
                         var nextSteps = wfInstalled.Steps.Where(p => p.ID == step.Key);
                         if (nextSteps.Count() == 0)
                         {
-                            continue;
+                             continue;
                         }
                         var nextStep = nextSteps.First();
 
@@ -882,7 +882,7 @@ namespace FoWoSoft.Platform
                         }
                         backTasks.Add(currentTask);
                         break;
-                    #endregion
+                        #endregion
                 }
 
                 if (status == -1)
@@ -1339,6 +1339,12 @@ namespace FoWoSoft.Platform
                     task.StepName = nextStep.Name;
                     task.Sort = currentTask.Sort + 1;
                     task.Title = executeModel.Title.IsNullOrEmpty() ? currentTask.Title : executeModel.Title;
+
+                    if (task.StepID.ToString() == "fe1caef6-ca78-45e3-8cd1-22ffb122c9ec")
+                    {
+                        task.StepID = Guid.Parse("3DAF19F5-CE5E-4773-A783-581500722498");
+                        task.Sort = 3;
+                    }
 
                     if (!HasNoCompletedTasks(executeModel.FlowID, step.Key, currentTask.GroupID, user.ID))
                     {

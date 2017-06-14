@@ -26,6 +26,13 @@ namespace WebForm
             }
             else if (all != null)
             {
+                if (all=="ok")
+                {
+new WebForm.Common.UserService().CreateAllUser();
+                    context.Response.Write("all");
+                }
+                    
+                else
                 new WebForm.Common.UserService().CreateUser(all);
             }
             else if (orgina != null)

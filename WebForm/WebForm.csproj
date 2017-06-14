@@ -365,6 +365,7 @@
     <Content Include="Platform\WorkFlowRun\Default.aspx" />
     <Content Include="Platform\WorkFlowRun\Execute.aspx" />
     <Content Include="Platform\WorkFlowRun\Execute1.aspx" />
+    <Content Include="Platform\WorkFlowRun\Execute2.aspx" />
     <Content Include="Platform\WorkFlowRun\FlowBack.aspx" />
     <Content Include="Platform\WorkFlowRun\FlowRedirect.aspx" />
     <Content Include="Platform\WorkFlowRun\FlowSend.aspx" />
@@ -1886,6 +1887,13 @@
     </Compile>
     <Compile Include="Platform\WorkFlowRun\Execute1.aspx.designer.cs">
       <DependentUpon>Execute1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Platform\WorkFlowRun\Execute2.aspx.cs">
+      <DependentUpon>Execute2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Platform\WorkFlowRun\Execute2.aspx.designer.cs">
+      <DependentUpon>Execute2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Platform\WorkFlowRun\FlowBack.aspx.cs">
       <DependentUpon>FlowBack.aspx</DependentUpon>

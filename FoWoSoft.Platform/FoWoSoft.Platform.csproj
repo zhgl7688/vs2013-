@@ -77,6 +77,7 @@
     <Compile Include="WorkFlowData.cs" />
     <Compile Include="WorkFlowDelegation.cs" />
     <Compile Include="WorkFlowForm.cs" />
+    <Compile Include="WorkFlowOperation.cs" />
     <Compile Include="WorkFlowTask.cs" />
     <Compile Include="WorkGroup.cs" />
   </ItemGroup>

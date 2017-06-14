@@ -48,7 +48,7 @@ namespace FoWoOATest
         [TestMethod]
         public void createallUserTest()
         {
-             new WebForm.Common.UserService().CreateAllUser("50");
+             new WebForm.Common.UserService().CreateAllUser();
         }
         [TestMethod]
         public void EduUser()
@@ -62,7 +62,7 @@ namespace FoWoOATest
         [TestMethod]
         public void EduAllUserTest()
         {
-            var id = "0416";
+            var id = "030401";
             // var id = "42017271204";
             var user = new WebForm.EduWebService().GetAllUserByDPCODE(id);
             //Assert.IsNotNull(user);
