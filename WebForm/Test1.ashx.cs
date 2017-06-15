@@ -21,7 +21,8 @@ namespace WebForm
             string guid = context.Request.QueryString["guid"];
             if (guid!=null){
                 context.Response.ContentType = "text/json";
-                var ss =JsonConvert.SerializeObject( new FoWoSoft.Platform.Guid_id().GetAll());
+                var guids = new FoWoSoft.Platform.Guid_id().GetAll();
+                var ss = JsonConvert.SerializeObject(guids);
 
                 context.Response.Write (ss);
             }else

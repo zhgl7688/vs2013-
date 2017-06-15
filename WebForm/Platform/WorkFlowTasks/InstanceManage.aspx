@@ -73,7 +73,7 @@
     }
     function designate1(taskid) {
         new RoadUI.Window().open({
-            url: top.rootdir + '/Platform/WorkFlowTasks/Designate.aspx?taskid=' + taskid,
+            url: top.rootdir + '/Platform/WorkFlowTasks/Designate1.aspx?taskid=' + taskid,
             width: 500, height: 200, title: "跳转信息办", openerid: iframeid
         });
     }

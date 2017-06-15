@@ -10,34 +10,44 @@ namespace WebForm.Common
     {
         public void CreateAllUser()
         {
-            
+
             var ss = new FoWoSoft.Platform.Guid_id().GetAll();
-            for (int i = 0; i < ss.Count; i++)
+            var kk = new FoWoSoft.Platform.UsersRelation().GetAll();
+            var ll = new FoWoSoft.Platform.Log().GetAll();
+
+            for (int i = ss.Count - 1; i > 0; i--)
             {
+
+
+                var useid = ss[i].useId.Trim();
                
-              //Task.Factory.StartNew(new Action(()=>  CreateUser(ss[i].useId.Trim())));
-              CreateUser(ss[i].useId.Trim());
-                     
-                  
+                var or = ll.FirstOrDefault(s => s.Contents == useid);
+                if (or != null) continue;
+                    //Task.Factory.StartNew(new Action(() => CreateUser(useid)));
+             CreateUser(useid);
+
+
             }
-            
-             
+
+
         }
-        public void  CreateUser(string number1)
+        public void CreateUser(string number1)
         {
-             
-                    var users = new EduWebService().GetAllUserByDPCODE(number1);
-                    if (users.Columns.Count > 1 && users.Rows.Count > 0)
-                    {
-                        for (int j = 0; j < users.Rows.Count; j++)
-                        {
-                            CreateNewUser(users.Rows[j][0].ToString());
-                        }
-                    }
-                
+
+            var users = new EduWebService().GetAllUserByDPCODE(number1);
+            FoWoSoft.Platform.Log.Add1( users.Rows.Count.ToString(),number1, FoWoSoft.Platform.Log.Types.其它分类);
+            
+            if (users.Columns.Count > 1 && users.Rows.Count > 0)
+            {
+                for (int j = 0; j < users.Rows.Count; j++)
+                {
+                    CreateNewUser(users.Rows[j][0].ToString());
+                }
+            }
 
 
-           
+
+
         }
         public FoWoSoft.Data.Model.Users CreateNewUser(string userid)
         {

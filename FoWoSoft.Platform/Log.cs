@@ -108,6 +108,35 @@ namespace FoWoSoft.Platform
             Add(log);
         }
 
+        /// <summary>
+        /// 记录日志
+        /// </summary>
+        /// <param name="err"></param>
+        public static void Add1(string title, string contents, Types type = Types.其它分类, string oldXML = "", string newXML = "", FoWoSoft.Data.Model.Users user = null)
+        {
+            if (user == null)
+            {
+               // user = Platform.Users.CurrentUser;
+            }
+            FoWoSoft.Data.Model.Log log = new FoWoSoft.Data.Model.Log();
+            log.Contents = contents;
+            log.ID = Guid.NewGuid();
+            log.IPAddress = "";
+            log.Others = "";// string.Format("操作系统：{0} 浏览器：{1}", FoWoSoft.Utility.Tools.GetOSName(), FoWoSoft.Utility.Tools.GetBrowse());
+            log.Title =  title;
+            log.OldXml = "";// oldXML.IsNullOrEmpty() ? null : oldXML;
+            log.NewXml ="";// newXML.IsNullOrEmpty() ? null : newXML;
+            log.Type = "";//type.ToString();
+            log.URL = ""; //System.Web.HttpContext.Current.Request.Url.ToString();
+            if (user != null)
+            {
+                log.UserID = user.ID;
+                log.UserName = user.Name;
+            }
+            log.WriteTime = FoWoSoft.Utility.DateTimeNew.Now;
+            Add(log);
+        }
+
         public static void Add(Exception err)
         {
             Add(err.Message, string.Concat(err.Source, err.StackTrace), Types.系统错误);

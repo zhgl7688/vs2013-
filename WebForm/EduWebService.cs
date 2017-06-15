@@ -53,12 +53,15 @@ namespace WebForm
             return user;
 
         }
+        public   void ss(string qq){
+            GetAllUserByDPCODE(qq);
+        }
         /// <summary>
         /// 根据部门id获取部门下用户信息
         /// </summary>
         /// <param name="useId"></param>
         /// <returns></returns>
-        public DataTable GetAllUserByDPCODE(string DPCODE)
+        public  DataTable GetAllUserByDPCODE(string DPCODE)
         {
             EduUser user = null;
             header.Username = "PUB_USER";

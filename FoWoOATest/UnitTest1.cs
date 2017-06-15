@@ -62,11 +62,13 @@ namespace FoWoOATest
         [TestMethod]
         public void EduAllUserTest()
         {
-            var id = "030401";
+            var id = "0301"; 
             // var id = "42017271204";
-            var user = new WebForm.EduWebService().GetAllUserByDPCODE(id);
+            new WebForm.EduWebService().ss(id);
+
+            // new WebForm.EduWebService().GetAllUserByDPCODE(id);
             //Assert.IsNotNull(user);
-            Assert.AreEqual("", user);
+            //Assert.AreEqual("", user);
         }
 
 

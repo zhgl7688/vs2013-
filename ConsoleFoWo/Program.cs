@@ -13,23 +13,31 @@ namespace ConsoleFoWo
     {
         static ECNUWebService ecnuweb = new ECNUWebService();
         static MySoapHeader header = new MySoapHeader();
+    static  List<  Users> userlist = new FoWoOAEntities().Users.ToList();
+          
         static void Main(string[] args)
         {
             Console.WriteLine("-------人员重构---------");
             ecnuweb.MySoapHeaderValue = header; int ssk;
             var ss = new FoWoOAEntities().Guid_id.ToList();
+            var kk = new FoWoOAEntities().UsersRelation.ToList();
             for (int i = 0; i < ss.Count; i++)
-            {
-              
-                string userID = ss[i].useId.Trim();
-  Console.WriteLine("-------人员重构{0}---------", userID);
- if (userID=="0206")
-      ssk=0;
-                CreateUser(userID);
+			{
+			     string userID = ss[i].useId.Trim();
+               // Console.WriteLine("-------人员重构{0}---------", userID);
+                if (userID == "0206")
+                    ssk = 0;
 
-              //  Console.WriteLine("-------人员重构{0}---------",userID);
+                var or = kk.FirstOrDefault(s => s.OrganizeID.ToString() == userID);
+                if (or != null) continue;
+                Task.Factory.StartNew(new Action(() => CreateUser(userID)));
+                //  CreateUser(userID);
+
+                //  Console.WriteLine("-------人员重构{0}---------",userID);
 
             }
+            Task.WaitAll();
+            Console.Read();
             Console.WriteLine("-------组织重构---------");
             using (var entity = new FoWoOAEntities())
             {
@@ -65,13 +73,18 @@ namespace ConsoleFoWo
             }
 
         }
+        static int i = 0;
         public static void CreateUser(string number1)
         {
 
             var users = GetAllUserByDPCODE(number1);
-            Console.WriteLine("-------CreateUser{0}---------", users.Rows.Count);
-            CreateNewUser(users);
-
+          //  Console.WriteLine("-------CreateUser{0}------{1}---", users.Rows.Count,i);
+         //   CreateNewUser(users);
+            if (users.Columns.Count > 1 )
+            {
+                Console.WriteLine("-------CreateUser{0}------{1}---", users.Rows.Count, i);
+                i += users.Rows.Count;
+            }
         }
         public static DataTable GetAllUserByDPCODE(string DPCODE)
         {
@@ -104,14 +117,14 @@ namespace ConsoleFoWo
 
         public static void CreateNewUser(DataTable users)
         {
-            var userlist = new FoWoOAEntities().Users.ToList();
-            using (var entity = new FoWoOAEntities())
-            {
+          
                 if (users.Columns.Count > 1 && users.Rows.Count > 0)
                 {
+  using (var entity = new FoWoOAEntities())
+            {
                     for (int j = 0; j < users.Rows.Count; j++)
                     {
-                      
+
                         var account = users.Rows[j][0].ToString();
                         Console.WriteLine("-------CreateNewUser{0}---------", account);
 

@@ -87,6 +87,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Files\UserSigns\eb03262c-ab60-4bc6-a4c0-96e66a4229fe.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
     <Content Include="Images\ico\2012080111634.png" />
     <Content Include="Images\ico\2012080404391.png" />
     <Content Include="Images\ico\2012092109942.png" />
@@ -381,6 +382,7 @@
     <Content Include="Platform\WorkFlowSign\Default.aspx" />
     <Content Include="Platform\WorkFlowTasks\CompletedList.aspx" />
     <Content Include="Platform\WorkFlowTasks\Designate.aspx" />
+    <Content Include="Platform\WorkFlowTasks\Designate1.aspx" />
     <Content Include="Platform\WorkFlowTasks\Detail.aspx" />
     <Content Include="Platform\WorkFlowTasks\DetailSubFlow.aspx" />
     <Content Include="Platform\WorkFlowTasks\Instance.aspx" />
@@ -1297,6 +1299,9 @@
     <Compile Include="ashx\GetMeetHandler.ashx.cs">
       <DependentUpon>GetMeetHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2005,6 +2010,13 @@
     </Compile>
     <Compile Include="Platform\WorkFlowTasks\Designate.aspx.designer.cs">
       <DependentUpon>Designate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Platform\WorkFlowTasks\Designate1.aspx.cs">
+      <DependentUpon>Designate1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Platform\WorkFlowTasks\Designate1.aspx.designer.cs">
+      <DependentUpon>Designate1.aspx</DependentUpon>
     </Compile>
     <Compile Include="Platform\WorkFlowTasks\Detail.aspx.cs">
       <DependentUpon>Detail.aspx</DependentUpon>
