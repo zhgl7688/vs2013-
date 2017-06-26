@@ -95,6 +95,27 @@ namespace WebForm.Common
                 return cms;
             }
         }
+        public object Roomis(FoWoSoft.Data.Model.WorkFlowExecute.Execute execute)
+        {
+            var meetInfo = new FoWoSoft.Platform.MeetInfo().GetByTemp3(execute.InstanceID);
+            if (meetInfo == null) return null;
+            string roomisId = meetInfo.temp1;//会议id;
+            if (execute.ExecuteType == FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Back && (
+          execute.StepID == Guid.Parse("3DAF19F5-CE5E-4773-A783-581500722498") ||
+         execute.StepID == Guid.Parse("B1F08F44-4692-4307-82FA-32C6026201A3")))
+            {
+                put_reject(roomisId, execute.Sender.Account);
+            }
+            else if (execute.ExecuteType == FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Completed)
+            {
+                put_approve(roomisId, execute.Sender.Account);
+            }
+            else
+            {
+                SendStep(roomisId, execute.InstanceID);
+            }
+            return 1;
+        }
         public object Roomis(string installId, RoomisOperation operation)
         {
             var meetInfo = new FoWoSoft.Platform.MeetInfo().GetByTemp3(installId);
@@ -119,17 +140,7 @@ namespace WebForm.Common
             return put(eventId, approverId);
         }
 
-        /// <summary>
-        /// 会议审核拒绝
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <param name="apperot"></param>
-        /// <returns></returns>
-        public static string put_reject(string eventId, string apperot)
-        {
-            string address = "api/booking/events/{0}/reject";
-            return put(eventId, apperot, address);
-        }
+
         /// <summary>
         /// 每一步的会议审核
         /// </summary>
@@ -138,65 +149,21 @@ namespace WebForm.Common
         /// <returns></returns>
         public static string SendStep(string eventId, string install)
         {
-            FoWoSoft.Platform.Log.Add(string.Format("发送流程({0})", eventId), install, FoWoSoft.Platform.Log.Types.其它分类);
-
-            string address = "api/booking/events/{0}/approval";
             var tasks = new FoWoSoft.Platform.WorkFlowTask().GetAll();
-            var meet = new FoWoSoft.Platform.TempTestMeet().Get(Guid.Parse(install));
-            int count = meet.flowcompleted == 1 ? 1 : 2;
-            var installTasks = tasks.Where(s => s.InstanceID.ToString().Equals(install,StringComparison.OrdinalIgnoreCase)).OrderByDescending(s => s.Sort).Take(count);
-        
+            var installTasks = tasks.Where(s => s.InstanceID.ToString().Equals(install, StringComparison.OrdinalIgnoreCase)).OrderByDescending(s => s.Sort).Take(2);
+            string[] remarks = new string[] { "待处理", "打开", "中间完成", "退回", "他人已处理", "他人已退回" };
             foreach (var item in installTasks)
             {
                 var approver = new FoWoSoft.Platform.Users().Get(item.ReceiveID).Account;
-                var status = "";
-                var remarks = "";
-                if (installTasks.Count() == 1) item.Status = -1;
-                switch (item.Status)
-                {
-                    case 0:
-                        status = "PENDING";
-                        remarks = "待处理";
-                        break;
-                    case 1:
-                        status = "PENDING";
-                        remarks = "打开";
-                        break;
-                    case 2:
-                        status = "PENDING";
-                        remarks = "中间完成";
-                        break;
-                    case 3:
-                        status = "REJECTED";
-                        remarks = "退回";
-                        break;
-                    case 4:
-                        status = "PENDING";
-                        remarks = "他人已处理";
-                        break;
-                    case 5:
-                        status = "PENDING";
-                        remarks = "他人已退回";
-                        break;
-                    case -1:
-                        status = "APPROVED";
-                        remarks = "完成";
-                        break;
-                    default:
-                        status = "PENDING";
-                        remarks = "";
-                        break;
-                }
-               // 状态 0 待处理 1打开 2完成 3退回 4他人已处理 5
+                var remark = (item.Status > -1 && item.Status < 6) ? remarks[item.Status] : "";
                 string data = JsonConvert.SerializeObject(new
-                {
-                    approver = approver,
-                    status = status,
-                    remarks=remarks
-                });
-                FoWoSoft.Platform.Log.Add(string.Format("发送流程({0})", eventId+address+data), address, FoWoSoft.Platform.Log.Types.其它分类);
-
-                put1(eventId, address, data);
+              {
+                  approver = approver,
+                  status = "PENDING",
+                  remarks = remark
+              });
+                string address = "api/booking/events/{0}/approval";
+                Put_Roomis(eventId, address, data);
             }
             return "1";
 
@@ -209,21 +176,40 @@ namespace WebForm.Common
         /// <returns></returns>
         public static string put_approve(string eventId, string apperot)
         {
-            string address = "api/booking/events/{0}/approve";
-            return put(eventId, apperot, address);
-
-        }
-        private static string put(string eventId, string apperot, string address)
-        {
+            string address = "api/booking/events/{0}/approval";
 
             string data = JsonConvert.SerializeObject(new
             {
-                approver = apperot
+                approver = apperot,
+                status = "APPROVED",
+                remarks = "完成"
             });
-            return put1(eventId, address, data);
+
+            return Put_Roomis(eventId, address, data);
+
         }
-        public static string put1(string eventId, string address, string data)
+        /// <summary>
+        /// 会议审核拒绝
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="apperot"></param>
+        /// <returns></returns>
+        public static string put_reject(string eventId, string apperot)
         {
+            string address = "api/booking/events/{0}/approval";
+            string data = JsonConvert.SerializeObject(new
+            {
+                approver = apperot,
+                status = "REJECTED",
+                remarks = "退回"
+            });
+            return Put_Roomis(eventId, address, data);
+        }
+       
+        public static string Put_Roomis(string eventId, string address, string data)
+        {
+             FoWoSoft.Platform.Log.Add(string.Format("发送流程({0})", eventId + data), data, FoWoSoft.Platform.Log.Types.其它分类);
+               
             var method = string.Format(address, eventId);
 
             string Url = meetUrl;

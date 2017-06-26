@@ -104,7 +104,7 @@ namespace WebForm.Platform.WorkFlowRun
 
  FoWoSoft.Platform.Log.Add(string.Format("发送流程({0})", execute.InstanceID.ToString()), "roomis", FoWoSoft.Platform.Log.Types.其它分类);
 
-            new WebForm.Common.Meet().Roomis(execute.InstanceID.ToString(), WebForm.Common.RoomisOperation.put_step);
+            new WebForm.Common.Meet().Roomis(execute);
             //   }
 
         }
