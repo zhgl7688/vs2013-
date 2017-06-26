@@ -744,19 +744,36 @@ namespace FoWoSoft.Data.MSSQL
 
         public int RoomisCreate(FoWoSoft.Data.Model.WorkFlowTask task)
         {
-
+            Guid ID = Guid.NewGuid();
+            Guid GroupID = Guid.NewGuid();
             var sql = @"INSERT INTO WorkFlowTask(ID, PrevID, PrevStepID, FlowID, StepID, StepName,
 InstanceID, GroupID, Type, Title, SenderID, SenderName, SenderTime, ReceiveID, ReceiveName, ReceiveTime,     Status,  Sort )
 VALUES  (   @ID ,'00000000-0000-0000-0000-000000000000' ,'00000000-0000-0000-0000-000000000000' ,'2EA49481-3EE2-4805-AB85-53604D696976','307552C3-547D-445B-9C6B-E42737568B10','发起视频会议',
-@InstanceID, @GroupID ,'0',@Title,@SenderID,@SenderName,GETDATE(), @SenderID,@SenderName,GETDATE(),  0 ,1)";
+@InstanceID, @GroupID ,'0',@Title,@SenderID,@SenderName,GETDATE(), @SenderID,@SenderName,GETDATE(),  2 ,1)";
             var parameters = new SqlParameter[]{
-                new SqlParameter("@ID",   Guid.NewGuid()),
+                new SqlParameter("@ID",  ID),
                 new SqlParameter("@InstanceID",task.InstanceID ),
-                new SqlParameter("@GroupID",Guid.NewGuid() ),
+                new SqlParameter("@GroupID",GroupID ),
                 new SqlParameter("@Title",  task.Title ),
                 new SqlParameter("@SenderID", task.SenderID),
                 new SqlParameter("@SenderName", task.SenderName)  };
-           return new DBHelper().Execute(sql, parameters);
+            new DBHelper().Execute(sql, parameters);
+            var sql1 = @"INSERT INTO WorkFlowTask(ID, PrevID, PrevStepID, FlowID, StepID, StepName,
+InstanceID, GroupID, Type, Title, SenderID, SenderName, SenderTime, ReceiveID, ReceiveName, ReceiveTime,     Status,  Sort )
+VALUES  (   @ID ,@PrevID ,'307552C3-547D-445B-9C6B-E42737568B10' ,'2EA49481-3EE2-4805-AB85-53604D696976','88B44E40-E9EB-44F9-9F2B-18B0AAE70A5A','会场管理员',
+@InstanceID, @GroupID ,'0',@Title,@SenderID,@SenderName,GETDATE(), @ReceiveID,@ReceiveName,GETDATE(),  0 ,2)";
+            var parameters1 = new SqlParameter[]{
+                new SqlParameter("@ID",   Guid.NewGuid()),
+                 new SqlParameter("@PrevID",  ID),
+                  new SqlParameter("@InstanceID",task.InstanceID ),
+                new SqlParameter("@GroupID",GroupID ),
+                new SqlParameter("@Title",  task.Title ),
+                new SqlParameter("@SenderID", task.SenderID),
+                new SqlParameter("@SenderName", task.SenderName)         ,
+                new SqlParameter("@ReceiveID", task.ReceiveID),
+                new SqlParameter("@ReceiveName", task.ReceiveName)
+            };
+            return new DBHelper().Execute(sql1, parameters1);
         }
     }
 }

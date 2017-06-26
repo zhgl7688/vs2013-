@@ -36,7 +36,7 @@ namespace WebForm.Platform.WorkFlowTasks
                     //    string userNames = sb.ToString().TrimEnd(',');
                     //    Page.ClientScript.RegisterStartupScript(Page.GetType(), "ok", "alert('已成功指派给：" + userNames + "!');new RoadUI.Window().reloadOpener();new RoadUI.Window().close();", true);
 
-                    string user = "0B30F662-B3CB-4CDE-B9DD-9E024405579C";// Request.Form["user"];
+                    string user =   Request.Form["user"];
                     string openerid = Request.QueryString["openerid"];
 
                     FoWoSoft.Platform.WorkFlowTask btask = new FoWoSoft.Platform.WorkFlowTask();

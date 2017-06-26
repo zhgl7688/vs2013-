@@ -20,7 +20,8 @@ namespace WebForm.Common
     public enum RoomisOperation
     {
         put_reject,
-        put_approve
+        put_approve,
+        put_step
     }
     public class Meet
     {
@@ -94,19 +95,25 @@ namespace WebForm.Common
                 return cms;
             }
         }
-        public  object Roomis(string installId, RoomisOperation operation)
+        public object Roomis(string installId, RoomisOperation operation)
         {
             var meetInfo = new FoWoSoft.Platform.MeetInfo().GetByTemp3(installId);
             if (meetInfo == null) return null;
-            string eventId = meetInfo.temp1;
+            string eventId = meetInfo.temp1;//会议id;
             string approverId = meetInfo.AdminId;// FoWoSoft.Platform.Users.CurrentUser.Account;
             Func<string, string, object> put = null;
             switch (operation)
             {
-                case RoomisOperation.put_reject: put = put_reject;
+                case RoomisOperation.put_reject:
+                    put = put_reject;
                     break;
-                case RoomisOperation.put_approve: put = put_approve;
+                case RoomisOperation.put_approve:
+                    put = put_approve;
                     break;
+                case RoomisOperation.put_step:
+                    return SendStep(eventId, installId);
+
+
             }
 
             return put(eventId, approverId);
@@ -118,10 +125,81 @@ namespace WebForm.Common
         /// <param name="eventId"></param>
         /// <param name="apperot"></param>
         /// <returns></returns>
-        public static string put_reject( string eventId, string apperot)
+        public static string put_reject(string eventId, string apperot)
         {
             string address = "api/booking/events/{0}/reject";
-            return put(eventId, apperot,address);
+            return put(eventId, apperot, address);
+        }
+        /// <summary>
+        /// 每一步的会议审核
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="apperot"></param>
+        /// <returns></returns>
+        public static string SendStep(string eventId, string install)
+        {
+            FoWoSoft.Platform.Log.Add(string.Format("发送流程({0})", eventId), install, FoWoSoft.Platform.Log.Types.其它分类);
+
+            string address = "api/booking/events/{0}/approval";
+            var tasks = new FoWoSoft.Platform.WorkFlowTask().GetAll();
+            var meet = new FoWoSoft.Platform.TempTestMeet().Get(Guid.Parse(install));
+            int count = meet.flowcompleted == 1 ? 1 : 2;
+            var installTasks = tasks.Where(s => s.InstanceID.ToString().Equals(install,StringComparison.OrdinalIgnoreCase)).OrderByDescending(s => s.Sort).Take(count);
+        
+            foreach (var item in installTasks)
+            {
+                var approver = new FoWoSoft.Platform.Users().Get(item.ReceiveID).Account;
+                var status = "";
+                var remarks = "";
+                if (installTasks.Count() == 1) item.Status = -1;
+                switch (item.Status)
+                {
+                    case 0:
+                        status = "PENDING";
+                        remarks = "待处理";
+                        break;
+                    case 1:
+                        status = "PENDING";
+                        remarks = "打开";
+                        break;
+                    case 2:
+                        status = "PENDING";
+                        remarks = "中间完成";
+                        break;
+                    case 3:
+                        status = "REJECTED";
+                        remarks = "退回";
+                        break;
+                    case 4:
+                        status = "PENDING";
+                        remarks = "他人已处理";
+                        break;
+                    case 5:
+                        status = "PENDING";
+                        remarks = "他人已退回";
+                        break;
+                    case -1:
+                        status = "APPROVED";
+                        remarks = "完成";
+                        break;
+                    default:
+                        status = "PENDING";
+                        remarks = "";
+                        break;
+                }
+               // 状态 0 待处理 1打开 2完成 3退回 4他人已处理 5
+                string data = JsonConvert.SerializeObject(new
+                {
+                    approver = approver,
+                    status = status,
+                    remarks=remarks
+                });
+                FoWoSoft.Platform.Log.Add(string.Format("发送流程({0})", eventId+address+data), address, FoWoSoft.Platform.Log.Types.其它分类);
+
+                put1(eventId, address, data);
+            }
+            return "1";
+
         }
         /// <summary>
         /// 会议审核通过
@@ -135,15 +213,21 @@ namespace WebForm.Common
             return put(eventId, apperot, address);
 
         }
-        private static string put(string eventId, string apperot,string address)
+        private static string put(string eventId, string apperot, string address)
+        {
+
+            string data = JsonConvert.SerializeObject(new
+            {
+                approver = apperot
+            });
+            return put1(eventId, address, data);
+        }
+        public static string put1(string eventId, string address, string data)
         {
             var method = string.Format(address, eventId);
 
             string Url = meetUrl;
-            string Data = JsonConvert.SerializeObject(new
-            {
-                approver = apperot
-            });
+            string Data = data;
             using (var client = new HttpClient())
             {
 
@@ -162,15 +246,15 @@ namespace WebForm.Common
                     return "Error";
             }
         }
-        public static  void gethttp(  string Url)
+        public static void gethttp(string Url)
         {
-             
-           
+
+
             using (var client = new HttpClient())
             {
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                 client.BaseAddress = new Uri(Url);
+                client.BaseAddress = new Uri(Url);
                 client.DefaultRequestHeaders.Add("X-Consumer-Custom-ID", "004");
                 var response = client.GetAsync(Url);//.PutAsync(method, content).Result;
                 // var ss = client.PutAsJsonAsync(method, content).Result;

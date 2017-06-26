@@ -102,7 +102,7 @@ namespace WebForm.Common
                 {
 
                    
-                    System.Web.HttpContext.Current.Response.Write("<script>alert('登录超时'); window.location.href = '/Default.aspx';</script>");
+                    System.Web.HttpContext.Current.Response.Write("<script>alert('登录超时'); window.top.location.href = '/Default.aspx';</script>");
                     System.Web.HttpContext.Current.Response.End();
                     return false;
                 }

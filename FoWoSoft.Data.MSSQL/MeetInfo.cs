@@ -10,7 +10,7 @@ namespace FoWoSoft.Data.MSSQL
     public class MeetInfo : FoWoSoft.Data.Interface.IMeetInfo
     {
         private DBHelper dbHelper = new DBHelper();
-        const string selectfileds = "SELECT Id, ApplicatId, MeetTimes, MeetId, MeetName, AdminId,temp1,temp2,temp3 from  MeetInfo ";
+        const string selectfileds = "SELECT Id, ApplicatId, MeetTimes, MeetId, MeetName, AdminId,temp1,temp2,temp3,  Date1, test1, test, typeid, type, Reason, inland, abroad from  MeetInfo ";
         public bool MeetInfoRepeat(string temp1)
         {
             string sql = @"select count(*)from MeetInfo where temp1=@temp1";
@@ -22,7 +22,7 @@ namespace FoWoSoft.Data.MSSQL
         }
         public Model.MeetInfo Get(string applicatId)
         {
-            string sql = selectfileds+"  WHERE ApplicatId=@ApplicatId";
+            string sql = selectfileds + "  WHERE ApplicatId=@ApplicatId";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@ApplicatId",SqlDbType.VarChar){ Value = applicatId }
             };
@@ -33,7 +33,7 @@ namespace FoWoSoft.Data.MSSQL
         }
         public Model.MeetInfo GetByMeetId(string meetId)
         {
-            string sql =selectfileds+ "  WHERE MeetId=@MeetId";
+            string sql = selectfileds + "  WHERE MeetId=@MeetId";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@MeetId",SqlDbType.VarChar){ Value = meetId }
             };
@@ -44,7 +44,7 @@ namespace FoWoSoft.Data.MSSQL
         }
         public Model.MeetInfo GetByTemp1(string temp1)
         {
-            string sql = selectfileds+"   WHERE temp1=@temp1";
+            string sql = selectfileds + "   WHERE temp1=@temp1";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@temp1",SqlDbType.VarChar){ Value = temp1 }
             };
@@ -71,12 +71,12 @@ namespace FoWoSoft.Data.MSSQL
             SqlDataReader dataReader = dbHelper.GetDataReader(sql);
             List<FoWoSoft.Data.Model.MeetInfo> List = DataReaderToList(dataReader);
             dataReader.Close();
-            return   List  ;
+            return List;
         }
         public int Create(FoWoSoft.Data.Model.MeetInfo meetInfo)
         {
-            string sql = @"INSERT INTO MeetInfo( ApplicatId ,  MeetTimes ,  MeetId ,   MeetName ,  AdminId,temp1 ,temp2   )
-                      VALUES  ( @ApplicatId,@MeetTimes,@MeetId ,@MeetName,@AdminId ,@temp1 ,@temp2 )";
+            string sql = @"INSERT INTO MeetInfo( ApplicatId ,  MeetTimes ,  MeetId ,   MeetName ,  AdminId,temp1 ,temp2 ,Date1, test1, test, typeid, type, Reason, inland, abroad  )
+                      VALUES  ( @ApplicatId,@MeetTimes,@MeetId ,@MeetName,@AdminId ,@temp1 ,@temp2,@Date1, @test1, @test, @typeid, @type, @Reason, @inland, @abroad )";
             SqlParameter[] parameters = new SqlParameter[]{
                     new SqlParameter("@ApplicatId",meetInfo.ApplicatId ),
                 new SqlParameter("@MeetTimes",meetInfo.MeetTimes),
@@ -85,13 +85,23 @@ namespace FoWoSoft.Data.MSSQL
                 new SqlParameter("@MeetId",  meetInfo.MeetId),
                     new SqlParameter("@temp1",  meetInfo.temp1),
                     new SqlParameter("@temp2",  meetInfo.temp2),
+                      new SqlParameter("@Date1",  meetInfo.Date1),
+                        new SqlParameter("@test1",  meetInfo.test1),
+                          new SqlParameter("@test",  meetInfo.test),
+                            new SqlParameter("@typeid",  meetInfo.typeid),
+                              new SqlParameter("@type",  meetInfo.type),
+                                new SqlParameter("@Reason",  meetInfo.Reason),
+                                  new SqlParameter("@inland",  meetInfo.inland),
+                                    new SqlParameter("@abroad",  meetInfo.abroad),
                  };
             return new DBHelper().Execute(sql, parameters);
         }
         public int ModifyByTemp1(FoWoSoft.Data.Model.MeetInfo meetInfo)
         {
             string sql = @"UPDATE MeetInfo SET ApplicatId=@ApplicatId,  MeetTimes=@MeetTimes,
-                          MeetName=@MeetName, AdminId=@AdminId, MeetId=@MeetId,temp2=@temp2 WHERE temp1=@temp1";
+                          MeetName=@MeetName, AdminId=@AdminId, MeetId=@MeetId,temp2=@temp2, 
+ Date1=@Date1, test1=@test1, test=@test, typeid=@typeid, type=@type, Reason=@Reason, inland=@inland, abroad=@abroad
+                         WHERE temp1=@temp1";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@ApplicatId",meetInfo.ApplicatId ),
                 new SqlParameter("@MeetTimes",meetInfo.MeetTimes),
@@ -100,6 +110,14 @@ namespace FoWoSoft.Data.MSSQL
                 new SqlParameter("@MeetId",  meetInfo.MeetId),
                 new SqlParameter("@temp1",  meetInfo.temp1),
                  new SqlParameter("@temp2",  meetInfo.temp2),
+                  new SqlParameter("@Date1",  meetInfo.Date1),
+                        new SqlParameter("@test1",  meetInfo.test1),
+                          new SqlParameter("@test",  meetInfo.test),
+                            new SqlParameter("@typeid",  meetInfo.typeid),
+                              new SqlParameter("@type",  meetInfo.type),
+                                new SqlParameter("@Reason",  meetInfo.Reason),
+                                  new SqlParameter("@inland",  meetInfo.inland),
+                                    new SqlParameter("@abroad",  meetInfo.abroad),
                  };
             return new DBHelper().Execute(sql, parameters);
 
@@ -113,11 +131,11 @@ namespace FoWoSoft.Data.MSSQL
             return new DBHelper().Execute(sql, parameters);
 
         }
-        public int RoomisUpdate(FoWoSoft.Data.Model.MeetInfo meetInfo ,out string testMeetid)
+        public int RoomisUpdate(FoWoSoft.Data.Model.MeetInfo meetInfo, out string testMeetid)
         {
-             testMeetid = Guid.NewGuid().ToString();
-         return   new DBHelper().Execute("update meetInfo set temp3='" + testMeetid.ToString().ToUpper() + "' where temp1=" + meetInfo.temp1);
-           
+            testMeetid = Guid.NewGuid().ToString();
+            return new DBHelper().Execute("update meetInfo set temp3='" + testMeetid.ToString().ToUpper() + "' where temp1=" + meetInfo.temp1);
+
 
         }
         /// <summary>
@@ -142,6 +160,23 @@ namespace FoWoSoft.Data.MSSQL
                     model.temp2 = dataReader.GetString(7);
                 if (!dataReader.IsDBNull(8))
                     model.temp3 = dataReader.GetString(8);
+                if (!dataReader.IsDBNull(9))
+                    model.Date1 = dataReader.GetDateTime(9);
+                if (!dataReader.IsDBNull(10))
+                    model.test1 = dataReader.GetString(10);
+                if (!dataReader.IsDBNull(11))
+                    model.test = dataReader.GetString(11);
+                if (!dataReader.IsDBNull(12))
+                    model.typeid = dataReader.GetString(12);
+                if (!dataReader.IsDBNull(13))
+                    model.type = dataReader.GetString(13);
+                if (!dataReader.IsDBNull(14))
+                    model.Reason = dataReader.GetString(14);
+                if (!dataReader.IsDBNull(15))
+                    model.inland = dataReader.GetString(15);
+                if (!dataReader.IsDBNull(16))
+                    model.abroad = dataReader.GetString(16);
+
                 List.Add(model);
             }
             return List;

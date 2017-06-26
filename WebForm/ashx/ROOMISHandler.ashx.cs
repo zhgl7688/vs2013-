@@ -96,17 +96,30 @@ namespace WebForm.ashx
                 ID = Guid.Parse(testMeetid),
                 Title = meetInfo.temp2,
                 Date2 = Convert.ToDateTime(meetInfo.MeetTimes),
-                college = meetInfo.MeetId
+                college = meetInfo.MeetId,
+                  Date1=meetInfo.Date1,
+                  test1=meetInfo.test1, 
+                  test=meetInfo.test,
+                UserID=meetInfo.typeid,
+                UserID_text=meetInfo.typeid,
+                Type=meetInfo.type,
+                Reason=meetInfo.Reason,
+                inland=meetInfo.inland,
+                abroad=meetInfo.abroad,
             };
             new FoWoSoft.Platform.TempTestMeet().RoomisAdd(tempmeet);
-           
+
             var aplicatUser = new FoWoSoft.Platform.Users().GetByAccount(meetInfo.ApplicatId);
+            var adminUser = new FoWoSoft.Platform.Users().GetByAccount(meetInfo.AdminId);
             var task = new FoWoSoft.Data.Model.WorkFlowTask
             {
                 InstanceID = testMeetid,
                 Title = meetInfo.temp2,
+               
                 SenderID = aplicatUser.ID,
-                SenderName = aplicatUser.Name
+                SenderName = aplicatUser.Name,
+                ReceiveID= adminUser.ID,
+                ReceiveName=adminUser.Name
             };
             new FoWoSoft.Platform.WorkFlowTask().RoomisCreate(task);
 
@@ -116,26 +129,34 @@ namespace WebForm.ashx
         private FoWoSoft.Data.Model.MeetInfo CheckRequest(HttpContext context)
         {
             string[] contextStrs = new string[] { "ApplicatId", "MeetTimes", "MeetName", "AdminId", "MeetId", "temp1" };
-            
+
             for (int i = 0; i < contextStrs.Length; i++)
             {
                 if (context.Request[contextStrs[i]] == null)
                 {
-                    context.Response.Write(contextStrs[i]+"不能为空");
+                    context.Response.Write(contextStrs[i] + "不能为空");
                     context.Response.End();
                 }
 
             }
-             var meetInfo = new FoWoSoft.Data.Model.MeetInfo
-            {
-                ApplicatId = context.Request["ApplicatId"],
-                MeetTimes = context.Request["MeetTimes"],
-                MeetId = context.Request["MeetId"],
-                MeetName = context.Request["MeetName"],
-                AdminId = context.Request["AdminId"],
-                temp1 = context.Request["temp1"],
-                temp2 = context.Request["temp2"] ?? "",
-            };
+            var meetInfo = new FoWoSoft.Data.Model.MeetInfo
+           {
+               ApplicatId = context.Request["ApplicatId"],
+               MeetTimes = context.Request["MeetTimes"],
+               MeetId = context.Request["MeetId"],
+               MeetName = context.Request["MeetName"],
+               AdminId = context.Request["AdminId"],
+               temp1 = context.Request["temp1"],
+               temp2 = context.Request["temp2"] ?? "",
+               Date1 = context.Request["Date1"] == null ? DateTime.Now : Convert.ToDateTime(context.Request["Date1"]),
+               test1 = context.Request["test1"] ?? "",
+               test = context.Request["test"] ?? "",
+               typeid = context.Request["typeid"] ?? "",
+               type = context.Request["type"] ?? "",
+               Reason = context.Request["Reason"] ?? "",
+               inland = context.Request["inland"] ?? "",
+               abroad = context.Request["abroad"] ?? "",
+           };
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
             if (adminUser == null) { context.Response.Write("管理员不存在！"); context.Response.End(); };
             var aplicatUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.ApplicatId);

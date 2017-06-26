@@ -49,7 +49,7 @@
         }
 
         FoWoSoft.Data.Model.WorkFlowInstalledSub.Step currentStep = wfInstalled.Steps.ToList().Find(p => p.ID == stepID);
-       
+
         if (currentStep == null)
         {
             Response.Write("未找到流程步骤!");
@@ -98,9 +98,13 @@
         bool isDebug = (debugType == 1 || debugType == 2) && wfInstalled.DebugUsers.Exists(p => p.ID == FoWoSoft.Platform.Users.CurrentUserID);
         bool isSign = currentStep.SignatureType == 1 || currentStep.SignatureType == 2;//是否有意见
         int signType = currentStep.SignatureType;
+        int siSignCenter = stepID == Guid.Parse("3daf19f5-ce5e-4773-a783-581500722498") ? 1 : 0;
     
     %>
-
+<script>
+    var isSignCenter = '<%=siSignCenter%>';
+   
+</script>
     <form id="mainform" name="mainform" method="post" target="submiter">
         <%if ("0" == display)
           { //display为0表示执行，1表示查看 %>

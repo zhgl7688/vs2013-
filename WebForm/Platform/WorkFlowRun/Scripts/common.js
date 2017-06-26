@@ -15,6 +15,8 @@ function execute(script) {
 
 function checkSign() {
     if (isSign) {
+        alert(isSignCenter);
+        if (isSignCenter == 1) return true;
         if ($.trim($("#comment").val()).length == 0) {
             alert("请填写处理意见!"); return false;
         }

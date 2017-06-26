@@ -16,5 +16,14 @@ namespace FoWoSoft.Data.Model
         public string temp1 { get; set; }
         public string temp2 { get; set; }
         public string temp3 { get; set; }
+           
+        public DateTime  Date1{ get; set; }
+        public string  test1{ get; set; } 
+        public string  test{ get; set; } 
+        public string  typeid{ get; set; }
+        public string  type{ get; set; } 
+        public string  Reason{ get; set; } 
+        public string  inland{ get; set; }
+        public string abroad { get; set; }
     }
 }

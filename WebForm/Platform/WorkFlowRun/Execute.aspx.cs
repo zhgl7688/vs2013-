@@ -44,6 +44,9 @@ namespace WebForm.Platform.WorkFlowRun
             //流程标题
             string title = Request.Form[Request.Form["Form_TitleField"]];
             var execute = CreateExecute(instanceid, flowid, wfInstalled, comment, stepid, opationJSON, title);
+            //操作roomis审核
+            if (execute.ExecuteType == EnumType.ExecuteType.Completed)
+                new WebForm.Common.Meet().Roomis(execute.InstanceID, WebForm.Common.RoomisOperation.put_approve);
 
             var eventParams = WorkFlowCustomEventParamsSet(execute);
 
@@ -67,9 +70,6 @@ namespace WebForm.Platform.WorkFlowRun
 
             //处理委托
             execDelegation(execute);
-            //操作roomis审核
-            if (execute.ExecuteType == EnumType.ExecuteType.Completed)
-                new WebForm.Common.Meet().Roomis(execute.InstanceID, WebForm.Common.RoomisOperation.put_approve);
             //处理流程
             var reslut = btask.Execute(execute);
             Response.Write(string.Format("处理流程步骤结果：{0}<br/>", reslut.IsSuccess ? "成功" : "失败"));
@@ -85,10 +85,30 @@ namespace WebForm.Platform.WorkFlowRun
 
             if (reslut.IsSuccess)
             {
+               
+                RoomisSend(execute, reslut);
+
                 DisplayHtml(reslut);
             }
 
         }
+
+        private void RoomisSend(FoWoSoft.Data.Model.WorkFlowExecute.Execute execute, Result reslut)
+        {
+            // 操作roomis审核
+            // if (execute.ExecuteType == EnumType.ExecuteType.Completed)
+            //new WebForm.Common.Meet().Roomis(execute.StepID.ToString(), WebForm.Common.RoomisOperation.put_step);
+            // new WebForm.Common.Meet().Roomis(execute.InstanceID, WebForm.Common.RoomisOperation.put_approve);
+            //else
+            //{
+
+ FoWoSoft.Platform.Log.Add(string.Format("发送流程({0})", execute.InstanceID.ToString()), "roomis", FoWoSoft.Platform.Log.Types.其它分类);
+
+            new WebForm.Common.Meet().Roomis(execute.InstanceID.ToString(), WebForm.Common.RoomisOperation.put_step);
+            //   }
+
+        }
+
         public WorkFlowCustomEventParams WorkFlowCustomEventParamsSet(FoWoSoft.Data.Model.WorkFlowExecute.Execute execute)
         {
             var eventParams = new FoWoSoft.Data.Model.WorkFlowCustomEventParams()

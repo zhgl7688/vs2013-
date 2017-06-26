@@ -25,9 +25,9 @@
     string seconId = "";
     if (StepID == null || StepID == new FoWoSoft.Platform.WorkFlow().GetWorkFlowRunModel(FlowID).FirstStepID.ToString())
     {
-       if(InstanceID!=null) meet = new FoWoSoft.Platform.MeetInfo().GetByTemp3(InstanceID);
+        if(InstanceID!=null) meet = new FoWoSoft.Platform.MeetInfo().GetByTemp3(InstanceID);
         if (meet!=null) meet.AdminId = new FoWoSoft.Platform.Users().GetByAccount(meet.AdminId).ID.ToString();
-       
+
     }
     #endregion
 
@@ -45,9 +45,10 @@
     var test1 = "";
     var test = "";
     var UserID = "论坛";
+    FoWoSoft.Data.Model.TempTestMeet tempMeet=null;
     if (Guid.TryParse(InstanceID, out g))
     {
-        var tempMeet = new FoWoSoft.Platform.TempTestMeet().Get(g);
+          tempMeet = new FoWoSoft.Platform.TempTestMeet().Get(g);
         Title = tempMeet.Title;
         if (tempMeet.Date1 != null) Date1 = (DateTime)tempMeet.Date1;
         if (tempMeet.Date2 != null) Date2 = (DateTime)tempMeet.Date2;
@@ -62,10 +63,10 @@
         test = tempMeet.test;
         UserID = tempMeet.UserID;
         if (Reason == "校内") {fieldStatus["Date2"] = 1;
-        fieldStatus["Reason"] = 1;
+            fieldStatus["Reason"] = 1;
         }
     }
- 
+
 %>
  
 <link href="Scripts/Forms/flowform.css" rel="stylesheet" type="text/css" />
@@ -79,7 +80,7 @@
 <input type="hidden" id="Form_AutoSaveData" name="Form_AutoSaveData" value="1" />
 <script>
     var ReasonArray = ["校内", "国内异地", "国外"];
-    var UserIDArray = ["论坛", "报告", "讲座", "答辩", "例会", "其他"];
+    var UserIDArray = ["哲学社会科学类的论坛", "哲学社会科学类的研讨会", "哲学社会科学类的讲座", "哲学社会科学类的报告", "答辩", "其他"];
     var meetinfo = null;
     var memberId = null;
     var currentStep = -1;
@@ -147,11 +148,11 @@
             <td colspan="1" rowspan="1" style="word-break: break-all;" valign="top">会议类型</td>
             <td colspan="3" rowspan="1" valign="top">
                 <select class="mycombox" id="TempTestMeet.UserID"  "<%=fieldStatus["UserID"]==0?" ":" disabled='1'"  %>"  name="TempTestMeet.UserID" datasource="1" listmode="0"  isflow="1" type1="flow_combox"  >
-                    <option value="论坛" >论坛</option>
-                    <option value="报告">报告</option>
-                    <option value="讲座" >讲座</option>
-                     <option value="答辩" >答辩</option>
-                     <option value="例会" >例会</option>
+                    <option value="论坛" >哲学社会科学类的论坛</option>
+                    <option value="报告">哲学社会科学类的研讨会</option>
+                    <option value="讲座" >哲学社会科学类的讲座</option>
+                     <option value="答辩" >哲学社会科学类的报告</option>
+                     <option value="例会" >答辩</option>
                      <option value="其他" >其他</option>
                 </select> </td>
         </tr>
@@ -248,26 +249,30 @@
     //    document.getElementById('TempTestMeet.college').applyElement = optionStr;
     //});
 </script>
- <% if (DisplayModel == "0")
+  <% if (tempMeet!=null)
     { %>
-<%}
-    else
-    { %>
- 
+  
 <script>
   //  alert($('#TempTestMeet.Title').value());
-    var inputs = document.getElementsByTagName('input');
-    for (var i = 0; i < inputs.length; i++) {
-        inputs[i].disabled = true;
+    //var inputs = document.getElementsByTagName('input');
+    //for (var i = 0; i < inputs.length; i++) {
+    //    inputs[i].readOnly = true;
 
-    }
+    //}
     var selects = document.getElementsByTagName('select');
     for (var i = 0; i < selects.length; i++) {
         selects[i].disabled = true;
 
     }
+    document.getElementById("TempTestMeet.Title").disabled = true;
+    document.getElementById("TempTestMeet.test1").disabled = true;
+    document.getElementById("TempTestMeet.Date1").disabled = true;
+    document.getElementById("TempTestMeet.Date2").disabled = true;
     document.getElementById("TempTestMeet.test").disabled = true;
-
+    document.getElementById("TempTestMeet.Type_0").disabled = true;
+    document.getElementById("TempTestMeet.Type_1").disabled = true;
+    document.getElementById("TempTestMeet.Type_2").disabled = true;
+    
 </script>
 
 <%} %>

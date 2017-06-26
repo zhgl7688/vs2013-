@@ -56,14 +56,23 @@ namespace FoWoSoft.Data.MSSQL
         }
         public int RoomisAdd(FoWoSoft.Data.Model.TempTestMeet tempmeet)
         {
-           string sql = @"INSERT INTO TempTestMeet( ID , Title , Date2 ,Reason ,college )
-VALUES  (   @ID , @Title , @Date2 ,@Reason ,@college   )";
+            string sql = @"INSERT INTO TempTestMeet( ID , Title , Date2  ,college , Date1, test1, test, UserID,UserID_text, Type, Reason, inland, abroad)
+VALUES  (   @ID , @Title , @Date2  ,@college , @Date1, @test1, @test, @UserID, @UserID_text, @Type, @Reason, @inland, @abroad  )";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@ID",  tempmeet.ID),
                 new SqlParameter("@Title",tempmeet.Title ),
                 new SqlParameter("@Date2",tempmeet.Date2),
-                new SqlParameter("@Reason", "校内"),
                 new SqlParameter("@college",  tempmeet.college),
+                  new SqlParameter("@Date1",  tempmeet.Date1),
+                    new SqlParameter("@test1",  tempmeet.test1),
+                    new SqlParameter("@test",  tempmeet.test),
+                      new SqlParameter("@UserID",  tempmeet.UserID),
+                        new SqlParameter("@UserID_text",  tempmeet.UserID_text),
+                          new SqlParameter("@Type",  tempmeet.Type),
+                            new SqlParameter("@Reason",  tempmeet.Reason),
+                              new SqlParameter("@inland",  tempmeet.inland),
+                                new SqlParameter("@abroad",  tempmeet.abroad),
+
                  };
             return new DBHelper().Execute(sql, parameters);
 

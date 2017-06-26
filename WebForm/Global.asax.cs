@@ -12,12 +12,12 @@ namespace WebForm
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            new WebForm.Common.UserService().CreateAllUser();
+            //new WebForm.Common.UserService().CreateAllUser();
         }
 
         protected void Session_Start(object sender, EventArgs e)
         {
-
+            Session.Timeout = 6000;
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

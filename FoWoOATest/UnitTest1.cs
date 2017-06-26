@@ -72,13 +72,7 @@ namespace FoWoOATest
         }
 
 
-        [TestMethod]
-        public void RoosTest()
-        {
-            string instance = "1eb6d23d-71a0-46e0-8507-a35660a1f51d";
-            new WebForm.Common.Meet().Roomis(instance, WebForm.Common.RoomisOperation.put_approve);
-
-        }
+       
         [TestMethod]
         public void jumplastTest()
         {
@@ -116,8 +110,16 @@ namespace FoWoOATest
                 MeetName = "100会议",
                 MeetTimes = "2017-09-20 11:20",
                 ApplicatId = "20121102",
-                temp1 = "21",
-                temp2 = "会议名称"
+                temp1 = "30",
+                temp2 = "1715",
+                Date1=DateTime.Now,
+                test1 =   "1",
+                test =  "2",
+                typeid = "哲学社会科学类的论坛",
+                type = "校内视频会议室",
+                Reason = "校内",
+                inland =   "",
+                abroad = "",
             };
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
             Assert.IsNotNull(adminUser);
@@ -132,13 +134,21 @@ namespace FoWoOATest
 
             var meetInfo = new FoWoSoft.Data.Model.MeetInfo
             {
-                MeetId = "200000021",
+                MeetId = "200000022",
                 AdminId = "gy",
-                MeetName = "33会议",
+                MeetName = "100会议",
                 MeetTimes = "2017-09-20 11:20",
                 ApplicatId = "20121102",
                 temp1 = "22",
-                temp2 = "会议名称"
+                temp2 = "会议名称",
+                Date1 = DateTime.Now,
+                test1 = "11",
+                test = "12",
+                typeid = "13",
+                type = "14",
+                Reason = "15",
+                inland = "16",
+                abroad = "17",
             };
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
             Assert.IsNotNull(adminUser);
