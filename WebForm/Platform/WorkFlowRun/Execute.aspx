@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Execute.aspx.cs" Inherits="WebForm.Platform.WorkFlowRun.Execute1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Execute.aspx.cs" Inherits="WebForm.Platform.WorkFlowRun.Execute" %>
 
 <!DOCTYPE html>
 

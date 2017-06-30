@@ -17,6 +17,8 @@
         string groupid = Request.QueryString["groupid"];
         string taskid = Request.QueryString["taskid"];
         string instanceid = Request.QueryString["instanceid"];
+        string stype = Request.QueryString["stype"];
+        
         if (instanceid.IsNullOrEmpty())
         {
             instanceid = Request.QueryString["instanceid1"];

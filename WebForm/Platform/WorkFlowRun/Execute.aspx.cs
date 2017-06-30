@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace WebForm.Platform.WorkFlowRun
 {
-    public partial class Execute1 : System.Web.UI.Page
+    public partial class Execute : System.Web.UI.Page
     {
         FoWoSoft.Platform.WorkFlow bworkFlow = new FoWoSoft.Platform.WorkFlow();
         FoWoSoft.Platform.WorkFlowTask btask = new FoWoSoft.Platform.WorkFlowTask();
@@ -102,12 +102,14 @@ namespace WebForm.Platform.WorkFlowRun
        ))
             {
                 var taskall = new FoWoSoft.Platform.WorkFlowTask().GetAll();
-                var installTasks = taskall.Where(s => s.InstanceID.ToString().Equals(execute.InstanceID, StringComparison.OrdinalIgnoreCase)).OrderByDescending(s => s.Sort).Take(1);
+                var installTasks = taskall.Where(s => s.InstanceID.ToString().Equals(execute.InstanceID, StringComparison.OrdinalIgnoreCase));
                 foreach (var item in installTasks)
                 {
+                    if (item.Status <2)
                     new FoWoSoft.Platform.WorkFlowTask().Completed(item.ID);
                 }
-                
+                Response.Write("<script type=\"text/javascript\">top.mainTab.closeTab();</script>");
+                Response.End();
             }
         }
         private void RoomisSend(FoWoSoft.Data.Model.WorkFlowExecute.Execute execute, Result reslut)

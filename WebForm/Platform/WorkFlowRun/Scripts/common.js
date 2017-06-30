@@ -62,7 +62,7 @@ function flowSend(isSubmit) {
         if ( meetinfo != null) {
             confirmt(meetinfo)
         }else{
-            top.mainDialog.open({ url: top.rootdir + "/Platform/WorkFlowRun/FlowSend.aspx?" + query + "&instanceid1=" + $("#instanceid").val(), openerid: iframeid, width: 480, height: 280, title: "选择处理步骤和人员" });
+            top.mainDialog.open({ url: top.rootdir + "/Platform/WorkFlowRun/FlowSend.aspx?" + query + "&instanceid1=" + $("#instanceid").val()+"&stype="+s, openerid: iframeid, width: 480, height: 280, title: "选择处理步骤和人员" });
          } 
     }
 }
