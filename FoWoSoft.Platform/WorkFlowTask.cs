@@ -1073,7 +1073,7 @@ namespace FoWoSoft.Platform
                 {
                     nextStepName.Add(nstep.StepName);
                 }
-                string msg = string.Format("已退回到:{0}", nextStepName.Distinct().ToArray().Join1(","));
+                string msg = "已退回";// string.Format();//, 到:{0}nextStepName.Distinct().ToArray().Join1(","));
                 result.DebugMessages += msg;
                 result.IsSuccess = true;
                 result.Messages += msg;

@@ -16,7 +16,7 @@ function execute(script) {
 function checkSign() {
     if (isSign) {
        // alert(isSignCenter);
-        if (isSignCenter == 1) return true;
+       // if (isSignCenter == 1) return true;
         if ($.trim($("#comment").val()).length == 0) {
             alert("请填写处理意见!"); return false;
         }
@@ -38,7 +38,12 @@ function setSign() {
 }
 
 function flowSend(isSubmit) {
- 
+
+    var s = $('#mycomment').children('option:selected').val();
+    if (s == "不同意") {
+        alert("选择了" + s + "，不能送签")
+        return false;
+    }
     if (!validateForm() || !checkSign()) {
         return false;
     }
@@ -46,10 +51,14 @@ function flowSend(isSubmit) {
         saveData('flowSend');
     }
     else {
-        //alert(currentStep);
+        // alert(currentStep);
+        if (currentStep == 3) {
+            alert();
+            confirm3(memberId)
+        } else 
         if (currentStep == 4) {
             confirm4(memberId) 
-        }else
+        }else 
         if ( meetinfo != null) {
             confirmt(meetinfo)
         }else{
@@ -83,8 +92,26 @@ function confirm4(memberId) {
     this.formSubmit(opts);
 
 }
+function confirm3(memberId) {
+    var opts = {};
+    opts.type = "submit";
+    opts.steps = [];
+    var isSubmit = true;
+
+    var member = "u_" + memberId;
+
+    opts.steps.push({ id: "B1F08F44-4692-4307-82FA-32C6026201A3", member: member });
+
+    this.formSubmit(opts);
+
+}
 function flowBack(isSubmit) {
     if (!checkSign()) {
+        return false;
+    }
+    var s = $('#mycomment').children('option:selected').val();
+    if (s != "不同意") {
+        alert("选择了"+s+"，不能否决")
         return false;
     }
     top.mainDialog.open({ url: top.rootdir + "/Platform/WorkFlowRun/FlowBack.aspx?" + query, openerid: iframeid, width: 480, height: 280, title: "选择退回步骤" });

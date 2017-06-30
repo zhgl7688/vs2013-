@@ -98,64 +98,81 @@
         bool isDebug = (debugType == 1 || debugType == 2) && wfInstalled.DebugUsers.Exists(p => p.ID == FoWoSoft.Platform.Users.CurrentUserID);
         bool isSign = currentStep.SignatureType == 1 || currentStep.SignatureType == 2;//是否有意见
         int signType = currentStep.SignatureType;
-        int siSignCenter = stepID == Guid.Parse("3daf19f5-ce5e-4773-a783-581500722498") ? 1 : 0;
-    
+        int siSignCenter = 0;
+        if ((stepID == Guid.Parse("3daf19f5-ce5e-4773-a783-581500722498")) ||
+            (stepID == Guid.Parse("b1f08f44-4692-4307-82fa-32c6026201a3")) ||
+            (stepID == Guid.Parse("88B44E40-E9EB-44F9-9F2B-18B0AAE70A5A")) ||
+            (stepID == Guid.Parse("72578ab0-b803-4f0b-b0c0-1faf3c99ea7e"))
+            )
+        {
+            siSignCenter = 1;
+        }
+
+
+
     %>
-<script>
-    var isSignCenter = '<%=siSignCenter%>';
-   
-</script>
+    <script>
+        var isSignCenter = '<%=siSignCenter%>';
+
+    </script>
     <form id="mainform" name="mainform" method="post" target="submiter">
         <%if ("0" == display)
-          { //display为0表示执行，1表示查看 %>
+            { //display为0表示执行，1表示查看 %>
         <div class="toolbar" style="margin-top: 0; border-top: none 0; position: fixed; top: 0; left: 0; right: 0; margin-left: auto; z-index: 999; width: 100%; margin-right: auto; height: 26px;">
             <div>
                 <%
-              //如果是抄送，只显示完成按钮
-              List<FoWoSoft.Data.Model.WorkFlowInstalledSub.StepSet.Button> buttons = new List<FoWoSoft.Data.Model.WorkFlowInstalledSub.StepSet.Button>();
-              if (isCopyFor)
-              {
-                  buttons.Add(new FoWoSoft.Data.Model.WorkFlowInstalledSub.StepSet.Button()
-                  {
-                      ID = "954EFFA8-03B8-461A-AAA8-8727D090DCB9",
-                      Note = "完成",
-                      Sort = 0
-                  });
-              }
-              else
-              {
-                  foreach (var button in currentStep.Buttons)
-                  {
-                      buttons.Add(button);
-                  }
-              }
+                    //如果是抄送，只显示完成按钮
+                    List<FoWoSoft.Data.Model.WorkFlowInstalledSub.StepSet.Button> buttons = new List<FoWoSoft.Data.Model.WorkFlowInstalledSub.StepSet.Button>();
+                    if (isCopyFor)
+                    {
+                        buttons.Add(new FoWoSoft.Data.Model.WorkFlowInstalledSub.StepSet.Button()
+                        {
+                            ID = "954EFFA8-03B8-461A-AAA8-8727D090DCB9",
+                            Note = "完成",
+                            Sort = 0
+                        });
+                    }
+                    else
+                    {
+                        foreach (var button in currentStep.Buttons)
+                        {
+                            buttons.Add(button);
+                        }
+                    }
 
-              foreach (var button in buttons)
-              {
-                  if (button == null)
-                  {
-                      continue;
-                  }
-                  Guid buttonID;
-                  if (button.ID.IsGuid(out buttonID))
-                  {
-                      var button1 = bworkFlowButtons.Get(buttonID, true);
-                      if (button1 == null)
-                      {
-                          continue;
-                      }
+                    foreach (var button in buttons)
+                    {
+                        if (button == null)
+                        {
+                            continue;
+                        }
+                        Guid buttonID;
+                        if (button.ID.IsGuid(out buttonID))
+                        {
+                            var button1 = bworkFlowButtons.Get(buttonID, true);
+                            if (button1 == null)
+                            {
+                                continue;
+                            }
+                            var lkk = "yes111";
+                            var funName = string.Concat("fun_", button1.ID.ToString("N"), "()");
+                            if (siSignCenter == 1 && button1.Title == "退回")
+                            {
+                                button1.Title = "否决";
+                                lkk = "no111";
+                            }
 
-                      var funName = string.Concat("fun_", button1.ID.ToString("N"), "()");
                 %>
-                <a href="#" onclick="<%=funName %>;return false;" title="<%=!button.Note.IsNullOrEmpty() ? button.Note : button1.Note.IsNullOrEmpty() ? "" : button1.Note.Replace("\"", "'") %>">
+
+                <a href="#" id="<%=lkk  %>" onclick="<%=funName %>;return false;" title="<%=!button.Note.IsNullOrEmpty() ? button.Note : button1.Note.IsNullOrEmpty() ? "" : button1.Note.Replace("\"", "'") %>">
                     <span style="background: url(../../<%=button1.Ico%>) no-repeat left center;"><%=button1.Title %></span>
                 </a>
                 <script type="text/javascript">
                     function <%=funName + "{" + button1.Script + "}" %>
-                </script>
+</script>
                 <%}
-            else if (string.Compare(button.ID, "other_splitline", true) == 0)
-            { //显示其它特定按钮如分隔线| %>
+                    else if (string.Compare(button.ID, "other_splitline", true) == 0)
+                    { //显示其它特定按钮如分隔线| %>
                 <span class="toolbarsplit">&nbsp;</span>
                 <%}%>
                 <%}%>
@@ -165,13 +182,13 @@
         <input type="hidden" name="instanceid" id="instanceid" value="" />
         <input type="hidden" name="params" id="params" value="" />
         <%if (isDebug && debugType == 1)
-          {%>
+            {%>
         <br />
         <br />
         <iframe name="submiter" style="width: 99%; height: 200px; border: 1px solid #666; margin-left: 4px; overflow: auto;"></iframe>
         <%}
-          else
-          {%>
+            else
+            {%>
         <iframe name="submiter" style="width: 99%; height: 1px; margin: 0; display: none;"></iframe>
         <%}%>
         <%} %>
@@ -207,26 +224,34 @@
             if (isSign && "0" == display && !isCopyFor)
             {
                 string commentsOptions = new FoWoSoft.Platform.WorkFlowComment().GetOptionsStringByUserID(FoWoSoft.Platform.Users.CurrentUserID);
+                if (stepID == Guid.Parse("3daf19f5-ce5e-4773-a783-581500722498") ||
+          (stepID == Guid.Parse("b1f08f44-4692-4307-82fa-32c6026201a3"))//||
+                                                                        // (stepID == Guid.Parse("72578ab0-b803-4f0b-b0c0-1faf3c99ea7e")) 
+          )
+                {
+                    commentsOptions += string.Format(" <option value=\"{0}\">{0}</option>", "加签");
+                }
+
         %>
         <div style="height: 12px; margin: 16px 8px 8px 8px; border-bottom: 1px dashed #ccc;"></div>
         <div style="height: 30px; margin: 15px auto 8px auto; text-align: left; width: 96%;">
             处理意见：<select class="myselect" id="mycomment" style="margin-right: 6px; width: 100px;" onchange="$('#comment').val(this.value);"><option value=""></option>
                 <%=commentsOptions %></select>&nbsp;<input type="text" class="mytext" id="comment" name="comment" value="" style="width: 70%; margin-right: 6px;" />
             <%if (signType == 2)
-              {%>
+                {%>
             <input type="hidden" value="" id="issign" name="issign" />
             <input type="button" class="mybutton" id="signbutton" onclick="sign();" value="&nbsp;&nbsp;签&nbsp;&nbsp;章&nbsp;&nbsp;" />
             <%
-                  string signFile = string.Concat(Server.MapPath("../../Files/UserSigns/"), FoWoSoft.Platform.Users.CurrentUserID, ".gif");
-                  string signSrc = string.Concat("../../Files/UserSigns/", FoWoSoft.Platform.Users.CurrentUserID, ".gif");
-                  if (!System.IO.File.Exists(signFile))
-                  {
-                      System.Drawing.Bitmap img = new FoWoSoft.Platform.WorkFlow().CreateSignImage(FoWoSoft.Platform.Users.CurrentUserName);
-                      if (img != null)
-                      {
-                          img.Save(signFile, System.Drawing.Imaging.ImageFormat.Gif);
-                      }
-                  }
+                string signFile = string.Concat(Server.MapPath("../../Files/UserSigns/"), FoWoSoft.Platform.Users.CurrentUserID, ".gif");
+                string signSrc = string.Concat("../../Files/UserSigns/", FoWoSoft.Platform.Users.CurrentUserID, ".gif");
+                if (!System.IO.File.Exists(signFile))
+                {
+                    System.Drawing.Bitmap img = new FoWoSoft.Platform.WorkFlow().CreateSignImage(FoWoSoft.Platform.Users.CurrentUserName);
+                    if (img != null)
+                    {
+                        img.Save(signFile, System.Drawing.Imaging.ImageFormat.Gif);
+                    }
+                }
             %>
             <img alt="" src="<%=signSrc %>" id="signimg" style="vertical-align: middle; display: none;" />
             <%}%>
@@ -250,6 +275,7 @@
         <textarea id="form_commentlist_div_textarea" name="form_commentlist_div_textarea" style="display: none;"></textarea>
         <!--归档内容-->
     </form>
+
     <script type="text/javascript">
         var isDebug = '<%=isDebug%>' == 'True' && '1' == '<%=debugType%>';
         var isSign = '<%=isSign%>' == 'True';
@@ -259,19 +285,29 @@
         var appid = '<%=Request.QueryString["appid"]%>';
         var query = '<%=query%>';
         var isSystemDetermine = '<%=currentStep.Behavior.FlowType==0?"1":"0"%>';//当前步骤的后续流转类型是否是系统判断
-        var instanceid='<%=instanceid%>';
+        var instanceid ='<%=instanceid%>';
         var isCustomeForm = '<%=isCustomeForm?"1":"0"%>';
-        $(function(){
-            if("1" == "<%=isArchives%>")
-        {
-            $("#form_body_div_textarea").val($("#form_body_div").html());
-            $("#form_commentlist_div_textarea").val($("#form_commentlist_div").html());
-        }
-        if("1"==isCustomeForm)
-        {
-            $("#customeformiframe").height($(window).height()-32);
-        }
-    });
+        $(function () {
+            if ("1" == "<%=isArchives%>") {
+                $("#form_body_div_textarea").val($("#form_body_div").html());
+                $("#form_commentlist_div_textarea").val($("#form_commentlist_div").html());
+            }
+            if ("1" == isCustomeForm) {
+                $("#customeformiframe").height($(window).height() - 32);
+            }
+        });
+        //$('#mycomment').change(function () {
+        //    // alert($(this).children('option:selected').val()); 
+        //    var s = $(this).children('option:selected').val();
+        //    if (s == "同意" || s == "加签") {
+        //        $('#yes111').attr("disabled", false);
+        //        $('#no111').attr("disabled", true);
+        //    } else
+        //        if (s == "不同意") {
+        //            $('#yes111').attr("disabled", true);
+        //            $('#no111').attr("disabled", false);
+        //        }
+        //});
     </script>
     <script type="text/javascript" src="Scripts/common.js"></script>
 </body>

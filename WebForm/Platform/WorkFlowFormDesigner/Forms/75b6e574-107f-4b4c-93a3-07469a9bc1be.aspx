@@ -44,7 +44,7 @@
     string Type = "";
     var test1 = "";
     var test = "";
-    var UserID = "论坛";
+    var UserID = "哲学社会科学类的论坛";
     FoWoSoft.Data.Model.TempTestMeet tempMeet=null;
     if (Guid.TryParse(InstanceID, out g))
     {
@@ -90,15 +90,22 @@
         MeetTimes: '<%=meet.MeetTimes%>', MeetId: '<%=meet.MeetId%>', AdminId: '<%=meet.AdminId%>'
        };
     <%}%>
-    <%if (StepID == "04dbab0d-e751-4579-8007-8f9f59683a24")
+    <%if(StepID == "04dbab0d-e751-4579-8007-8f9f59683a24")
     {
         var currentTask = BWorkFlowTask.Get(Guid.Parse(TaskID));
         %>
     currentStep = 4;
       memberId ="<%=currentTask.SenderID%>"
         <%}%>
-
-
+     <%if (StepID == "65bb6ee3-826c-4337-8dbd-2229c95f6f29")
+    {
+        var currentTask = BWorkFlowTask.Get(Guid.Parse(TaskID));
+        %>
+    
+      currentStep =3;
+      memberId ="<%=currentTask.SenderID%>"
+        <%}%>
+       
 
 
 </script>
@@ -148,11 +155,11 @@
             <td colspan="1" rowspan="1" style="word-break: break-all;" valign="top">会议类型</td>
             <td colspan="3" rowspan="1" valign="top">
                 <select class="mycombox" id="TempTestMeet.UserID"  "<%=fieldStatus["UserID"]==0?" ":" disabled='1'"  %>"  name="TempTestMeet.UserID" datasource="1" listmode="0"  isflow="1" type1="flow_combox"  >
-                    <option value="论坛" >哲学社会科学类的论坛</option>
-                    <option value="报告">哲学社会科学类的研讨会</option>
-                    <option value="讲座" >哲学社会科学类的讲座</option>
-                     <option value="答辩" >哲学社会科学类的报告</option>
-                     <option value="例会" >答辩</option>
+                    <option value="哲学社会科学类的论坛" >哲学社会科学类的论坛</option>
+                    <option value="哲学社会科学类的研讨会">哲学社会科学类的研讨会</option>
+                    <option value="哲学社会科学类的讲座" >哲学社会科学类的讲座</option>
+                     <option value="哲学社会科学类的报告" >哲学社会科学类的报告</option>
+                     <option value="答辩" >答辩</option>
                      <option value="其他" >其他</option>
                 </select> </td>
         </tr>

@@ -51,20 +51,51 @@
     var prevSteps = btask.GetBackSteps(taskID, backType, currentStep.ID, wfInstalled);
     int i=0;
     %>
+        <% if (string.Equals(stepid, "3DAF19F5-CE5E-4773-A783-581500722498", StringComparison.OrdinalIgnoreCase) ||
+string.Equals(stepid, "72578AB0-B803-4F0B-B0C0-1FAF3C99EA7E", StringComparison.OrdinalIgnoreCase) ||
+string.Equals(stepid, "B1F08F44-4692-4307-82FA-32C6026201A3", StringComparison.OrdinalIgnoreCase) ||
+string.Equals(stepid, "88B44E40-E9EB-44F9-9F2B-18B0AAE70A5A", StringComparison.OrdinalIgnoreCase))
+    {
+    %>
+<table cellpadding="0" cellspacing="1" border="0" width="95%" align="center" style="margin-top:6px;">
+        <%
+
+    foreach (var step1 in prevSteps)
+    {
+           %>
+        <tr>
+            <td style="padding:9px 0 2px 0;">
+            <input type="hidden" name="nextstepid" value="@step" />
+            <input type="hidden"  value="<%=step1.Key %>"  name="stepid" id="step_<%=step1.Key %>" style="vertical-align:middle;" />
+            <label    style="vertical-align:middle;"> 确认否决吗?</label>
+            </td>
+        </tr>
+        <tr><td style="height:6px; border-bottom:1px dashed #e8e8e8;"></td></tr>
+        <%}%>
+    </table>
+ 
+    <div style="width:95%; margin:12px auto 0 auto; text-align:center;">
+        <input type="submit" class="mybutton" onclick="return confirm2();" name="Save" value="&nbsp;确&nbsp;定&nbsp;" style="margin-right:5px;" />
+        <input type="button" class="mybutton" value="&nbsp;取&nbsp;消&nbsp;" onclick="new RoadUI.Window().close();" />
+    </div>
+        <%}
+    else
+    { %>
     <table cellpadding="0" cellspacing="1" border="0" width="95%" align="center" style="margin-top:6px;">
         <%
-        foreach (var step in prevSteps)
+
+    foreach (var step in prevSteps)
+    {
+        string checked1 = string.Empty;
+        if ((backType == 2 && step.Key == currentStep.Behavior.BackStepID) || currentStep.Behavior.Countersignature != 0 || backType == 0)
         {
-            string checked1 = string.Empty;
-            if ((backType == 2 && step.Key == currentStep.Behavior.BackStepID) || currentStep.Behavior.Countersignature != 0 || backType == 0)
-            {
-                checked1 = "checked=\"checked\""; i++;
-            }
-            else
-            {
-                checked1 = !step.Key.ToString().IsNullOrEmpty() && i++ == 0 ? "checked=\"checked\"" : "";
-            }
-            string disabled = step.Key.ToString().IsNullOrEmpty() || currentStep.Behavior.Countersignature != 0 || backType == 0 ? "disabled=\"disabled\"" : "";
+            checked1 = "checked=\"checked\""; i++;
+        }
+        else
+        {
+            checked1 = !step.Key.ToString().IsNullOrEmpty() && i++ == 0 ? "checked=\"checked\"" : "";
+        }
+        string disabled = step.Key.ToString().IsNullOrEmpty() || currentStep.Behavior.Countersignature != 0 || backType == 0 ? "disabled=\"disabled\"" : "";
          %>
         <tr>
             <td style="padding:9px 0 2px 0;">
@@ -76,10 +107,12 @@
         <tr><td style="height:6px; border-bottom:1px dashed #e8e8e8;"></td></tr>
         <%}%>
     </table>
+ 
     <div style="width:95%; margin:12px auto 0 auto; text-align:center;">
         <input type="submit" class="mybutton" onclick="return confirm1();" name="Save" value="&nbsp;确&nbsp;定&nbsp;" style="margin-right:5px;" />
         <input type="button" class="mybutton" value="&nbsp;取&nbsp;消&nbsp;" onclick="new RoadUI.Window().close();" />
     </div>
+       <%} %>
     <script type="text/javascript">
         var frame = null;
         var openerid = '<%=Request.QueryString["openerid"]%>';
@@ -119,6 +152,30 @@
             }
             if (isSubmit)
             {
+                frame.formSubmit(opts);
+                new RoadUI.Window().close();
+            }
+        }
+        function confirm2() {
+            if ("0" == "<%=backModel%>")//退回策略为不能退回
+            {
+                alert("当前步骤设置为不能退回!");
+                new RoadUI.Window().close();
+                return;
+            }
+            var opts = {};
+            opts.type = "back";
+            opts.steps = [];
+            var isSubmit = true;
+            $("input[name='stepid']").each(function () {
+                var step = $(this).val();
+                opts.steps.push({ id: step, member: "" });
+            });
+            if (opts.steps.length == 0) {
+                alert("没有选择要退回的步骤!");
+                return false;
+            }
+            if (isSubmit) {
                 frame.formSubmit(opts);
                 new RoadUI.Window().close();
             }
