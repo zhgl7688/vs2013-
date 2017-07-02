@@ -104,7 +104,23 @@ namespace FoWoSoft.Platform
             return dataUsersRelation.GetMaxSort(organizeID);
         }
 
-        
+        /// <summary>
+        /// 用户所在部门信息
+        /// </summary>
+        /// <returns></returns>
+        public List<FoWoSoft.Data.Model.Organize> GetOrganize(Guid userID)
+        {
+      
+           var users= GetAllByUserID(userID);
+           var organizes = new List< FoWoSoft.Data.Model.Organize>();
+            var organizeExec=new FoWoSoft.Platform.Organize();
+           foreach (var item in users)
+           {
+               organizes.Add(organizeExec.Get(item.OrganizeID));
+           }
+           return organizes;
+        }
+
 
     }
 }

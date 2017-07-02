@@ -44,7 +44,7 @@
         var nextSteps = bworkFlow.GetNextSteps(wfInstalled.ID, currentStep.ID).OrderBy(p => p.Position_x).ThenBy(p => p.Position_y).ToList();
         int i = 0;
      %>
-        <table cellpadding="0" cellspacing="1" border="0" width="95%" align="center" style="margin-top:6px;">
+        <table cellpadding="0" cellspacing="1" border="0" width="85%" align="center" style="margin:45px 69px;">
     <%if (!currentStep.Note.IsNullOrEmpty()){ %>
         <tr>
             <td style="padding:2px 0 0 0; color:#cc0000;"><%=currentStep.Note %></td>
@@ -184,7 +184,7 @@
         }
     foreach (var step in nextSteps)
     {
-        string checked1 = i++ == 0 ? "checked=\"checked\"" : "";//默认选中第一个步骤
+       
         string disabled = step.Behavior.RunSelect == 0 ? "disabled=\"disabled\"" : "";//是否允许运行时选择人员
         string selectRang = step.Behavior.SelectRange.IsNullOrEmpty() ? "" : "rootid=\"" + step.Behavior.SelectRange.Trim() + "\"";//选择范围
         if (currentStep.Name == "发起视频会议"||
@@ -286,6 +286,9 @@
         {
             defaultMember = step.Behavior.DefaultHandler;
         }
+        if (stype == "加签" && step.Name != "各部门") continue;
+        if (stype == "同意" && step.Name == "各部门") continue;
+        string checked1 = i++ == 0 ? "checked=\"checked\"" : "";//默认选中第一个步骤
      %>
         <tr>
             <td style="padding:9px 0 2px 0;">

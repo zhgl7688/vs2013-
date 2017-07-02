@@ -57,6 +57,7 @@ namespace WebForm
             #endregion
 
             this.UserName.Text = CurrentUserName;
+            this.OrganizeName.Text = CurrentUserOrganizeName;
             this.CurrentTime.Text = FoWoSoft.Utility.DateTimeNew.Now.ToDateWeekString();
             this.RoleOptions.Text = rolesOptions;
 

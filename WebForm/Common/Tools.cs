@@ -66,7 +66,7 @@ namespace WebForm.Common
             }
 
             //#if DEBUG
-           // return true; //正式使用时请注释掉这一行
+            // return true; //正式使用时请注释掉这一行
             //#endif
 
             string uniqueIDSessionKey = FoWoSoft.Utility.Keys.SessionKeys.UserUniqueID.ToString();
@@ -101,7 +101,7 @@ namespace WebForm.Common
                 else
                 {
 
-                   
+
                     System.Web.HttpContext.Current.Response.Write("<script>alert('登录超时'); window.top.location.href = '/Default.aspx';</script>");
                     System.Web.HttpContext.Current.Response.End();
                     return false;
@@ -174,6 +174,20 @@ namespace WebForm.Common
             }
             return IsUri;
         }
-        
+        /// <summary>
+        /// 退回判定
+        /// </summary>
+        /// <param name="isEnd"></param>
+        /// <returns></returns>
+        public static bool CheckBack(FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType type, Guid stepID)
+        {
+            return type == FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Back && (
+    stepID == Guid.Parse("3DAF19F5-CE5E-4773-A783-581500722498") ||
+     stepID == Guid.Parse("72578AB0-B803-4F0B-B0C0-1FAF3C99EA7E") ||
+    stepID == Guid.Parse("B1F08F44-4692-4307-82FA-32C6026201A3") ||
+      stepID == Guid.Parse("88B44E40-E9EB-44F9-9F2B-18B0AAE70A5A"));
+        }
+
+
     }
 }

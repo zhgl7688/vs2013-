@@ -247,10 +247,10 @@ namespace FoWoSoft.Platform
         {
             get
             {
-                object obj = System.Web.HttpContext.Current.Session[FoWoSoft.Utility.Keys.SessionKeys.User.ToString()];
-                if (obj == null)
-                {
-                    Guid userID = CurrentUserID;
+                //object obj = System.Web.HttpContext.Current.Session[FoWoSoft.Utility.Keys.SessionKeys.User.ToString()];
+                //if (obj == null||CurrentUserID!=CurrentUser.ID)
+                //{
+                  Guid userID = CurrentUserID;
                     if (userID == Guid.Empty)
                     {
                         return null;
@@ -261,14 +261,14 @@ namespace FoWoSoft.Platform
                         if (user != null)
                         {
                             System.Web.HttpContext.Current.Session[FoWoSoft.Utility.Keys.SessionKeys.User.ToString()] = user;
-                        }
+                       }
                         return user;
                     }
-                }
-                else
-                {
-                    return obj as FoWoSoft.Data.Model.Users;
-                }
+             //   }
+              //  else
+              //  {
+               //     return obj as FoWoSoft.Data.Model.Users;
+               // }
             }
         }
 

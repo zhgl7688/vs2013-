@@ -100,11 +100,8 @@ namespace WebForm.Common
             var meetInfo = new FoWoSoft.Platform.MeetInfo().GetByTemp3(execute.InstanceID);
             if (meetInfo == null) return null;
             string roomisId = meetInfo.temp1;//会议id;
-            if (execute.ExecuteType == FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Back && (
-            execute.StepID == Guid.Parse("3DAF19F5-CE5E-4773-A783-581500722498") ||
-       execute.StepID == Guid.Parse("72578AB0-B803-4F0B-B0C0-1FAF3C99EA7E") ||
-       execute.StepID == Guid.Parse("B1F08F44-4692-4307-82FA-32C6026201A3"))||
-       execute.StepID == Guid.Parse("88B44E40-E9EB-44F9-9F2B-18B0AAE70A5A"))
+            if (WebForm.Common.Tools.CheckBack(execute.ExecuteType, execute.StepID))
+          
             {
                 put_reject(roomisId, execute.Sender.Account);
             }

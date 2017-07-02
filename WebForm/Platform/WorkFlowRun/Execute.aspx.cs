@@ -81,7 +81,7 @@ namespace WebForm.Platform.WorkFlowRun
             //归档
             WorkFlowArchives(wfInstalled, title, execute);
 
-            Response.Write("<script type=\"text/javascript\">alert('" + reslut.Messages + "');top.mainDialog.close();</script>");
+            Response.Write("<script type=\"text/javascript\">top.getTaskCount();alert('" + reslut.Messages + "');top.mainDialog.close();</script>");
 
             if (reslut.IsSuccess)
             {
@@ -94,13 +94,8 @@ namespace WebForm.Platform.WorkFlowRun
         }
         public void backEnd(FoWoSoft.Data.Model.WorkFlowExecute.Execute execute)
         {
-            if (execute.ExecuteType == FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Back && (
-        execute.StepID == Guid.Parse("3DAF19F5-CE5E-4773-A783-581500722498") ||
-       execute.StepID == Guid.Parse("72578AB0-B803-4F0B-B0C0-1FAF3C99EA7E")||
-       execute.StepID == Guid.Parse("B1F08F44-4692-4307-82FA-32C6026201A3")||
-        execute.StepID == Guid.Parse("88B44E40-E9EB-44F9-9F2B-18B0AAE70A5A")
-       ))
-            {
+            if (WebForm.Common.Tools.CheckBack(execute.ExecuteType,execute.StepID))
+              {
                 var taskall = new FoWoSoft.Platform.WorkFlowTask().GetAll();
                 var installTasks = taskall.Where(s => s.InstanceID.ToString().Equals(execute.InstanceID, StringComparison.OrdinalIgnoreCase));
                 foreach (var item in installTasks)
@@ -108,7 +103,7 @@ namespace WebForm.Platform.WorkFlowRun
                     if (item.Status <2)
                     new FoWoSoft.Platform.WorkFlowTask().Completed(item.ID);
                 }
-                Response.Write("<script type=\"text/javascript\">top.mainTab.closeTab();</script>");
+                Response.Write("<script type=\"text/javascript\">top.getTaskCount();top.mainTab.closeTab();</script>");
                 Response.End();
             }
         }
@@ -152,11 +147,12 @@ namespace WebForm.Platform.WorkFlowRun
                     nextTask.FlowID, nextTask.StepID, nextTask.ID, nextTask.GroupID, nextTask.InstanceID,
                     Request.QueryString["appid"], Request.QueryString["tabid"]
                     );
-                Response.Write("<script type=\"text/javascript\">window.parent.location = '" + url + "';</script>");
+
+                Response.Write("<script type=\"text/javascript\">top.getTaskCount();window.parent.location = '" + url + "';</script>");
             }
             else
             {
-                Response.Write("<script type=\"text/javascript\">top.mainTab.closeTab();</script>");
+                Response.Write("<script type=\"text/javascript\">top.getTaskCount();top.mainTab.closeTab();</script>");
             }
         }
 

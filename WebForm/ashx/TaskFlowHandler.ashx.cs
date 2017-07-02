@@ -22,11 +22,22 @@ namespace WebForm.ashx
                 case "status": GetStatus(context, taskgid); break;
                 case "DelStatus": GetDelStatus(context, taskgid); break;
                 case "DelTask": DelTask(context, taskgid); break;
+                case "TaskCount": TaskCount(context); break;
                 default:
                     break;
             }
 
 
+        }
+
+        private void TaskCount(HttpContext context)
+        {
+            var userID =Guid.Parse( context.Request["userID"]);
+             string pager;
+             var taskList = new FoWoSoft.Platform.WorkFlowTask().GetTasks(userID,  out pager);
+         var  result=  taskList.Count>0 ?  "有"+taskList.Count.ToString()+"条待办":""  ;
+       
+            context.Response.Write(result);
         }
 
         private static void GetStatus(HttpContext context, string taskgid)

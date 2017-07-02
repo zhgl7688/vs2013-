@@ -20,18 +20,11 @@
         <div style="padding-right:20px;">
             <div>
                 <span class="indexwelcome">欢迎您：<asp:Literal ID="UserName" runat="server"></asp:Literal></span>
-                <span style="margin-right:6px;"></span>
+                <span style="margin-right:6px;"><asp:Literal ID="OrganizeName" runat="server"></asp:Literal></span>
                 <span style="margin-right:6px;display:none"><select id="roleselect" onchange="roleChange(this.value)" class="roleselect"><asp:Literal ID="RoleOptions" runat="server"></asp:Literal></select></span>
                 <span style="margin-right:6px;display:none" >日期：<span id="CurrentDateTimeSpan"><asp:Literal ID="CurrentTime" runat="server"></asp:Literal></span></span>
-              <%  string pager;
-                 var  taskList =new FoWoSoft.Platform.WorkFlowTask().GetTasks(FoWoSoft.Platform.Users.CurrentUserID,
-                     out pager);
-             
-                       %>
-        
-              <span class="glyphicon glyphicon-envelope" style="color:#ffd800" >
-                   <%=taskList.Count>0?"有"+taskList.Count.ToString()+"条待办":"" %>
-          </span>  </div>
+               <span class="glyphicon glyphicon-envelope" id="tasklist" style="color:#ffd800" >
+            </span>  </div>
             <div style="margin-top:4px;">
                 <span style="margin-right:4px;"><a href="http://www.fowosoft.com" class="white" target="_blank">官方网站</a></span>
                 <span style="margin-right:6px;">|</span>
@@ -93,8 +86,14 @@
     var rolesLength = <%=RoleLength%>;
     var userID = '<%=CurrentUserID%>';
     var rootdir = '<%=SitePath%>';
+    function getTaskCount(){
+  $.get("/ashx/TaskFlowHandler.ashx?Model=TaskCount"+"&userID="+'<%=CurrentUserID%>',function(data){
+            $("#tasklist").html(data);
+        })
+    }
     $(function ()
     {
+        getTaskCount();
         var windowheight=$(window).height()-58;
         $('#mainTabDiv').height(windowheight-3);
         $('.menuDivLeft').height(windowheight);

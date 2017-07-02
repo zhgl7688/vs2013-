@@ -88,6 +88,19 @@ namespace WebForm.Common
             }
         }
         /// <summary>
+        /// 当前用户部门
+        /// </summary>
+        public static string CurrentUserOrganizeName
+        {
+            get
+            {
+                                       
+                var organizeName=new FoWoSoft.Platform.UsersRelation().GetOrganize( CurrentUserID);
+
+                return string.Join(",", organizeName.Select(s=>s.Name).ToArray());
+            }
+        }
+        /// <summary>
         /// 应用程序路径
         /// </summary>
         public static string SitePath
