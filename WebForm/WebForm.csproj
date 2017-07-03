@@ -1295,6 +1295,7 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="EduModels\EduUser.cs" />
+    <Compile Include="EduModels\MeetInfoModel.cs" />
     <Compile Include="EduWebService.cs" />
     <Compile Include="ashx\GetMeetHandler.ashx.cs">
       <DependentUpon>GetMeetHandler.ashx</DependentUpon>

@@ -103,23 +103,25 @@ namespace FoWoOATest
         public void TestAdd()
         {
 
-            var meetInfo = new FoWoSoft.Data.Model.MeetInfo
+            var meetInfo = new WebForm.EduModels.MeetInfoModel
             {
                 MeetId = "200000022",
                 AdminId = "gy",
                 MeetName = "100会议",
                 MeetTimes = "2017-09-20 11:20",
                 ApplicatId = "20121102",
-                temp1 = "30",
+                temp1 = "36",
                 temp2 = "1715",
-                Date1=DateTime.Now,
-                test1 =   "1",
-                test =  "2",
+                Date1 = DateTime.Now,
+                test1 = "1",
+                test = "2",
                 typeid = "哲学社会科学类的论坛",
                 type = "校内视频会议室",
                 Reason = "校内",
-                inland =   "",
+                inland = "",
                 abroad = "",
+                Phone = "77777",
+                Address = "地址7"
             };
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
             Assert.IsNotNull(adminUser);
@@ -132,14 +134,14 @@ namespace FoWoOATest
         public void TestRoomisModify()
         {
 
-            var meetInfo = new FoWoSoft.Data.Model.MeetInfo
+            var meetInfo = new WebForm.EduModels.MeetInfoModel
             {
                 MeetId = "200000022",
                 AdminId = "gy",
                 MeetName = "100会议",
                 MeetTimes = "2017-09-20 11:20",
                 ApplicatId = "20121102",
-                temp1 = "22",
+                temp1 = "36",
                 temp2 = "会议名称",
                 Date1 = DateTime.Now,
                 test1 = "11",
@@ -149,6 +151,8 @@ namespace FoWoOATest
                 Reason = "15",
                 inland = "16",
                 abroad = "17",
+                Phone = "9999",
+                Address = "地址1111"
             };
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
             Assert.IsNotNull(adminUser);

@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using WebForm.EduModels;
 
 namespace WebForm.ashx
 {
@@ -58,14 +59,15 @@ namespace WebForm.ashx
         }
         public int RoomisModify(FoWoSoft.Data.Model.MeetInfo meetInfo)
         {
+         
             var result = meetInfoService.ModifyByTemp1(meetInfo);
             if (result > 0)
             {
-                var meetinfo = meetInfoService.GetByTemp1(meetInfo.temp1);
-                if (meetinfo != null)
+                var meetinfot = meetInfoService.GetByTemp1(meetInfo.temp1);
+                if (meetinfot != null)
                 {
-                    meetInfo.temp3 = meetinfo.temp3;
-                    new TempTestMeet().RoomisModify(meetInfo);
+                    var tempTestMeet = Common.Tools.MeetInfoToTempTestMeet(meetInfo, meetinfot.temp3);
+                    new TempTestMeet().RoomisModify(tempTestMeet);
                 }
             }
             return result;
@@ -87,27 +89,13 @@ namespace WebForm.ashx
 
         }
 
-        public void CreateNewTempTestMeet(FoWoSoft.Data.Model.MeetInfo meetInfo)
+        public void CreateNewTempTestMeet(FoWoSoft.Data.Model.MeetInfo meetInfot)
         {
+            MeetInfoModel meetInfo = meetInfot as MeetInfoModel;
             string testMeetid;
             meetInfoService.RoomisUpdate(meetInfo, out testMeetid);
-            var tempmeet = new FoWoSoft.Data.Model.TempTestMeet
-            {
-                ID = Guid.Parse(testMeetid),
-                Title = meetInfo.temp2,
-                Date2 = Convert.ToDateTime(meetInfo.MeetTimes),
-                college = meetInfo.MeetId,
-                  Date1=meetInfo.Date1,
-                  test1=meetInfo.test1, 
-                  test=meetInfo.test,
-                UserID=meetInfo.typeid,
-                UserID_text=meetInfo.typeid,
-                Type=meetInfo.type,
-                Reason=meetInfo.Reason,
-                inland=meetInfo.inland,
-                abroad=meetInfo.abroad,
-            };
-            new FoWoSoft.Platform.TempTestMeet().RoomisAdd(tempmeet);
+            var tempmeet =  Common.Tools.MeetInfoToTempTestMeet(meetInfo, testMeetid);
+             new FoWoSoft.Platform.TempTestMeet().RoomisAdd(tempmeet);
 
             var aplicatUser = new FoWoSoft.Platform.Users().GetByAccount(meetInfo.ApplicatId);
             var adminUser = new FoWoSoft.Platform.Users().GetByAccount(meetInfo.AdminId);
@@ -115,11 +103,11 @@ namespace WebForm.ashx
             {
                 InstanceID = testMeetid,
                 Title = meetInfo.temp2,
-               
+
                 SenderID = aplicatUser.ID,
                 SenderName = aplicatUser.Name,
-                ReceiveID= adminUser.ID,
-                ReceiveName=adminUser.Name
+                ReceiveID = adminUser.ID,
+                ReceiveName = adminUser.Name
             };
             new FoWoSoft.Platform.WorkFlowTask().RoomisCreate(task);
 
@@ -139,24 +127,29 @@ namespace WebForm.ashx
                 }
 
             }
-            var meetInfo = new FoWoSoft.Data.Model.MeetInfo
-           {
-               ApplicatId = context.Request["ApplicatId"],
-               MeetTimes = context.Request["MeetTimes"],
-               MeetId = context.Request["MeetId"],
-               MeetName = context.Request["MeetName"],
-               AdminId = context.Request["AdminId"],
-               temp1 = context.Request["temp1"],
-               temp2 = context.Request["temp2"] ?? "",
-               Date1 = context.Request["Date1"] == null ? DateTime.Now : Convert.ToDateTime(context.Request["Date1"]),
-               test1 = context.Request["test1"] ?? "",
-               test = context.Request["test"] ?? "",
-               typeid = context.Request["typeid"] ?? "",
-               type = context.Request["type"] ?? "",
-               Reason = context.Request["Reason"] ?? "",
-               inland = context.Request["inland"] ?? "",
-               abroad = context.Request["abroad"] ?? "",
-           };
+            var ApplicatIds = context.Request["ApplicatId"].Split('|');
+
+            var meetInfo = new EduModels.MeetInfoModel
+            {
+
+                MeetTimes = context.Request["MeetTimes"],
+                MeetId = context.Request["MeetId"],
+                MeetName = context.Request["MeetName"],
+                AdminId = context.Request["AdminId"],
+                temp1 = context.Request["temp1"],
+                temp2 = context.Request["temp2"] ?? "",
+                Date1 = context.Request["Date1"] == null ? DateTime.Now : Convert.ToDateTime(context.Request["Date1"]),
+                test1 = context.Request["test1"] ?? "",
+                test = context.Request["test"] ?? "",
+                typeid = context.Request["typeid"] ?? "",
+                type = context.Request["type"] ?? "",
+                Reason = context.Request["Reason"] ?? "",
+                inland = context.Request["inland"] ?? "",
+                abroad = context.Request["abroad"] ?? "",
+            };
+            meetInfo.ApplicatId = ApplicatIds[0];
+            meetInfo.Phone = ApplicatIds.Length>2? ApplicatIds[1]:"";
+            meetInfo.Address = ApplicatIds.Length > 3? ApplicatIds[2]:"";
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
             if (adminUser == null) { context.Response.Write("管理员不存在！"); context.Response.End(); };
             var aplicatUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.ApplicatId);

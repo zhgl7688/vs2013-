@@ -43,21 +43,11 @@ namespace FoWoSoft.Data.MSSQL
             dataReader.Close();
             return List.Count > 0 ? List[0] : null;
         }
-        public int RoomisModify(FoWoSoft.Data.Model.MeetInfo meetInfo)
+        public int RoomisModify(FoWoSoft.Data.Model.TempTestMeet tempmeet)
         {
-            string sql = @"update TempTestMeet set Date2=@Date2,college=@college where id=@id ";
-            SqlParameter[] parameters = new SqlParameter[]{
-                new SqlParameter("@Date2",meetInfo.MeetTimes),
-                new SqlParameter("@college",  meetInfo.MeetId),
-                new SqlParameter("@id",  meetInfo.temp3),
-                 };
-            return new DBHelper().Execute(sql, parameters);
-
-        }
-        public int RoomisAdd(FoWoSoft.Data.Model.TempTestMeet tempmeet)
-        {
-            string sql = @"INSERT INTO TempTestMeet( ID , Title , Date2  ,college , Date1, test1, test, UserID,UserID_text, Type, Reason, inland, abroad)
-VALUES  (   @ID , @Title , @Date2  ,@college , @Date1, @test1, @test, @UserID, @UserID_text, @Type, @Reason, @inland, @abroad  )";
+            string sql = @"update TempTestMeet set   Title=@Title , Date2  =@Date2 ,college =@college ,
+Date1=@Date1 , test1=@test1 , test=@test , UserID=@UserID ,UserID_text=@UserID_text , 
+Type=@Type , Reason=@Reason , inland=@inland , abroad=@abroad ,DeptID=@DeptID ,DeptName =@DeptName  where id=@id ";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@ID",  tempmeet.ID),
                 new SqlParameter("@Title",tempmeet.Title ),
@@ -72,6 +62,33 @@ VALUES  (   @ID , @Title , @Date2  ,@college , @Date1, @test1, @test, @UserID, @
                             new SqlParameter("@Reason",  tempmeet.Reason),
                               new SqlParameter("@inland",  tempmeet.inland),
                                 new SqlParameter("@abroad",  tempmeet.abroad),
+                                 new SqlParameter("@DeptID",  tempmeet.DeptID),
+                                  new SqlParameter("@DeptName",  tempmeet.DeptName),
+
+                 };
+            return new DBHelper().Execute(sql, parameters);
+
+        }
+        public int RoomisAdd(FoWoSoft.Data.Model.TempTestMeet tempmeet)
+        {
+            string sql = @"INSERT INTO TempTestMeet( ID , Title , Date2  ,college , Date1, test1, test, UserID,UserID_text, Type, Reason, inland, abroad,DeptID,DeptName)
+VALUES  (   @ID , @Title , @Date2  ,@college , @Date1, @test1, @test, @UserID, @UserID_text, @Type, @Reason, @inland, @abroad,@DeptID,@DeptName  )";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@ID",  tempmeet.ID),
+                new SqlParameter("@Title",tempmeet.Title ),
+                new SqlParameter("@Date2",tempmeet.Date2),
+                new SqlParameter("@college",  tempmeet.college),
+                  new SqlParameter("@Date1",  tempmeet.Date1),
+                    new SqlParameter("@test1",  tempmeet.test1),
+                    new SqlParameter("@test",  tempmeet.test),
+                      new SqlParameter("@UserID",  tempmeet.UserID),
+                        new SqlParameter("@UserID_text",  tempmeet.UserID_text),
+                          new SqlParameter("@Type",  tempmeet.Type),
+                            new SqlParameter("@Reason",  tempmeet.Reason),
+                              new SqlParameter("@inland",  tempmeet.inland),
+                                new SqlParameter("@abroad",  tempmeet.abroad),
+                                 new SqlParameter("@DeptID",  tempmeet.DeptID),
+                                  new SqlParameter("@DeptName",  tempmeet.DeptName),
 
                  };
             return new DBHelper().Execute(sql, parameters);

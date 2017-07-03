@@ -187,7 +187,28 @@ namespace WebForm.Common
     stepID == Guid.Parse("B1F08F44-4692-4307-82FA-32C6026201A3") ||
       stepID == Guid.Parse("88B44E40-E9EB-44F9-9F2B-18B0AAE70A5A"));
         }
-
+        public static FoWoSoft.Data.Model.TempTestMeet MeetInfoToTempTestMeet(FoWoSoft.Data.Model.MeetInfo meetInfot, string testMeetid)
+        {
+            var meetInfo = meetInfot as EduModels.MeetInfoModel;
+            return new FoWoSoft.Data.Model.TempTestMeet
+            {
+                ID = Guid.Parse(testMeetid),
+                Title = meetInfo.temp2,
+                Date2 = Convert.ToDateTime(meetInfo.MeetTimes),
+                college = meetInfo.MeetId,
+                Date1 = meetInfo.Date1,
+                test1 = meetInfo.test1,
+                test = meetInfo.test,
+                UserID = meetInfo.typeid,
+                UserID_text = meetInfo.typeid,
+                Type = meetInfo.type,
+                Reason = meetInfo.Reason,
+                inland = meetInfo.inland,
+                abroad = meetInfo.abroad,
+                DeptID = meetInfo.Phone,
+                DeptName = meetInfo.Address
+            };
+        }
 
     }
 }

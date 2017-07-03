@@ -22,7 +22,7 @@ namespace FoWoSoft.Data.Interface
         /// 根据useId查询一条记录
         /// </summary>
        FoWoSoft.Data.Model.TempTestMeet Get(string useId);
-        int RoomisModify(FoWoSoft.Data.Model.MeetInfo meetInfo);
+        int RoomisModify(FoWoSoft.Data.Model.TempTestMeet tempmeet);
         int RoomisAdd(FoWoSoft.Data.Model.TempTestMeet tempmeet);
        
         }
