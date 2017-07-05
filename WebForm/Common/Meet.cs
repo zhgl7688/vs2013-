@@ -107,7 +107,8 @@ namespace WebForm.Common
             }
             else if (execute.ExecuteType == FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Completed)
             {
-                put_approve(roomisId, execute.Sender.Account);
+                string remarks = execute.Comment;
+                put_approve(roomisId, execute.Sender.Account,  remarks);
             }
             else
             {
@@ -128,7 +129,7 @@ namespace WebForm.Common
                     put = put_reject;
                     break;
                 case RoomisOperation.put_approve:
-                    put = put_approve;
+                  //  put = put_approve;
                     break;
                 case RoomisOperation.put_step:
                     return SendStep(eventId, installId);
@@ -173,7 +174,7 @@ namespace WebForm.Common
         /// <param name="eventId"></param>
         /// <param name="apperot"></param>
         /// <returns></returns>
-        public static string put_approve(string eventId, string apperot)
+        public static string put_approve(string eventId, string apperot,string remarks)
         {
             string address = "api/booking/events/{0}/approval";
 
@@ -181,7 +182,7 @@ namespace WebForm.Common
             {
                 approver = apperot,
                 status = "APPROVED",
-                remarks = "完成"
+                remarks = remarks,// "备注文字",
             });
 
             return Put_Roomis(eventId, address, data);

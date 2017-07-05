@@ -25,8 +25,8 @@
     string seconId = "";
     if (StepID == null || StepID == new FoWoSoft.Platform.WorkFlow().GetWorkFlowRunModel(FlowID).FirstStepID.ToString())
     {
-        if(InstanceID!=null) meet = new FoWoSoft.Platform.MeetInfo().GetByTemp3(InstanceID);
-        if (meet!=null) meet.AdminId = new FoWoSoft.Platform.Users().GetByAccount(meet.AdminId).ID.ToString();
+        if (InstanceID != null) meet = new FoWoSoft.Platform.MeetInfo().GetByTemp3(InstanceID);
+        if (meet != null) meet.AdminId = new FoWoSoft.Platform.Users().GetByAccount(meet.AdminId).ID.ToString();
 
     }
     #endregion
@@ -45,10 +45,11 @@
     var test1 = "";
     var test = "";
     var UserID = "哲学社会科学类的论坛";
-    FoWoSoft.Data.Model.TempTestMeet tempMeet=null;
+    FoWoSoft.Data.Model.TempTestMeet tempMeet = null;
+    string displayPhoneAddress = "";
     if (Guid.TryParse(InstanceID, out g))
     {
-          tempMeet = new FoWoSoft.Platform.TempTestMeet().Get(g);
+        tempMeet = new FoWoSoft.Platform.TempTestMeet().Get(g);
         Title = tempMeet.Title;
         if (tempMeet.Date1 != null) Date1 = (DateTime)tempMeet.Date1;
         if (tempMeet.Date2 != null) Date2 = (DateTime)tempMeet.Date2;
@@ -62,8 +63,18 @@
         test1 = tempMeet.test1;
         test = tempMeet.test;
         UserID = tempMeet.UserID;
-        if (Reason == "校内") {fieldStatus["Date2"] = 1;
+        if (Reason == "校内")
+        {
+            fieldStatus["Date2"] = 1;
             fieldStatus["Reason"] = 1;
+        }
+        if (!string.IsNullOrEmpty(tempMeet.DeptID))
+        {
+            displayPhoneAddress = "预约人联系号码：" + tempMeet.DeptID;
+        }
+        if (!string.IsNullOrEmpty(tempMeet.DeptName))
+        {
+            displayPhoneAddress = "地址：" + tempMeet.DeptName;
         }
     }
 
@@ -85,12 +96,12 @@
     var memberId = null;
     var currentStep = -1;
     <%if (meet != null)
-      {  %>
+    {  %>
     meetinfo = {
         MeetTimes: '<%=meet.MeetTimes%>', MeetId: '<%=meet.MeetId%>', AdminId: '<%=meet.AdminId%>'
        };
     <%}%>
-    <%if(StepID == "04dbab0d-e751-4579-8007-8f9f59683a24")
+    <%if (StepID == "04dbab0d-e751-4579-8007-8f9f59683a24")
     {
         var currentTask = BWorkFlowTask.Get(Guid.Parse(TaskID));
         %>
@@ -111,13 +122,13 @@
 </script>
 <style>
     .tableleft {
-            width: 130px;
-        }
+        width: 130px;
+    }
 
     .tableDate {
-            width: 100px;
-            text-align: center;
-        }
+        width: 100px;
+        text-align: center;
+    }
 </style>
 <p style="text-align: center;margin-top:50px"><span style="font-size: 24px;"><strong></strong></span></p>
 <p style="text-align: center;"><span style="font-size: 24px;"><strong><span style="font-size: 18px;">视 频 会 议 </span></strong></span></p>
@@ -231,8 +242,8 @@
         </tr>
     </tbody>
 </table>
-<p>
-    <br />
+<p> 
+    <br /><%=displayPhoneAddress%><br />
 </p>
 <script>
     var reasonindex = ReasonArray.indexOf("<%=Reason%>");
@@ -256,8 +267,8 @@
     //    document.getElementById('TempTestMeet.college').applyElement = optionStr;
     //});
 </script>
-  <% if (tempMeet!=null)
-    { %>
+  <% if (tempMeet != null)
+      { %>
   
 <script>
   //  alert($('#TempTestMeet.Title').value());
