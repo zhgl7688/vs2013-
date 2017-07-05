@@ -13,7 +13,7 @@
     // string DBTablePK = "ID";
     // string DBTableTitle = "Title";
     if (InstanceID.IsNullOrEmpty()) { InstanceID = Request.QueryString["instanceid1"]; }
-    FoWoSoft.Platform.Dictionary BDictionary = new FoWoSoft.Platform.Dictionary();
+    //FoWoSoft.Platform.Dictionary BDictionary = new FoWoSoft.Platform.Dictionary();
     FoWoSoft.Platform.WorkFlow BWorkFlow = new FoWoSoft.Platform.WorkFlow();
     FoWoSoft.Platform.WorkFlowTask BWorkFlowTask = new FoWoSoft.Platform.WorkFlowTask();
     var fieldStatus = BWorkFlow.GetFieldStatusAndCheck(FlowID, StepID);
@@ -70,16 +70,16 @@
         }
         if (!string.IsNullOrEmpty(tempMeet.DeptID))
         {
-            displayPhoneAddress = "预约人联系号码：" + tempMeet.DeptID;
+            displayPhoneAddress = "<span style='margin-left:15px;color:red'>备注：</span><span style='margin-left:10px;  font:bold;'>预约人号码：</span>" + tempMeet.DeptID;
         }
         if (!string.IsNullOrEmpty(tempMeet.DeptName))
         {
-            displayPhoneAddress = "地址：" + tempMeet.DeptName;
+            displayPhoneAddress += "<br/><span style='margin-left:73px;  font:bold;'>会场地址：</span>" + tempMeet.DeptName + "";
         }
     }
 
 %>
- 
+
 <link href="Scripts/Forms/flowform.css" rel="stylesheet" type="text/css" />
 <%--<script src="Scripts/Forms/common.js" type="text/javascript"></script>--%>
 <input type="hidden" id="Form_ValidateAlertType" name="Form_ValidateAlertType" value="1" />
@@ -242,9 +242,9 @@
         </tr>
     </tbody>
 </table>
-<p> 
+
     <br /><%=displayPhoneAddress%><br />
-</p>
+
 <script>
     var reasonindex = ReasonArray.indexOf("<%=Reason%>");
     var abroad = document.getElementById('TempTestMeet.Reason');

@@ -223,6 +223,7 @@
         <%
             if (isSign && "0" == display && !isCopyFor)
             {
+                var displayOk = true;
                 string commentsOptions = new FoWoSoft.Platform.WorkFlowComment().GetOptionsStringByUserID(FoWoSoft.Platform.Users.CurrentUserID);
                 if (stepID == Guid.Parse("3daf19f5-ce5e-4773-a783-581500722498") ||
           (stepID == Guid.Parse("b1f08f44-4692-4307-82fa-32c6026201a3"))//||
@@ -231,12 +232,26 @@
                 {
                     commentsOptions += string.Format(" <option value=\"{0}\">{0}</option>", "加签");
                 }
+                else if (stepID == Guid.Parse("45E6F561-1BA6-4ED0-8281-7AE905E0804C"))
+                {
+                    displayOk = false;
+                    commentsOptions = string.Format(" <option value=\"{0}\" select=\"\">{0}</option>", "同意");
+                }
 
         %>
         <div style="height: 12px; margin: 16px 8px 8px 8px; border-bottom: 1px dashed #ccc;"></div>
         <div style="height: 30px; margin: 15px auto 8px auto; text-align: left; width: 96%;">
-            处理意见：<select class="myselect" id="mycomment" style="margin-right: 6px; width: 100px;" onchange="$('#comment').val(this.value);"><option value=""></option>
-                <%=commentsOptions %></select>&nbsp;<input type="text" class="mytext" id="comment" name="comment" value="" style="width: 70%; margin-right: 6px;" />
+            处理意见：
+            <% if (displayOk){ %>
+            <select class="myselect" id="mycomment"  style="margin-right: 6px; width: 100px;" onchange="$('#comment').val(this.value);"><option value=""></option>
+                <%=commentsOptions %>
+
+
+            </select>
+            <%}else{ %>
+             <input   id="mycomment" value="同意"  type="hidden"/>   
+            <%} %>
+            &nbsp;<input type="text" class="mytext" id="comment" name="comment" value="" style="width: 70%; margin-right: 6px;" />
             <%if (signType == 2)
                 {%>
             <input type="hidden" value="" id="issign" name="issign" />

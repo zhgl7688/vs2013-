@@ -53,6 +53,44 @@ new WebForm.Common.UserService().CreateAllUser();
             }
 
         }
+        //public string get_gs_xml(string contractno, string AddtimeBegin, string AddtimeEnd)
+        //{
+
+        //    var Entities = new gsEntities1().gs_xml_hyjy.OrderByDescending(m => m.Addtime).ThenBy(m => m.contractno).
+        //           Select(l => new Models_gs_xml_hyjy() { contractno = l.contractno,
+        //               AlterPlanCode = l.AlterPlanCode,
+        //               AlterLevel = l.AlterLevel, 
+        //               PegAndSite = l.PegAndSite, 
+        //               AlterItemName = l.AlterItemName,
+        //               AlterEstimatAmount = l.AlterEstimatAmount, 
+        //               Addtime = l.Addtime,
+        //               Addtime1=l.Addtime.tostring("yyyy-MM-dd")
+        //           });
+
+
+        //    if (contractno != null)
+        //    {
+        //        Entities = Entities.Where(o => o.contractno == contractno);
+        //    }
+
+        //    if (AddtimeBegin != null)
+        //    {
+        //        DateTime Begin = GMT2Local(AddtimeBegin);
+        //        Entities = Entities.Where(o => o.Addtime >= Begin);
+        //    }
+
+        //    if (AddtimeEnd != null)
+        //    {
+        //        DateTime End = GMT2Local(AddtimeEnd);
+        //        Entities = Entities.Where(o => o.Addtime < End);
+        //    }
+            
+        //    foreach (var item in Entities.ToList())
+        //    {
+        //        item.Addtime = Convert.ToDateTime(item.Addtime.ToShortDateString().ToString());
+        //    }
+        //    return XmlSerializer(Entities.ToList());
+        //}
 
         public bool IsReusable
         {

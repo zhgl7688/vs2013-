@@ -106,7 +106,7 @@ namespace FoWoOATest
             var meetInfo = new WebForm.EduModels.MeetInfoModel
             {
                 MeetId = "200000022",
-                AdminId = "gy",
+                AdminId = "20121102",
                 MeetName = "100会议",
                 MeetTimes = "2017-09-20 11:20",
                 ApplicatId = "20121102",
@@ -120,7 +120,7 @@ namespace FoWoOATest
                 Reason = "校内",
                 inland = "",
                 abroad = "",
-                Phone = "77777",
+                Phone = "777777777",
                 Address = "地址7"
             };
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);

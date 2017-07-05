@@ -45,8 +45,8 @@ namespace WebForm.Platform.WorkFlowRun
             string title = Request.Form[Request.Form["Form_TitleField"]];
             var execute = CreateExecute(instanceid, flowid, wfInstalled, comment, stepid, opationJSON, title);
             //操作roomis审核
-            if (execute.ExecuteType == EnumType.ExecuteType.Completed)
-                new WebForm.Common.Meet().Roomis(execute.InstanceID, WebForm.Common.RoomisOperation.put_approve);
+            //if (execute.ExecuteType == EnumType.ExecuteType.Completed)
+             //   new WebForm.Common.Meet().Roomis(execute.InstanceID, WebForm.Common.RoomisOperation.put_approve);
 
             var eventParams = WorkFlowCustomEventParamsSet(execute);
 
