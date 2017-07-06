@@ -23,10 +23,16 @@
     #region 根据用户信息查获会议信息
     FoWoSoft.Data.Model.MeetInfo meet = null;
     string seconId = "";
+    string pson = "";
     if (StepID == null || StepID == new FoWoSoft.Platform.WorkFlow().GetWorkFlowRunModel(FlowID).FirstStepID.ToString())
     {
         if (InstanceID != null) meet = new FoWoSoft.Platform.MeetInfo().GetByTemp3(InstanceID);
-        if (meet != null) meet.AdminId = new FoWoSoft.Platform.Users().GetByAccount(meet.AdminId).ID.ToString();
+        if (meet != null)
+        {
+            var account = new FoWoSoft.Platform.Users().GetByAccount(meet.AdminId);
+            meet.AdminId =account.ID.ToString();
+            pson = account.Name;
+        }
 
     }
     #endregion
@@ -68,13 +74,23 @@
             fieldStatus["Date2"] = 1;
             fieldStatus["Reason"] = 1;
         }
+        if (InstanceID != null)
+        {
+           var meet1 = new FoWoSoft.Platform.MeetInfo().GetByTemp3(InstanceID);
+            if (meet1 != null)
+            {
+                var account = new FoWoSoft.Platform.Users().GetByAccount(meet1.AdminId);
+                meet1.AdminId = account.ID.ToString();
+                pson = account.Name;
+            }
+        }
         if (!string.IsNullOrEmpty(tempMeet.DeptID))
         {
-            displayPhoneAddress = "<span style='margin-left:15px;color:red'>备注：</span><span style='margin-left:10px;  font:bold;'>预约人号码：</span>" + tempMeet.DeptID;
+            displayPhoneAddress = "<span style='margin-left:15px;color:red'>备注：</span>" + "预约人：" + pson + ";<span style='margin-left:10px;  font:bold;'>预约人号码：</span>" + tempMeet.DeptID;
         }
         if (!string.IsNullOrEmpty(tempMeet.DeptName))
         {
-            displayPhoneAddress += "<br/><span style='margin-left:73px;  font:bold;'>会场地址：</span>" + tempMeet.DeptName + "";
+            displayPhoneAddress += "<br/><span style='margin-left:38px;  font:bold;'>会场地址：</span>" + tempMeet.DeptName + "";
         }
     }
 
@@ -180,7 +196,7 @@
             <td rowspan="1" colspan="3" valign="top">
                 <input name="TempTestMeet.Type" id="TempTestMeet.Type_0" value="校内视频会议室"  "<%=fieldStatus["Type"]==0?" ":" disabled='1'"  %>"  style="vertical-align: middle;" isflow="1" type1="flow_checkbox" type="checkbox" "<%=Type.IndexOf("校内视频会议室")>-1?" checked='checked'":"" %>"/>
                 <label for="TempTestMeet.Type_0" style="vertical-align: middle; margin-right: 3px;">校内视频会议室</label>
-                <input name="TempTestMeet.Type" id="TempTestMeet.Type_1"  "<%=fieldStatus["Type"]==0?" ":" disabled='1'"  %>"  value="标准H.323\SIP会议终端（如：polycom视频会议终端）" style="vertical-align: middle;" isflow="1" type1="flow_checkbox" type="checkbox"  "<%=Type.Contains("标准H.323\\SIP会议终端（如：polycom视频会议终端）")?" checked='checked'":"" %>" />
+                <input name="TempTestMeet.Type" id="TempTestMeet.Type_1"  "<%=fieldStatus["Type"]==0?" ":" disabled='1'"  %>"  value="标准H.323\SIP会议终端（如：polycom视频会议终端）" style="vertical-align: middle;" isflow="1" type1="flow_checkbox" type="checkbox"  "<%=Type.Contains("polycom视频会议终端")?" checked='checked'":"" %>" />
                 <label for="TempTestMeet.Type_1" style="vertical-align: middle; margin-right: 3px;">标准H.323\SIP会议终端（如：polycom视频会议终端）</label>
                 <input name="TempTestMeet.Type" id="TempTestMeet.Type_2"  "<%=fieldStatus["Type"]==0?" ":" disabled='1'"  %>"  value="PC或移动终端" style="vertical-align: middle;" isflow="1" type1="flow_checkbox" type="checkbox" "<%=Type.IndexOf("PC或移动终端")>-1?" checked='checked'":"" %>"/>
                 <label for="TempTestMeet.Type_2" style="vertical-align: middle; margin-right: 3px;">PC或移动终端</label></td>

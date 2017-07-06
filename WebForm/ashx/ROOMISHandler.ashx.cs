@@ -148,8 +148,8 @@ namespace WebForm.ashx
                 abroad = context.Request["abroad"] ?? "",
             };
             meetInfo.ApplicatId = ApplicatIds[0];
-            meetInfo.Phone = ApplicatIds.Length>2? ApplicatIds[1]:"";
-            meetInfo.Address = ApplicatIds.Length > 3? ApplicatIds[2]:"";
+            meetInfo.Phone = ApplicatIds.Length>1? ApplicatIds[1]:"";
+            meetInfo.Address = ApplicatIds.Length > 2? ApplicatIds[2]:"";
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
             if (adminUser == null) { context.Response.Write("管理员不存在！"); context.Response.End(); };
             var aplicatUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.ApplicatId);

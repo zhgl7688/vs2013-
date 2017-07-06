@@ -53,7 +53,7 @@ function flowSend(isSubmit) {
     else {
         // alert(currentStep);
         if (currentStep == 3) {
-            alert();
+           // alert();
             confirm3(memberId)
         } else 
         if (currentStep == 4) {

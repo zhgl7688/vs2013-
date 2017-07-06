@@ -38,7 +38,7 @@
     },
     initData: function (jsonData, dbtable, jsonStatus, displayModel)
     {
-        alert(jsonData);
+       // alert(jsonData);
         if (!jsonData || !dbtable)
         {
             return;
