@@ -202,6 +202,14 @@
                     {
                         System.Text.StringBuilder sb = new System.Text.StringBuilder();
                         System.IO.TextWriter tw = new System.IO.StringWriter(sb);
+                        Guid g;
+                        if (Guid.TryParse(instanceid, out g))
+                        {
+                            if (new FoWoSoft.Platform.TempTestMeet().Get(g).UserID == "直播会议")
+                                src = "/Platform/WorkFlowFormDesigner/Forms/secord.aspx";
+                        }
+
+
                         Server.Execute(src, tw);
                         Response.Write(sb.ToString().RemovePageTag());
                     }

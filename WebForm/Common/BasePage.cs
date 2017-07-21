@@ -9,7 +9,7 @@ namespace WebForm.Common
     {
         protected override void OnInit(EventArgs e)
         {
-            base.OnInit(e);
+            base.OnInit(e); 
             this.CheckUrl();
             this.CheckLogin();
             this.CheckApp();

@@ -362,6 +362,7 @@
     <Content Include="Platform\WorkFlowFormDesigner\Default.aspx" />
     <Content Include="Platform\WorkFlowFormDesigner\Forms\333.aspx" />
     <Content Include="Platform\WorkFlowFormDesigner\Forms\75b6e574-107f-4b4c-93a3-07469a9bc1be.aspx" />
+    <Content Include="Platform\WorkFlowFormDesigner\Forms\secord.aspx" />
     <Content Include="Platform\WorkFlowFormDesigner\ueditor\plugins\dialogs\combox.aspx" />
     <Content Include="Platform\WorkFlowFormDesigner\ueditor\plugins\dialogs\sumtext.aspx" />
     <Content Include="Platform\WorkFlowFormDesigner\ueditor\plugins\images\combox.png" />

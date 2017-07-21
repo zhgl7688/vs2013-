@@ -110,12 +110,12 @@ namespace FoWoOATest
                 MeetName = "100会议",
                 MeetTimes = "2017-09-20 11:20",
                 ApplicatId = "20121102",
-                temp1 = "36",
+                temp1 = "39",
                 temp2 = "1715",
                 Date1 = DateTime.Now,
                 test1 = "1",
                 test = "2",
-                typeid = "哲学社会科学类的论坛",
+                typeid = "哲学社会科学类的讲座",
                 type = "校内视频会议室",
                 Reason = "校内",
                 inland = "",
@@ -130,6 +130,8 @@ namespace FoWoOATest
             // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
             new WebForm.ashx.ROOMISHandler().Create(meetInfo);
         }
+
+
         [TestMethod]
         public void TestRoomisModify()
         {
@@ -141,12 +143,12 @@ namespace FoWoOATest
                 MeetName = "100会议",
                 MeetTimes = "2017-09-20 11:20",
                 ApplicatId = "20121102",
-                temp1 = "36",
+                temp1 = "38",
                 temp2 = "会议名称",
                 Date1 = DateTime.Now,
                 test1 = "11",
                 test = "12",
-                typeid = "13",
+                typeid = "哲学社会科学类的讲座",
                 type = "14",
                 Reason = "15",
                 inland = "16",
@@ -189,6 +191,37 @@ namespace FoWoOATest
 
               WebForm.Common.Meet.gethttp(url);
 
+        }
+        [TestMethod]
+        public void TestLiveAdd()
+        {
+
+            var meetInfo = new WebForm.EduModels.MeetInfoModel
+            {
+                MeetId = "200000022",
+                AdminId = "20121102",
+                MeetName = "直播会议",
+                MeetTimes = "2017-09-20 11:20",
+                ApplicatId = "20121102",
+                temp1 = "37",
+                temp2 = "直播会议001",
+                Date1 = DateTime.Now,
+                test1 = "1",
+                test = "2",
+                typeid = "直播会议",
+                type = "华师大直播平台",
+                Reason = "校内|是",
+                inland = "入场设备信息",
+                abroad = "11.22.33.44|other",
+                Phone = "777777777",
+                Address = "地址7"
+            };
+            var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
+            Assert.IsNotNull(adminUser);
+            var aplicatUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.ApplicatId);
+            Assert.IsNotNull(aplicatUser);
+            // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
+            new WebForm.ashx.ROOMISHandler().Create(meetInfo);
         }
     }
     enum testen
