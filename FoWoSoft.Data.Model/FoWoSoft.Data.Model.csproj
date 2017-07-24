@@ -52,6 +52,7 @@
     <Compile Include="AppLibrary.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="Dictionary.cs" />
+    <Compile Include="EnumsModel.cs" />
     <Compile Include="Guid_id.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MeetInfo.cs" />

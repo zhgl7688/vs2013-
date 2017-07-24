@@ -1,4 +1,12 @@
-﻿mstsc：202.120.80.9:61212
+﻿2017-7-24
+1、直播会议的接口制作
+2、直播会议的流程的制作
+3、改进已办事项的列表，由原来显示所有任务所有列改为所有任务最新一列
+
+2017-7-22
+1、进行二期的直播会议设计
+
+mstsc：202.120.80.9:61212
 
 lgong2/ Lgong20!^
 http://202.120.85.70/ashx/roomishandler.ashx?model=add&ApplicatId=20121102&MeetTimes=2019-1-1%2011:13&MeetId=22&MeetName=101会议室&AdminId=lb&temp1=1&temp2=预约名称

@@ -9,12 +9,37 @@ using System.Text;
 using System.Collections.Generic;
 using System.Net;
 using WebForm;
+using FoWoSoft.Data.Model;
 
 namespace FoWoOATest
 {
     [TestClass]
     public class UnitTest1
     {
+        WebForm.EduModels.MeetInfoModel meetInfo;
+       public UnitTest1()
+        {
+              meetInfo = new WebForm.EduModels.MeetInfoModel
+            {
+                MeetId = "200000022",
+                AdminId = "20121102",
+                MeetName = "100会议",
+                MeetTimes = "2017-09-20 11:20",
+                ApplicatId = "20121102",
+                temp1 = "39",
+                temp2 = "1715",
+                Date1 = DateTime.Now,
+                test1 = "1",
+                test = "2",
+                typeid = "哲学社会科学类的讲座",
+                type = "校内视频会议室",
+                Reason = "校内",
+                inland = "",
+                abroad = "",
+                Phone = "777777777",
+                Address = "地址7"
+            };
+        }
         [TestMethod]
         public void TestMethod1()
         {
@@ -38,7 +63,7 @@ namespace FoWoOATest
         }
 
     
-             [TestMethod]
+         [TestMethod]
         public void OrganizeTest()
         {
             Guid first = Guid.Parse("04F12BEB-D99D-43DF-AC9A-3042957D6BDA");
@@ -103,32 +128,28 @@ namespace FoWoOATest
         public void TestAdd()
         {
 
-            var meetInfo = new WebForm.EduModels.MeetInfoModel
-            {
-                MeetId = "200000022",
-                AdminId = "20121102",
-                MeetName = "100会议",
-                MeetTimes = "2017-09-20 11:20",
-                ApplicatId = "20121102",
-                temp1 = "39",
-                temp2 = "1715",
-                Date1 = DateTime.Now,
-                test1 = "1",
-                test = "2",
-                typeid = "哲学社会科学类的讲座",
-                type = "校内视频会议室",
-                Reason = "校内",
-                inland = "",
-                abroad = "",
-                Phone = "777777777",
-                Address = "地址7"
-            };
+            meetInfo.temp1 = DateTime.Now.ToShortTimeString();
+            meetInfo.typeid = Enum.GetName(typeof(meetType), meetType.直播会议);
+            meetInfo.type = Enum.GetName(typeof(LivePlatform), LivePlatform.华师大直播平台);
+            meetInfo.inland = "入场设备信息";
+            meetInfo.abroad = "222.222.33.44|其他需求";
+            meetInfo.Reason = "校内|是";
+            meetInfo.temp2 = Enum.GetName(typeof(meetType), meetType.直播会议) + DateTime.Now.ToShortTimeString() + "标题";
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
             Assert.IsNotNull(adminUser);
             var aplicatUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.ApplicatId);
             Assert.IsNotNull(aplicatUser);
-            // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
+          // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
             new WebForm.ashx.ROOMISHandler().Create(meetInfo);
+            System.Threading.Thread.Sleep(1000);
+            meetInfo.temp1 = DateTime.Now.ToShortTimeString();
+            meetInfo.typeid = Enum.GetName(typeof(meetType), meetType.直播会议);
+            meetInfo.type = Enum.GetName(typeof(LivePlatform), LivePlatform.校外第三方直播平台);
+            meetInfo.inland = "入场设备信息";
+            meetInfo.abroad = "222.222.33.44|其他需求";
+            meetInfo.Reason = "校内|是";
+            meetInfo.temp2 = Enum.GetName(typeof(meetType), meetType.直播会议) + DateTime.Now.ToShortTimeString() + "标题";
+              new WebForm.ashx.ROOMISHandler().Create(meetInfo);
         }
 
 
@@ -228,4 +249,5 @@ namespace FoWoOATest
     {
         green, red, black
     }
+    
 }

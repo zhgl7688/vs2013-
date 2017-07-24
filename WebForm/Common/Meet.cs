@@ -101,14 +101,14 @@ namespace WebForm.Common
             if (meetInfo == null) return null;
             string roomisId = meetInfo.temp1;//会议id;
             if (WebForm.Common.Tools.CheckBack(execute.ExecuteType, execute.StepID))
-          
+
             {
                 put_reject(roomisId, execute.Sender.Account);
             }
             else if (execute.ExecuteType == FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Completed)
             {
                 string remarks = execute.Comment;
-                put_approve(roomisId, execute.Sender.Account,  remarks);
+                put_approve(roomisId, execute.Sender.Account, remarks);
             }
             else
             {
@@ -129,7 +129,7 @@ namespace WebForm.Common
                     put = put_reject;
                     break;
                 case RoomisOperation.put_approve:
-                  //  put = put_approve;
+                    //  put = put_approve;
                     break;
                 case RoomisOperation.put_step:
                     return SendStep(eventId, installId);
@@ -157,11 +157,11 @@ namespace WebForm.Common
                 var approver = new FoWoSoft.Platform.Users().Get(item.ReceiveID).Account;
                 var remark = (item.Status > -1 && item.Status < 6) ? remarks[item.Status] : "";
                 string data = JsonConvert.SerializeObject(new
-              {
-                  approver = approver,
-                  status = "PENDING",
-                  remarks = remark
-              });
+                {
+                    approver = approver,
+                    status = "PENDING",
+                    remarks = remark
+                });
                 string address = "api/booking/events/{0}/approval";
                 Put_Roomis(eventId, address, data);
             }
@@ -174,7 +174,7 @@ namespace WebForm.Common
         /// <param name="eventId"></param>
         /// <param name="apperot"></param>
         /// <returns></returns>
-        public static string put_approve(string eventId, string apperot,string remarks)
+        public static string put_approve(string eventId, string apperot, string remarks)
         {
             string address = "api/booking/events/{0}/approval";
 
@@ -205,11 +205,11 @@ namespace WebForm.Common
             });
             return Put_Roomis(eventId, address, data);
         }
-       
+
         public static string Put_Roomis(string eventId, string address, string data)
         {
-             FoWoSoft.Platform.Log.Add(string.Format("发送流程({0})", eventId + data), data, FoWoSoft.Platform.Log.Types.其它分类);
-               
+            FoWoSoft.Platform.Log.Add(string.Format("发送流程({0})", eventId + data), data, FoWoSoft.Platform.Log.Types.其它分类);
+
             var method = string.Format(address, eventId);
 
             string Url = meetUrl;
@@ -222,14 +222,25 @@ namespace WebForm.Common
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 client.BaseAddress = new Uri(Url);
                 client.DefaultRequestHeaders.Add("X-Consumer-Custom-ID", "004");
-                var response = client.PutAsync(method, content).Result;
-                // var ss = client.PutAsJsonAsync(method, content).Result;
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    return "Success";
+                    var response = client.PutAsync(method, content).Result;
+                    // var ss = client.PutAsJsonAsync(method, content).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return "Success";
+                    }
+                    else
+                        return "Error";
                 }
-                else
-                    return "Error";
+                catch (Exception err)
+                {
+                    FoWoSoft.Platform.Log.Add(string.Format("连接有问题({0})", meetUrl), data, FoWoSoft.Platform.Log.Types.系统错误);
+
+                    return meetUrl + "连接有问题"+err.Message;
+                    
+                }
+
             }
         }
         public static void gethttp(string Url)

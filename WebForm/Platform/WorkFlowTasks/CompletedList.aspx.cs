@@ -48,8 +48,14 @@ namespace WebForm.Platform.WorkFlowTasks
                 );
 
             string pager;
-            taskList = bworkFlowTask.GetTasks(FoWoSoft.Platform.Users.CurrentUserID,
+           var taskList1 = bworkFlowTask.GetTasks(FoWoSoft.Platform.Users.CurrentUserID,
                out pager, query2, title, flowid, sender, date1, date2, 1);
+            foreach (var item in taskList1)
+            {
+
+                if (taskList.Exists(s=>s.InstanceID==item.InstanceID)) continue;
+                taskList.Add(item);
+            }
             this.Pager.Text = pager;
             this.flowOptions.Text = bworkFlow.GetOptions(flowid);
 

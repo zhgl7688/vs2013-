@@ -52,7 +52,7 @@ function flowSend(isSubmit) {
     }
     else {
         console.log(meetinfo);
-        alert(currentStep);
+       // alert(currentStep);
         if (currentStep == 3) {
            // alert();
             confirm3(memberId)
@@ -60,10 +60,10 @@ function flowSend(isSubmit) {
         if (currentStep == 4) {
             confirm4(memberId) 
         }else   if (meetinfo != null) {
-                alert(11);
+             //   alert(11);
             confirmt(meetinfo)
         } else {
-            alert(22);
+            //alert(22);
             top.mainDialog.open({ url: top.rootdir + "/Platform/WorkFlowRun/FlowSend.aspx?" + query + "&instanceid1=" + $("#instanceid").val()+"&stype="+s, openerid: iframeid, width: 480, height: 280, title: "选择处理步骤和人员" });
          } 
     }

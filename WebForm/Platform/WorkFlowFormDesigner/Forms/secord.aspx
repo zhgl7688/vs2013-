@@ -24,9 +24,7 @@
     tempMeet = new FoWoSoft.Platform.TempTestMeet().Get(g);
      var Date1 = tempMeet.Date1 != null ? (DateTime)tempMeet.Date1 : DateTime.Now;
     var Date2 = tempMeet.Date2 != null ? (DateTime)tempMeet.Date2 : DateTime.Now;
-    var abroads = tempMeet.abroad.Split('|');
-     var Reasons = tempMeet.Reason.Split('|');
-    var ID = tempMeet.ID.ToString();
+     var ID = tempMeet.ID.ToString();
 
  
     meetInfo = new FoWoSoft.Platform.MeetInfo().GetByTemp3(InstanceID);
@@ -93,73 +91,74 @@
         <tr class="firstRow">
             <td class="tableleft" valign="top">活动名称：   </td>
             <td width="300" valign="top">
-                <input id="TempTestMeet.Title"  type1="flow_text" name="TempTestMeet.Title" value="<%=tempMeet.Title%>" style="width: 90%" valuetype="0" isflow="1" class="mytext" title="" type="text" /></td>
+                <input id="TempTestMeet.Title"  type1="flow_text"  disabled="disabled"  name="TempTestMeet.Title" value="<%=tempMeet.Title%>" style="width: 90%" valuetype="0" isflow="1" class="mytext" title="" type="text" /></td>
             <td class="tableDate" valign="top">会议调试时间： 
             </td>
             <td colspan="1" rowspan="1" width="255" valign="top">
-                <input type1="flow_datetime" id="TempTestMeet.Date1"  name="TempTestMeet.Date1" value="<%=Date1%>" format="yyyy-MM-dd HH:mm" defaultvalue="" istime="1" daybefor="0" dayafter="1" currentmonth="0" isflow="1" class="mycalendar" title="" type="text" /></td>
+                <input type1="flow_datetime" id="TempTestMeet.Date1"  disabled="disabled"  name="TempTestMeet.Date1" value="<%=Date1%>" format="yyyy-MM-dd HH:mm" defaultvalue="" istime="1" daybefor="0" dayafter="1" currentmonth="0" isflow="1" class="mycalendar" title="" type="text" /></td>
         </tr>
         <tr>
             <td class="tableleft" valign="top">主办单位：  </td>
             <td width="300" valign="top">
-                <input id="TempTestMeet.test1" type1="flow_text"   name="TempTestMeet.test1" value="<%=tempMeet.test1%>" style="width: 90%" valuetype="0" isflow="1" class="mytext" title="" type="text" /></td>
+                <input id="TempTestMeet.test1" type1="flow_text"  disabled="disabled"   name="TempTestMeet.test1" value="<%=tempMeet.test1%>" style="width: 90%" valuetype="0" isflow="1" class="mytext" title="" type="text" /></td>
             <td class="tableDate" valign="top">正式会议时间：<br />
             </td>
             <td colspan="1" rowspan="1" width="255" valign="top">
-                <input type1="flow_datetime" id="TempTestMeet.Date2"   name="TempTestMeet.Date2" value="<%=Date2%>" format="yyyy-MM-dd HH:mm" defaultvalue="" istime="1" daybefor="0" dayafter="1" currentmonth="0" isflow="1" class="mycalendar" title="" type="text" /></td>
+                <input type1="flow_datetime" id="TempTestMeet.Date2"  disabled="disabled"   name="TempTestMeet.Date2" value="<%=Date2%>" format="yyyy-MM-dd HH:mm" defaultvalue="" istime="1" daybefor="0" dayafter="1" currentmonth="0" isflow="1" class="mycalendar" title="" type="text" /></td>
         </tr>
         <tr>
             <td class="tableleft" valign="top">简述：<br />
             </td>
             <td rowspan="1" colspan="3" valign="top">
-                <textarea isflow="1" type1="flow_textarea"  id="TempTestMeet.test" name="TempTestMeet.test" class="mytext" style="width: 80%; height: 100px"><%= tempMeet.test %></textarea></td>
+                <textarea isflow="1" type1="flow_textarea"  disabled="disabled"   id="TempTestMeet.test" name="TempTestMeet.test" class="mytext" style="width: 80%; height: 100px"><%= tempMeet.test %></textarea></td>
         </tr>
 
          <tr>
             <td colspan="1" rowspan="1" style="word-break: break-all;" valign="top">预约类型</td>
             <td colspan="3" rowspan="1" valign="top">
-                <input id="TempTestMeet.UserID" disabled='1' name="TempTestMeet.UserID" value="<%=tempMeet.UserID %>">
+                <input id="TempTestMeet.UserID" name="TempTestMeet.UserID"  disabled="disabled"  value="<%=tempMeet.UserID %>"  style="width: 50%" valuetype="0" isflow="1" class="mytext" title="" type="text">
             </td>
         </tr> 
         <tr>
             <td class="tableleft" valign="top">直播平台:   </td>
             <td rowspan="1" colspan="3" valign="top">
-                 <input id="TempTestMeet.Type"   name="TempTestMeet.UserID" value="<%=tempMeet.Type %>" style="width: 50%" valuetype="0" isflow="1" class="mytext" title="" type="text" >
+                 <input id="TempTestMeet.Type"   name="TempTestMeet.UserID"  disabled="disabled"  value="<%=tempMeet.Type %>" style="width: 50%" valuetype="0" isflow="1" class="mytext" title="" type="text" >
               </td>
         </tr>
-        <% if (tempMeet.Type == "华师大直播平台")
+        <% if (tempMeet.Type ==Enum.GetName(typeof(FoWoSoft.Data.Model.LivePlatform), FoWoSoft.Data.Model.LivePlatform.华师大直播平台))
             { %>
         <tr>
             <td class="tableleft" valign="top">直播范围:</td>
             <td colspan="3" rowspan="1" valign="top">
-                  <input id="TempTestMeet.Reason"  name="TempTestMeet.UserID" value="<%=Reasons[0]%>" style="width: 50%" valuetype="0" isflow="1" class="mytext" title="" type="text" >
+                  <input id="TempTestMeet.Reason"  name="TempTestMeet.Reason"  disabled="disabled"  value="<%=tempMeet.Reason%>" style="width: 50%" valuetype="0" isflow="1" class="mytext" title="" type="text" >
              </td>
         </tr>
       <tr>
             <td class="tableleft" valign="top">是否分会场转播:</td>
             <td colspan="3" rowspan="1" valign="top">
-                 <input id="TempTestMeet.Reason0"  name="TempTestMeet.UserID" value="<%=Reasons[1]%>" style="width: 50%" valuetype="0" isflow="1" class="mytext" title="" type="text" >
+                 <input id="TempTestMeet.UserID_text"  name="TempTestMeet.UserID_text"  disabled="disabled"  value="<%=tempMeet.UserID_text%>" style="width: 50%" valuetype="0" isflow="1" class="mytext" title="" type="text" >
              </td>
         </tr>
         <%}
             else
             { %>
-        <tr class="platformType2" style="display: none">
+        <tr class="platformType2">
             <td class="tableleft" valign="top">入场设备信息:   </td>
              <td rowspan="1" colspan="3" >
-                <input id="TempTestMeet.inland" type1="flow_text"  name="TempTestMeet.inland" value="<%= tempMeet.inland%>" style="width: 80%" valuetype="0" isflow="1" class="mytext" title="" type="text" />
+                <input id="TempTestMeet.inland" type1="flow_text"  disabled="disabled"  name="TempTestMeet.inland" value="<%= tempMeet.inland%>" style="width: 80%" valuetype="0" isflow="1" class="mytext" title="" type="text" />
             </td>
         </tr>
-        <tr class="platformType2" style="display: none">
+        <tr class="platformType2">
             <td class="tableleft" valign="top">Mac地址:  </td>
              <td colspan="3" rowspan="1" >
-                <input id="TempTestMeet.abroad"  type1="flow_text" name="TempTestMeet.abroad" value="<%=abroads.Length>0? abroads[0]:""%>" style="width: 80%" valuetype="0" isflow="1" class="mytext" title="" type="text" /></td>
+                <input id="TempTestMeet.abroad"  disabled="disabled"    type1="flow_text" name="TempTestMeet.abroad" value="<%=tempMeet.abroad%>" style="width: 80%" valuetype="0" isflow="1" class="mytext" title="" type="text" /></td>
 
         </tr>
-        <tr class="platformType2" style="display: none">
+        <tr class="platformType2" >
             <td class="tableleft" valign="top">其他需求：  </td>
             <td colspan="3" rowspan="1"  >
-                   <textarea isflow="1" type1="flow_textarea"  id="TempTestMeet.college" name="TempTestMeet.college" class="mytext" style="width: 80%; height: 100px"><%=abroads.Length>1? abroads[1]:"" %></textarea></td>
+                   <textarea isflow="1" type1="flow_textarea" disabled="disabled"   id="TempTestMeet.test2_text" name="TempTestMeet.test2_text" class="mytext" style="width: 80%; height: 100px">
+                       <%=tempMeet.test2_text%></textarea></td>
        </tr>
         <%} %>
     </tbody>
@@ -169,18 +168,12 @@
 <%=displayPhoneAddress%><br />
 
 <script>
-
-    document.getElementById("TempTestMeet.Title").disabled = true;
-    document.getElementById("TempTestMeet.test1").disabled = true;
-    document.getElementById("TempTestMeet.Date1").disabled = true;
+  
+     document.getElementById("TempTestMeet.Date1").disabled = true;
     document.getElementById("TempTestMeet.Date2").disabled = true;
-    document.getElementById("TempTestMeet.test").disabled = true;
-    document.getElementById("TempTestMeet.Type").disabled = true;
-    document.getElementById("TempTestMeet.Reason").disabled = true;
-    document.getElementById("TempTestMeet.Reason0").disabled = true;
-    document.getElementById("TempTestMeet.inland").disabled = true;
-    document.getElementById("TempTestMeet.abroad").disabled = true;
-    document.getElementById("TempTestMeet.college").disabled = true;
+  
+
+    
 </script>
  
 

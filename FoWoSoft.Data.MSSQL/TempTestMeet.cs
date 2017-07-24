@@ -45,9 +45,10 @@ namespace FoWoSoft.Data.MSSQL
         }
         public int RoomisModify(FoWoSoft.Data.Model.TempTestMeet tempmeet)
         {
+            tempmeet.test2_text =tempmeet.test2_text ?? "";
             string sql = @"update TempTestMeet set   Title=@Title , Date2  =@Date2 ,college =@college ,
 Date1=@Date1 , test1=@test1 , test=@test , UserID=@UserID ,UserID_text=@UserID_text , 
-Type=@Type , Reason=@Reason , inland=@inland , abroad=@abroad ,DeptID=@DeptID ,DeptName =@DeptName  where id=@id ";
+Type=@Type , Reason=@Reason , inland=@inland , abroad=@abroad ,DeptID=@DeptID ,DeptName =@DeptName,test2_text=@test2_text  where id=@id ";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@ID",  tempmeet.ID),
                 new SqlParameter("@Title",tempmeet.Title ),
@@ -64,6 +65,8 @@ Type=@Type , Reason=@Reason , inland=@inland , abroad=@abroad ,DeptID=@DeptID ,D
                                 new SqlParameter("@abroad",  tempmeet.abroad),
                                  new SqlParameter("@DeptID",  tempmeet.DeptID),
                                   new SqlParameter("@DeptName",  tempmeet.DeptName),
+                                  new SqlParameter("@test2_text",  tempmeet.test2_text),
+
 
                  };
             return new DBHelper().Execute(sql, parameters);
@@ -71,8 +74,9 @@ Type=@Type , Reason=@Reason , inland=@inland , abroad=@abroad ,DeptID=@DeptID ,D
         }
         public int RoomisAdd(FoWoSoft.Data.Model.TempTestMeet tempmeet)
         {
-            string sql = @"INSERT INTO TempTestMeet( ID , Title , Date2  ,college , Date1, test1, test, UserID,UserID_text, Type, Reason, inland, abroad,DeptID,DeptName)
-VALUES  (   @ID , @Title , @Date2  ,@college , @Date1, @test1, @test, @UserID, @UserID_text, @Type, @Reason, @inland, @abroad,@DeptID,@DeptName  )";
+            tempmeet.test2_text = tempmeet.test2_text ?? "";
+            string sql = @"INSERT INTO TempTestMeet( ID , Title , Date2  ,college , Date1, test1, test, UserID,UserID_text, Type, Reason, inland, abroad,DeptID,DeptName,test2_text)
+VALUES  (   @ID , @Title , @Date2  ,@college , @Date1, @test1, @test, @UserID, @UserID_text, @Type, @Reason, @inland, @abroad,@DeptID,@DeptName,@test2_text  )";
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("@ID",  tempmeet.ID),
                 new SqlParameter("@Title",tempmeet.Title ),
@@ -89,7 +93,7 @@ VALUES  (   @ID , @Title , @Date2  ,@college , @Date1, @test1, @test, @UserID, @
                                 new SqlParameter("@abroad",  tempmeet.abroad),
                                  new SqlParameter("@DeptID",  tempmeet.DeptID),
                                   new SqlParameter("@DeptName",  tempmeet.DeptName),
-
+   new SqlParameter("@test2_text",  tempmeet.test2_text),
                  };
             return new DBHelper().Execute(sql, parameters);
 

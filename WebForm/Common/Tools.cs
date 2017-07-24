@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoWoSoft.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -190,7 +191,7 @@ namespace WebForm.Common
         public static FoWoSoft.Data.Model.TempTestMeet MeetInfoToTempTestMeet(FoWoSoft.Data.Model.MeetInfo meetInfot, string testMeetid)
         {
             var meetInfo = meetInfot as EduModels.MeetInfoModel;
-            return new FoWoSoft.Data.Model.TempTestMeet
+            var tempTestMeet = new FoWoSoft.Data.Model.TempTestMeet
             {
                 ID = Guid.Parse(testMeetid),
                 Title = meetInfo.temp2,
@@ -208,6 +209,25 @@ namespace WebForm.Common
                 DeptID = meetInfo.Phone,
                 DeptName = meetInfo.Address
             };
+            if (meetInfo.typeid == Enum.GetName(typeof(meetType), meetType.直播会议))
+            {
+                if (meetInfo.type == Enum.GetName(typeof(LivePlatform), LivePlatform.校外第三方直播平台))
+                {
+                    var aborads = meetInfo.abroad.Split('|');
+                    tempTestMeet.abroad = aborads.Length > 0 ? aborads[0] : "";
+                    tempTestMeet.test2_text = aborads.Length > 1 ? aborads[1] : "";
+                }
+                else
+                {
+                    var reasons = meetInfo.Reason.Split('|');
+                    tempTestMeet.Reason = reasons.Length > 0 ? reasons[0] : "";
+                    tempTestMeet.UserID_text = reasons.Length > 1 ? reasons[1] : "";
+                }
+
+
+
+            }
+            return tempTestMeet;
         }
 
     }

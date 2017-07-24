@@ -134,7 +134,7 @@ namespace FoWoSoft.Data.MSSQL
         public int RoomisUpdate(FoWoSoft.Data.Model.MeetInfo meetInfo, out string testMeetid)
         {
             testMeetid = Guid.NewGuid().ToString();
-            return new DBHelper().Execute("update meetInfo set temp3='" + testMeetid.ToString().ToUpper() + "' where temp1=" + meetInfo.temp1);
+            return new DBHelper().Execute("update meetInfo set temp3='" + testMeetid.ToString().ToUpper() + "' where temp1='" + meetInfo.temp1+"'");
 
 
         }
