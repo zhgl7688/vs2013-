@@ -20,7 +20,7 @@ a.red:hover {color:red; text-decoration:underline;}
 
 .mainBody{background:#ffffff;}
 .mainTop{height:58px; width:100%; background:#41ec97;}
-.mainTopLeft{float:left; height:58px; width:600px; background:url(../../../Images/login/logoSmall.png) no-repeat;}
+.mainTopLeft{float:left; height:58px; width:600px; background:url(../../../Images/login/logoSmall.png) no-repeat 10px 5px;}
 .mainTopRight{float:right; height:58px; text-align:right; color:#ffffff;}
 
 .bodybg{background:#e5edef;}

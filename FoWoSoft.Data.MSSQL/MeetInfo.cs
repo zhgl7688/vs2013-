@@ -131,6 +131,15 @@ namespace FoWoSoft.Data.MSSQL
             return new DBHelper().Execute(sql, parameters);
 
         }
+        public int DeleteByTemp1(string temp1)
+        {
+            string sql = @"DELETE MeetInfo   WHERE temp1=@temp1";
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@temp1",   temp1),
+                 };
+            return new DBHelper().Execute(sql, parameters);
+
+        }
         public int RoomisUpdate(FoWoSoft.Data.Model.MeetInfo meetInfo, out string testMeetid)
         {
             testMeetid = Guid.NewGuid().ToString();

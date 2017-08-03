@@ -283,6 +283,7 @@
     <Content Include="Images\loading\load2.gif" />
     <Content Include="Images\loading\load3.gif" />
     <Content Include="Images\login\bg2.png" />
+    <Content Include="Images\login\default.jpg" />
     <Content Include="Images\login\logoSmall.png" />
     <Content Include="Images\theme_blue.gif" />
     <Content Include="Images\theme_blue1.gif" />
