@@ -164,7 +164,7 @@ namespace FoWoOATest
                 MeetName = "100会议",
                 MeetTimes = "2017-09-20 11:20",
                 ApplicatId = "20121102",
-                temp1 = "38",
+                temp1 = "1740",
                 temp2 = "会议名称",
                 Date1 = DateTime.Now,
                 test1 = "11",
@@ -183,6 +183,14 @@ namespace FoWoOATest
             Assert.IsNotNull(aplicatUser);
             // new WebForm.ashx.ROOMISHandler().CreateNewTempTestMeet(meetinfo);
             new WebForm.ashx.ROOMISHandler().RoomisModify(meetInfo);
+        }
+        [TestMethod]
+        public void delTest()
+        {
+            string temp1 = "17:41";
+            var result = new FoWoSoft.Platform.MeetInfo().DeleteByMeetId(temp1);
+            Assert.AreEqual(0, result);
+
         }
         [TestMethod]
         public void TestEnum()

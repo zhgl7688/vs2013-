@@ -157,8 +157,7 @@
         <tr class="platformType2" >
             <td class="tableleft" valign="top">其他需求：  </td>
             <td colspan="3" rowspan="1"  >
-                   <textarea isflow="1" type1="flow_textarea" disabled="disabled"   id="TempTestMeet.test2_text" name="TempTestMeet.test2_text" class="mytext" style="width: 80%; height: 100px">
-                       <%=tempMeet.test2_text%></textarea></td>
+                   <textarea isflow="1" type1="flow_textarea" disabled="disabled"   id="TempTestMeet.test2_text" name="TempTestMeet.test2_text" class="mytext" style=" width: 80%; height: 100px; text-align:left"><%=tempMeet.test2_text.Trim()%></textarea></td>
        </tr>
         <%} %>
     </tbody>

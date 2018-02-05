@@ -775,5 +775,18 @@ VALUES  (   @ID ,@PrevID ,'307552C3-547D-445B-9C6B-E42737568B10' ,'2EA49481-3EE2
             };
             return new DBHelper().Execute(sql1, parameters1);
         }
+ 
+        /// <summary>
+        /// 根据instanceid查询记录
+        /// </summary>
+        public List<FoWoSoft.Data.Model.WorkFlowTask> GetListByinstanceid(string instanceid)
+        {
+            string sql = "SELECT * FROM WorkFlowTask where instanceid='"+ instanceid+"'";
+            SqlDataReader dataReader = dbHelper.GetDataReader(sql);
+            List<FoWoSoft.Data.Model.WorkFlowTask> List = DataReaderToList(dataReader);
+            dataReader.Close();
+            return List;
+        }
+
     }
 }

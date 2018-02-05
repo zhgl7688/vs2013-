@@ -46,17 +46,39 @@ namespace FoWoSoft.Platform
         {
             return dataMeetInfo.GetByTemp1(temp1);
         }
-        public int DeleteByMeetId(string meetId)
+        public int DeleteByMeetId(string temp1)
         {
-            return dataMeetInfo.DeleteByMeetId(meetId);
+            //判断流程是否开始
+            var meetinfo = dataMeetInfo.GetByTemp1(temp1);
+            if (meetinfo != null)
+            {
+                var workflowtask = new FoWoSoft.Data.MSSQL.WorkFlowTask();
+                var task = workflowtask.GetListByinstanceid(meetinfo.temp3);
+                var tasktwo = task.FirstOrDefault(s => s.StepID == Guid.Parse("88B44E40-E9EB-44F9-9F2B-18B0AAE70A5A"));
+                if (tasktwo != null && tasktwo.Status == 0)
+                {
+                    dataMeetInfo.DeleteByTemp1(temp1);
+                    task.ForEach(s => workflowtask.Delete(s.ID));
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+             
         }
-        public int RoomisUpdate(FoWoSoft.Data.Model.MeetInfo meetInfo,out string testMeetid)
+        public int RoomisUpdate(FoWoSoft.Data.Model.MeetInfo meetInfo, out string testMeetid)
         {
-            return dataMeetInfo.RoomisUpdate(meetInfo,out testMeetid);
+            return dataMeetInfo.RoomisUpdate(meetInfo, out testMeetid);
         }
         public FoWoSoft.Data.Model.MeetInfo GetByTemp3(string temp3)
         {
             return dataMeetInfo.GetByTemp3(temp3);
         }
-        }
+    }
 }

@@ -46,9 +46,13 @@ namespace WebForm.ashx
 
         private void Delete(HttpContext context)
         {
-            if (context.Request["MeetId"] == null) { context.Response.Write("MeetId不能为空"); context.Response.End(); }
-            var result = meetInfoService.DeleteByMeetId(context.Request["MeetId"]);
+            if (context.Request["temp1"] == null) { context.Response.Write("temp1不能为空"); context.Response.End(); }
+            var result = delbytemp1(context.Request["temp1"]);
             context.Response.Write(result);
+        }
+        public int delbytemp1(string temp1)
+        {
+            return meetInfoService.DeleteByMeetId(temp1);
         }
 
         private void Modify(HttpContext context)
@@ -59,7 +63,7 @@ namespace WebForm.ashx
         }
         public int RoomisModify(FoWoSoft.Data.Model.MeetInfo meetInfo)
         {
-         
+
             var result = meetInfoService.ModifyByTemp1(meetInfo);
             if (result > 0)
             {
@@ -94,8 +98,8 @@ namespace WebForm.ashx
             MeetInfoModel meetInfo = meetInfot as MeetInfoModel;
             string testMeetid;
             meetInfoService.RoomisUpdate(meetInfo, out testMeetid);
-            var tempmeet =  Common.Tools.MeetInfoToTempTestMeet(meetInfo, testMeetid);
-             new FoWoSoft.Platform.TempTestMeet().RoomisAdd(tempmeet);
+            var tempmeet = Common.Tools.MeetInfoToTempTestMeet(meetInfo, testMeetid);
+            new FoWoSoft.Platform.TempTestMeet().RoomisAdd(tempmeet);
 
             var aplicatUser = new FoWoSoft.Platform.Users().GetByAccount(meetInfo.ApplicatId);
             var adminUser = new FoWoSoft.Platform.Users().GetByAccount(meetInfo.AdminId);
@@ -148,8 +152,8 @@ namespace WebForm.ashx
                 abroad = context.Request["abroad"] ?? "",
             };
             meetInfo.ApplicatId = ApplicatIds[0];
-            meetInfo.Phone = ApplicatIds.Length>1? ApplicatIds[1]:"";
-            meetInfo.Address = ApplicatIds.Length > 2? ApplicatIds[2]:"";
+            meetInfo.Phone = ApplicatIds.Length > 1 ? ApplicatIds[1] : "";
+            meetInfo.Address = ApplicatIds.Length > 2 ? ApplicatIds[2] : "";
             var adminUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.AdminId);
             if (adminUser == null) { context.Response.Write("管理员不存在！"); context.Response.End(); };
             var aplicatUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.ApplicatId);
