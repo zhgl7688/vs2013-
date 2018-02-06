@@ -15,8 +15,8 @@ namespace WebForm.Tests
         public void GetUseinfoTest()
         {
             var webservice = new EduWebService();
-            //var id = "20121102";
-            var id = "20171001";
+           var id = "20121102";
+             //var id = "20171001";
            // var result = webservice.GetUseinfo(id);
             var mobile = webservice.GetMobile(id);
             //Assert.AreEqual("", result.Rows[0]["mobile"]);

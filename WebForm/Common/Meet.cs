@@ -104,7 +104,7 @@ namespace WebForm.Common
 
             {
                 put_reject(roomisId, execute.Sender.Account);
-                var msg = meetInfo.MeetName+"被拒绝";
+                var msg =$"地址：{meetInfo.MeetName}，会议名称：{meetInfo.temp2}" +"被拒绝";
                 //20180110短信发送
                 new DuanxinService().smsSend(execute.Sender.Account, msg);
 
@@ -113,7 +113,7 @@ namespace WebForm.Common
             {
                 string remarks = execute.Comment;
                 put_approve(roomisId, execute.Sender.Account, remarks);
-                var msg = meetInfo.MeetName + "通过";
+                var msg = $"地址：{meetInfo.MeetName}，会议名称：{meetInfo.temp2}" + "通过";
                 //20180110短信发送
                 new DuanxinService().smsSend(execute.Sender.Account, msg);
             }
@@ -158,7 +158,7 @@ namespace WebForm.Common
         {
             var tasks = new FoWoSoft.Platform.WorkFlowTask().GetAll();
             var installTasks = tasks.Where(s => s.InstanceID.ToString().Equals(install, StringComparison.OrdinalIgnoreCase)).OrderByDescending(s => s.Sort).Take(2);
-            string[] remarks = new string[] { "待处理", "打开", "中间完成", "退回", "他人已处理", "他人已退回" };
+            string[] remarks = new string[] { "请处理下", "打开", "中间完成", "退回", "他人已处理", "他人已退回" };
             foreach (var item in installTasks)
             {
                 var approver = new FoWoSoft.Platform.Users().Get(item.ReceiveID).Account;
@@ -170,7 +170,7 @@ namespace WebForm.Common
                     remarks = remark
                 });
                 string address = "api/booking/events/{0}/approval";
-                var msg =item.Title+ remark;
+                var msg =$"会议申请：{item.Title},状态：{remark}";
                 //20180110短信发送
                 new DuanxinService().smsSend(approver, msg);
 

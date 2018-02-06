@@ -23,7 +23,10 @@ namespace WebForm.ashx
                 case "DelStatus": GetDelStatus(context, taskgid); break;
                 case "DelTask": DelTask(context, taskgid); break;
                 case "TaskCount": TaskCount(context); break; 
-                case "SetUser": SetUser(context); break; 
+                case "SetUser": SetUser(context); break;
+                case "GetUser": GetUser(context); break;
+                case "clearmobile": clearmobile(context); break;
+
                 default:
                     break;
             }
@@ -31,12 +34,28 @@ namespace WebForm.ashx
 
         }
 
+        private void clearmobile(HttpContext context)
+        {
+            var userID = context.Request["userID"];
+
+            if (string.IsNullOrWhiteSpace(userID)) return;
+            context.Response.Write(new EduWebService().ClearMobile(userID));
+        }
+
+        private void GetUser(HttpContext context)
+        {
+            var userID = context.Request["userID"];
+   
+            if (string.IsNullOrWhiteSpace(userID)) return;
+            context.Response.Write(new EduWebService().GetMobile(userID));
+        }
+
         private void SetUser(HttpContext context)
         {
             var userID =context.Request["userID"];
             var mobile = context.Request["mobile"];
             if (string.IsNullOrWhiteSpace(userID) || string.IsNullOrWhiteSpace(mobile)) return;
-            new EduWebService().SetUseinfo(userID, mobile);
+            context.Response.Write(new EduWebService().SetUseinfo(userID, mobile).Rows[0][0]);
         }
 
         private void TaskCount(HttpContext context)

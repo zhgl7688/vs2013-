@@ -12,7 +12,7 @@
     <link href="Content/bootstrap.css" rel="stylesheet" />
 </head>
     <script>
-      <%--  var mobile = '<%=mobile%>'
+      var mobile = '<%=mobile%>'
         if (mobile.length < 5) {
     var name = prompt("需要完善用户信息,请输入手机号：");
         setUser(name);
@@ -23,7 +23,7 @@
                   
               })
         }
-        }--%>
+        }
     
        
        

@@ -3,13 +3,78 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-theme.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <style>
+        div{
+            margin-top:30px;
+        }
+    </style>
 </head>
-<script>
-    var name = prompt("请输入手机号：");
-    alert(name);
-</script>
+
 <body>
+    <div>用户Id <input id="account" name="account" /></div>
+    <div>手机号<input id="mobile" name="mobile" /></div>
+    <div><input id="setmobile" type="button" value="设定手机号" /></div>
+    <div><input id="getmobile" type="button" value="获取手机号" /></div>
+    <div><input id="getUser" type="button" value="获取用户信息" /></div>
+    <div><input id="clearmobile" type="button" value="清除手机号" /></div>
 
 </body>
 
 </html>
+
+<script>
+
+    $('#setmobile').on('click', function () {
+     
+            var useid = $('#account').val();
+            var mobile = $('#mobile').val();
+            $.get("/ashx/TaskFlowHandler.ashx?Model=SetUser" + "&mobile=" + mobile + "&userID=" + useid, function (data) {
+                alert(data);
+            })
+       
+    })
+   
+    $('#getmobile').on('click', function () {
+        
+        var useid = $('#account').val();
+        if (useid.length > 0) {
+            $.get("/ashx/TaskFlowHandler.ashx?Model=GetUser&userID=" + useid, function (data) {
+                alert(data)
+                $('#mobile').val(data);
+            })
+        } else {
+            alert("不能为空")
+        }
+       
+     
+    })   
+    $('#clearmobile').on('click', function () {
+
+        var useid = $('#account').val();
+        if (useid.length > 0) {
+            $.get("/ashx/TaskFlowHandler.ashx?Model=clearmobile&userID=" + useid, function (data) {
+                alert(data)
+                $('#mobile').val(data);
+            })
+        }
+
+    })    
+    $('#getUser').on('click', function () {
+
+        var useid = $('#account').val();
+       
+        $.get("/Test1.ashx?title=" + useid, function (data) {
+            alert(data)
+            $('#mobile').val(data);
+        })
+
+    })   
+
+
+
+
+</script>

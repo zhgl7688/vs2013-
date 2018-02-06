@@ -32,17 +32,62 @@ namespace WebForm
             var result = GetUseinfo(id);
             if (result.Columns.Contains(colName))
             {
-                return result.Rows[0][colName].ToString();
-            }
+                if (result.Rows.Count > 0)
+                {
+                    var mobile = result.Rows[0][colName].ToString();
+                  //  FoWoSoft.Platform.Log.Add($"用户{id}获取手机({mobile})", mobile, FoWoSoft.Platform.Log.Types.其它分类);
+                    return mobile;
+                }
+                else
+                {
+                    return $"没有此{id}用户";
+                }
+             }
             else
             {
-                var error= result.Rows[0][0].ToString();
-                FoWoSoft.Platform.Log.Add(string.Format("获取手机错误({0})",id+ error), error, FoWoSoft.Platform.Log.Types.其它分类);
-
-                return "";
+                     var error = result.Rows[0][0].ToString();
+                    FoWoSoft.Platform.Log.Add(string.Format("获取手机错误({0})", id + error), error, FoWoSoft.Platform.Log.Types.其它分类);
+                 
+                    return error;
+             
             }
 
         }
+
+        internal string ClearMobile(string userID)
+        {
+            var result = SetUseinfo(userID,"");
+            if (result.Columns.Contains(colName))
+            {
+                if (result.Rows.Count > 0)
+                {
+                    var mobile = result.Rows[0][colName].ToString();
+                    FoWoSoft.Platform.Log.Add(string.Format("获取手机({0})", userID + mobile), mobile, FoWoSoft.Platform.Log.Types.其它分类);
+                    return mobile;
+                }
+                else
+                {
+                    return $"没有此{userID}用户1";
+                }
+
+
+            }
+            else
+            {
+                if (result.Rows.Count > 0)
+                {
+                    var error = result.Rows[0][0].ToString();
+                    FoWoSoft.Platform.Log.Add(string.Format("获取手机错误({0})", userID + error), error, FoWoSoft.Platform.Log.Types.其它分类);
+
+                    return error;
+                }
+                else
+                {
+                    return $"没有此{userID}用户2";
+                }
+            }
+        }
+
         public DataTable SetUseinfo(string id, string moblie)
         {
             useheader.Username = "ECNUSMSP";
