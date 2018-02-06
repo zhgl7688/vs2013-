@@ -253,7 +253,7 @@ namespace FoWoSoft.Utility
         /// <returns></returns>
         public static int GetPageSize()
         {
-            string size = System.Web.HttpContext.Current.Request["pagesize"] ?? "15";
+            string size = System.Web.HttpContext.Current.Request["pagesize"] ?? "30";
             int size1;
             return size.IsInt(out size1) ? size1 : 15;
         }

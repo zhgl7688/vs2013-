@@ -1,0 +1,1016 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SMSSend_ZLWX">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="formatid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="content" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="scheduledate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tokenID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SMSSend_ZLWXResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SMSSend_ZLWXResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MySoapHeader" type="tns:MySoapHeader" />
+      <s:complexType name="MySoapHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="WaitSMSSend_ZLWX">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="formatid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="content" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ScheduleDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WaitSMSSend_ZLWXResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WaitSMSSend_ZLWXResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySMSState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="messageId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySMSStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QuerySMSStateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySMSUP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MinID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="externCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySMSUPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QuerySMSUPResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YunPianSend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="content" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YunPianSendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="YunPianSendResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YunPianSendEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="content" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="extend" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YunPianSendExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="YunPianSendExResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YunPianSMSUp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pagenum" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pagesize" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mobile" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YunPianSMSUpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="YunPianSMSUpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YunPianCheckMsg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="content" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YunPianCheckMsgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="YunPianCheckMsgResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_UserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_UserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_UserInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Set_UserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mobile" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Set_UserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Set_UserInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema" />
+            <s:any />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SMSSend_ZLWXSoapIn">
+    <wsdl:part name="parameters" element="tns:SMSSend_ZLWX" />
+  </wsdl:message>
+  <wsdl:message name="SMSSend_ZLWXSoapOut">
+    <wsdl:part name="parameters" element="tns:SMSSend_ZLWXResponse" />
+  </wsdl:message>
+  <wsdl:message name="SMSSend_ZLWXMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="WaitSMSSend_ZLWXSoapIn">
+    <wsdl:part name="parameters" element="tns:WaitSMSSend_ZLWX" />
+  </wsdl:message>
+  <wsdl:message name="WaitSMSSend_ZLWXSoapOut">
+    <wsdl:part name="parameters" element="tns:WaitSMSSend_ZLWXResponse" />
+  </wsdl:message>
+  <wsdl:message name="WaitSMSSend_ZLWXMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateSoapIn">
+    <wsdl:part name="parameters" element="tns:QuerySMSState" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateSoapOut">
+    <wsdl:part name="parameters" element="tns:QuerySMSStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPSoapIn">
+    <wsdl:part name="parameters" element="tns:QuerySMSUP" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPSoapOut">
+    <wsdl:part name="parameters" element="tns:QuerySMSUPResponse" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendSoapIn">
+    <wsdl:part name="parameters" element="tns:YunPianSend" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendSoapOut">
+    <wsdl:part name="parameters" element="tns:YunPianSendResponse" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendExSoapIn">
+    <wsdl:part name="parameters" element="tns:YunPianSendEx" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendExSoapOut">
+    <wsdl:part name="parameters" element="tns:YunPianSendExResponse" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendExMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSMSUpSoapIn">
+    <wsdl:part name="parameters" element="tns:YunPianSMSUp" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSMSUpSoapOut">
+    <wsdl:part name="parameters" element="tns:YunPianSMSUpResponse" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSMSUpMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="YunPianCheckMsgSoapIn">
+    <wsdl:part name="parameters" element="tns:YunPianCheckMsg" />
+  </wsdl:message>
+  <wsdl:message name="YunPianCheckMsgSoapOut">
+    <wsdl:part name="parameters" element="tns:YunPianCheckMsgResponse" />
+  </wsdl:message>
+  <wsdl:message name="YunPianCheckMsgMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="Get_UserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_UserInfo" />
+  </wsdl:message>
+  <wsdl:message name="Get_UserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_UserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_UserInfoMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="Set_UserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:Set_UserInfo" />
+  </wsdl:message>
+  <wsdl:message name="Set_UserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:Set_UserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Set_UserInfoMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="SMSSend_ZLWXHttpGetIn">
+    <wsdl:part name="phone" type="s:string" />
+    <wsdl:part name="formatid" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="scheduledate" type="s:string" />
+    <wsdl:part name="tokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SMSSend_ZLWXHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="WaitSMSSend_ZLWXHttpGetIn">
+    <wsdl:part name="phone" type="s:string" />
+    <wsdl:part name="formatid" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="ScheduleDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WaitSMSSend_ZLWXHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateHttpGetIn">
+    <wsdl:part name="messageId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPHttpGetIn">
+    <wsdl:part name="MinID" type="s:string" />
+    <wsdl:part name="count" type="s:string" />
+    <wsdl:part name="sToken" type="s:string" />
+    <wsdl:part name="externCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendHttpGetIn">
+    <wsdl:part name="phone" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendExHttpGetIn">
+    <wsdl:part name="phone" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="extend" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendExHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSMSUpHttpGetIn">
+    <wsdl:part name="starttime" type="s:string" />
+    <wsdl:part name="endtime" type="s:string" />
+    <wsdl:part name="pagenum" type="s:string" />
+    <wsdl:part name="pagesize" type="s:string" />
+    <wsdl:part name="mobile" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSMSUpHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianCheckMsgHttpGetIn">
+    <wsdl:part name="content" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianCheckMsgHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="Get_UserInfoHttpGetIn">
+    <wsdl:part name="uid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Get_UserInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="Set_UserInfoHttpGetIn">
+    <wsdl:part name="uid" type="s:string" />
+    <wsdl:part name="mobile" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Set_UserInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="SMSSend_ZLWXHttpPostIn">
+    <wsdl:part name="phone" type="s:string" />
+    <wsdl:part name="formatid" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="scheduledate" type="s:string" />
+    <wsdl:part name="tokenID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SMSSend_ZLWXHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="WaitSMSSend_ZLWXHttpPostIn">
+    <wsdl:part name="phone" type="s:string" />
+    <wsdl:part name="formatid" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="ScheduleDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WaitSMSSend_ZLWXHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateHttpPostIn">
+    <wsdl:part name="messageId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSStateHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPHttpPostIn">
+    <wsdl:part name="MinID" type="s:string" />
+    <wsdl:part name="count" type="s:string" />
+    <wsdl:part name="sToken" type="s:string" />
+    <wsdl:part name="externCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QuerySMSUPHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendHttpPostIn">
+    <wsdl:part name="phone" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendExHttpPostIn">
+    <wsdl:part name="phone" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="extend" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSendExHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSMSUpHttpPostIn">
+    <wsdl:part name="starttime" type="s:string" />
+    <wsdl:part name="endtime" type="s:string" />
+    <wsdl:part name="pagenum" type="s:string" />
+    <wsdl:part name="pagesize" type="s:string" />
+    <wsdl:part name="mobile" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianSMSUpHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianCheckMsgHttpPostIn">
+    <wsdl:part name="content" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YunPianCheckMsgHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="Get_UserInfoHttpPostIn">
+    <wsdl:part name="uid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Get_UserInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="Set_UserInfoHttpPostIn">
+    <wsdl:part name="uid" type="s:string" />
+    <wsdl:part name="mobile" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Set_UserInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:portType name="SMSWebServiceSoap">
+    <wsdl:operation name="SMSSend_ZLWX">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众缆无线短信发送</wsdl:documentation>
+      <wsdl:input message="tns:SMSSend_ZLWXSoapIn" />
+      <wsdl:output message="tns:SMSSend_ZLWXSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WaitSMSSend_ZLWX">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众览无限短信入等待发送库</wsdl:documentation>
+      <wsdl:input message="tns:WaitSMSSend_ZLWXSoapIn" />
+      <wsdl:output message="tns:WaitSMSSend_ZLWXSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众览无限获取短信状态</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSStateSoapIn" />
+      <wsdl:output message="tns:QuerySMSStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众览无限获取上行短信</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSUPSoapIn" />
+      <wsdl:output message="tns:QuerySMSUPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSend">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信发送</wsdl:documentation>
+      <wsdl:input message="tns:YunPianSendSoapIn" />
+      <wsdl:output message="tns:YunPianSendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSendEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信发送（扩展号码）</wsdl:documentation>
+      <wsdl:input message="tns:YunPianSendExSoapIn" />
+      <wsdl:output message="tns:YunPianSendExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSMSUp">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信接收上行</wsdl:documentation>
+      <wsdl:input message="tns:YunPianSMSUpSoapIn" />
+      <wsdl:output message="tns:YunPianSMSUpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianCheckMsg">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信检查屏蔽词</wsdl:documentation>
+      <wsdl:input message="tns:YunPianCheckMsgSoapIn" />
+      <wsdl:output message="tns:YunPianCheckMsgSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_UserInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取当前短信平台用户信息</wsdl:documentation>
+      <wsdl:input message="tns:Get_UserInfoSoapIn" />
+      <wsdl:output message="tns:Get_UserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Set_UserInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">修改当前短信平台用户信息</wsdl:documentation>
+      <wsdl:input message="tns:Set_UserInfoSoapIn" />
+      <wsdl:output message="tns:Set_UserInfoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SMSWebServiceHttpGet">
+    <wsdl:operation name="SMSSend_ZLWX">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众缆无线短信发送</wsdl:documentation>
+      <wsdl:input message="tns:SMSSend_ZLWXHttpGetIn" />
+      <wsdl:output message="tns:SMSSend_ZLWXHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WaitSMSSend_ZLWX">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众览无限短信入等待发送库</wsdl:documentation>
+      <wsdl:input message="tns:WaitSMSSend_ZLWXHttpGetIn" />
+      <wsdl:output message="tns:WaitSMSSend_ZLWXHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众览无限获取短信状态</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSStateHttpGetIn" />
+      <wsdl:output message="tns:QuerySMSStateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众览无限获取上行短信</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSUPHttpGetIn" />
+      <wsdl:output message="tns:QuerySMSUPHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSend">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信发送</wsdl:documentation>
+      <wsdl:input message="tns:YunPianSendHttpGetIn" />
+      <wsdl:output message="tns:YunPianSendHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSendEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信发送（扩展号码）</wsdl:documentation>
+      <wsdl:input message="tns:YunPianSendExHttpGetIn" />
+      <wsdl:output message="tns:YunPianSendExHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSMSUp">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信接收上行</wsdl:documentation>
+      <wsdl:input message="tns:YunPianSMSUpHttpGetIn" />
+      <wsdl:output message="tns:YunPianSMSUpHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianCheckMsg">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信检查屏蔽词</wsdl:documentation>
+      <wsdl:input message="tns:YunPianCheckMsgHttpGetIn" />
+      <wsdl:output message="tns:YunPianCheckMsgHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_UserInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取当前短信平台用户信息</wsdl:documentation>
+      <wsdl:input message="tns:Get_UserInfoHttpGetIn" />
+      <wsdl:output message="tns:Get_UserInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Set_UserInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">修改当前短信平台用户信息</wsdl:documentation>
+      <wsdl:input message="tns:Set_UserInfoHttpGetIn" />
+      <wsdl:output message="tns:Set_UserInfoHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SMSWebServiceHttpPost">
+    <wsdl:operation name="SMSSend_ZLWX">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众缆无线短信发送</wsdl:documentation>
+      <wsdl:input message="tns:SMSSend_ZLWXHttpPostIn" />
+      <wsdl:output message="tns:SMSSend_ZLWXHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WaitSMSSend_ZLWX">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众览无限短信入等待发送库</wsdl:documentation>
+      <wsdl:input message="tns:WaitSMSSend_ZLWXHttpPostIn" />
+      <wsdl:output message="tns:WaitSMSSend_ZLWXHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众览无限获取短信状态</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSStateHttpPostIn" />
+      <wsdl:output message="tns:QuerySMSStateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">众览无限获取上行短信</wsdl:documentation>
+      <wsdl:input message="tns:QuerySMSUPHttpPostIn" />
+      <wsdl:output message="tns:QuerySMSUPHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSend">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信发送</wsdl:documentation>
+      <wsdl:input message="tns:YunPianSendHttpPostIn" />
+      <wsdl:output message="tns:YunPianSendHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSendEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信发送（扩展号码）</wsdl:documentation>
+      <wsdl:input message="tns:YunPianSendExHttpPostIn" />
+      <wsdl:output message="tns:YunPianSendExHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSMSUp">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信接收上行</wsdl:documentation>
+      <wsdl:input message="tns:YunPianSMSUpHttpPostIn" />
+      <wsdl:output message="tns:YunPianSMSUpHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YunPianCheckMsg">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">云片短信检查屏蔽词</wsdl:documentation>
+      <wsdl:input message="tns:YunPianCheckMsgHttpPostIn" />
+      <wsdl:output message="tns:YunPianCheckMsgHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_UserInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取当前短信平台用户信息</wsdl:documentation>
+      <wsdl:input message="tns:Get_UserInfoHttpPostIn" />
+      <wsdl:output message="tns:Get_UserInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Set_UserInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">修改当前短信平台用户信息</wsdl:documentation>
+      <wsdl:input message="tns:Set_UserInfoHttpPostIn" />
+      <wsdl:output message="tns:Set_UserInfoHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SMSWebServiceSoap" type="tns:SMSWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SMSSend_ZLWX">
+      <soap:operation soapAction="http://tempuri.org/SMSSend_ZLWX" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SMSSend_ZLWXMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WaitSMSSend_ZLWX">
+      <soap:operation soapAction="http://tempuri.org/WaitSMSSend_ZLWX" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:WaitSMSSend_ZLWXMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <soap:operation soapAction="http://tempuri.org/QuerySMSState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:QuerySMSStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <soap:operation soapAction="http://tempuri.org/QuerySMSUP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:QuerySMSUPMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSend">
+      <soap:operation soapAction="http://tempuri.org/YunPianSend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:YunPianSendMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSendEx">
+      <soap:operation soapAction="http://tempuri.org/YunPianSendEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:YunPianSendExMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSMSUp">
+      <soap:operation soapAction="http://tempuri.org/YunPianSMSUp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:YunPianSMSUpMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianCheckMsg">
+      <soap:operation soapAction="http://tempuri.org/YunPianCheckMsg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:YunPianCheckMsgMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_UserInfo">
+      <soap:operation soapAction="http://tempuri.org/Get_UserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:Get_UserInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Set_UserInfo">
+      <soap:operation soapAction="http://tempuri.org/Set_UserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:Set_UserInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SMSWebServiceSoap12" type="tns:SMSWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SMSSend_ZLWX">
+      <soap12:operation soapAction="http://tempuri.org/SMSSend_ZLWX" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SMSSend_ZLWXMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WaitSMSSend_ZLWX">
+      <soap12:operation soapAction="http://tempuri.org/WaitSMSSend_ZLWX" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:WaitSMSSend_ZLWXMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <soap12:operation soapAction="http://tempuri.org/QuerySMSState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:QuerySMSStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <soap12:operation soapAction="http://tempuri.org/QuerySMSUP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:QuerySMSUPMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSend">
+      <soap12:operation soapAction="http://tempuri.org/YunPianSend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:YunPianSendMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSendEx">
+      <soap12:operation soapAction="http://tempuri.org/YunPianSendEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:YunPianSendExMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSMSUp">
+      <soap12:operation soapAction="http://tempuri.org/YunPianSMSUp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:YunPianSMSUpMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianCheckMsg">
+      <soap12:operation soapAction="http://tempuri.org/YunPianCheckMsg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:YunPianCheckMsgMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_UserInfo">
+      <soap12:operation soapAction="http://tempuri.org/Get_UserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:Get_UserInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Set_UserInfo">
+      <soap12:operation soapAction="http://tempuri.org/Set_UserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:Set_UserInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SMSWebServiceHttpGet" type="tns:SMSWebServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="SMSSend_ZLWX">
+      <http:operation location="/SMSSend_ZLWX" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WaitSMSSend_ZLWX">
+      <http:operation location="/WaitSMSSend_ZLWX" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <http:operation location="/QuerySMSState" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <http:operation location="/QuerySMSUP" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSend">
+      <http:operation location="/YunPianSend" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSendEx">
+      <http:operation location="/YunPianSendEx" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSMSUp">
+      <http:operation location="/YunPianSMSUp" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianCheckMsg">
+      <http:operation location="/YunPianCheckMsg" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_UserInfo">
+      <http:operation location="/Get_UserInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Set_UserInfo">
+      <http:operation location="/Set_UserInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SMSWebServiceHttpPost" type="tns:SMSWebServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="SMSSend_ZLWX">
+      <http:operation location="/SMSSend_ZLWX" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WaitSMSSend_ZLWX">
+      <http:operation location="/WaitSMSSend_ZLWX" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSState">
+      <http:operation location="/QuerySMSState" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySMSUP">
+      <http:operation location="/QuerySMSUP" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSend">
+      <http:operation location="/YunPianSend" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSendEx">
+      <http:operation location="/YunPianSendEx" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianSMSUp">
+      <http:operation location="/YunPianSMSUp" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YunPianCheckMsg">
+      <http:operation location="/YunPianCheckMsg" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_UserInfo">
+      <http:operation location="/Get_UserInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Set_UserInfo">
+      <http:operation location="/Set_UserInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SMSWebService">
+    <wsdl:port name="SMSWebServiceSoap" binding="tns:SMSWebServiceSoap">
+      <soap:address location="http://datawebservice.ecnu.edu.cn/smsWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SMSWebServiceSoap12" binding="tns:SMSWebServiceSoap12">
+      <soap12:address location="http://datawebservice.ecnu.edu.cn/smsWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SMSWebServiceHttpGet" binding="tns:SMSWebServiceHttpGet">
+      <http:address location="http://datawebservice.ecnu.edu.cn/smsWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SMSWebServiceHttpPost" binding="tns:SMSWebServiceHttpPost">
+      <http:address location="http://datawebservice.ecnu.edu.cn/smsWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

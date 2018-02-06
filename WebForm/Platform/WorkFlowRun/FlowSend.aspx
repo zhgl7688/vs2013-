@@ -322,13 +322,19 @@
         $(function ()
         {
             var iframes = top.frames;
+        
             for (var i = 0; i < iframes.length; i++)
             {
+             
                 if (iframes[i].name == openerid + "_iframe")
                 {
-                    frame = iframes[i]; break;
+                    frame = iframes[i];
+                   
+                    break;
                 }
             }
+            
+        
             if (frame == null) return;
             if(nextStepsCount == 0)//如果后面没有步骤，则完成该流程实例
             {
@@ -345,6 +351,7 @@
         });
         function confirm1()
         {
+            
             var opts = {};
             opts.type = "submit";
             opts.steps = [];
@@ -372,6 +379,7 @@
             }
             if (isSubmit)
             {
+                
                 frame.formSubmit(opts);
                 new RoadUI.Window().close();
             }

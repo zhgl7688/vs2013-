@@ -104,11 +104,18 @@ namespace WebForm.Common
 
             {
                 put_reject(roomisId, execute.Sender.Account);
+                var msg = meetInfo.MeetName+"被拒绝";
+                //20180110短信发送
+                new DuanxinService().smsSend(execute.Sender.Account, msg);
+
             }
             else if (execute.ExecuteType == FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Completed)
             {
                 string remarks = execute.Comment;
                 put_approve(roomisId, execute.Sender.Account, remarks);
+                var msg = meetInfo.MeetName + "通过";
+                //20180110短信发送
+                new DuanxinService().smsSend(execute.Sender.Account, msg);
             }
             else
             {
@@ -163,6 +170,10 @@ namespace WebForm.Common
                     remarks = remark
                 });
                 string address = "api/booking/events/{0}/approval";
+                var msg =item.Title+ remark;
+                //20180110短信发送
+                new DuanxinService().smsSend(approver, msg);
+
                 Put_Roomis(eventId, address, data);
             }
             return "1";

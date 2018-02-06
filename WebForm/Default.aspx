@@ -11,6 +11,23 @@
     </style>
     <link href="Content/bootstrap.css" rel="stylesheet" />
 </head>
+    <script>
+      <%--  var mobile = '<%=mobile%>'
+        if (mobile.length < 5) {
+    var name = prompt("需要完善用户信息,请输入手机号：");
+        setUser(name);
+
+        function setUser(name) {
+           // alert(name)
+            $.get("/ashx/TaskFlowHandler.ashx?Model=SetUser" + "&mobile=" + name + "&userID=" + '<%=useid%>', function (data) {
+                  
+              })
+        }
+        }--%>
+    
+       
+       
+</script>
 <body>
 <form id="form1" runat="server">
 <div class="mainTop">

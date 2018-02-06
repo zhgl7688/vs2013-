@@ -11,8 +11,6 @@ namespace WebForm.EduModels
         public string XM { get; set; }
         public string BMBH { get; set; }
         public string BMMC { get; set; }
-
-        
-
+        public string telephone { get; internal set; }
     }
 }

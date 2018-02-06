@@ -113,7 +113,8 @@
     %>
     <script>
         var isSignCenter = '<%=siSignCenter%>';
-
+      
+       
     </script>
     <form id="mainform" name="mainform" method="post" target="submiter">
         <%if ("0" == display)

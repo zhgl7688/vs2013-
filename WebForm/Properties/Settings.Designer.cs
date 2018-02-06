@@ -12,7 +12,7 @@ namespace WebForm.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -30,6 +30,26 @@ namespace WebForm.Properties {
         public string WebForm_cn_edu_ecnu_datawebservice_ECNUWebService {
             get {
                 return ((string)(this["WebForm_cn_edu_ecnu_datawebservice_ECNUWebService"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://duanxin.ecnu.edu.cn/SMSService.asmx")]
+        public string WebForm_cn_edu_ecnu_duanxin_SMSService {
+            get {
+                return ((string)(this["WebForm_cn_edu_ecnu_duanxin_SMSService"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://datawebservice.ecnu.edu.cn/smsWebService.asmx")]
+        public string WebForm_cn_edu_ecnu_userinfo_SMSWebService {
+            get {
+                return ((string)(this["WebForm_cn_edu_ecnu_userinfo_SMSWebService"]));
             }
         }
     }

@@ -22,12 +22,21 @@ namespace WebForm.ashx
                 case "status": GetStatus(context, taskgid); break;
                 case "DelStatus": GetDelStatus(context, taskgid); break;
                 case "DelTask": DelTask(context, taskgid); break;
-                case "TaskCount": TaskCount(context); break;
+                case "TaskCount": TaskCount(context); break; 
+                case "SetUser": SetUser(context); break; 
                 default:
                     break;
             }
 
 
+        }
+
+        private void SetUser(HttpContext context)
+        {
+            var userID =context.Request["userID"];
+            var mobile = context.Request["mobile"];
+            if (string.IsNullOrWhiteSpace(userID) || string.IsNullOrWhiteSpace(mobile)) return;
+            new EduWebService().SetUseinfo(userID, mobile);
         }
 
         private void TaskCount(HttpContext context)

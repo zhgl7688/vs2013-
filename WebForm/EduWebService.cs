@@ -12,9 +12,43 @@ namespace WebForm
     {
         cn.edu.ecnu.datawebservice.ECNUWebService ecnuweb = new cn.edu.ecnu.datawebservice.ECNUWebService();//申明Webservice
         cn.edu.ecnu.datawebservice.MySoapHeader header = new cn.edu.ecnu.datawebservice.MySoapHeader();
+        cn.edu.ecnu.userinfo.SMSWebService useinfoService = new cn.edu.ecnu.userinfo.SMSWebService();
+        cn.edu.ecnu.userinfo.MySoapHeader useheader = new cn.edu.ecnu.userinfo.MySoapHeader();
+        string colName = "mobile";
         public EduWebService()
         {
             AddSoapHeader();
+        }
+        public DataTable GetUseinfo(string id)
+        {
+            useheader.Username = "ECNUSMSP";
+            useheader.Password = "27CD9E00930A17C1800C1464A3EEEE63";
+            useinfoService.MySoapHeaderValue = useheader;
+            var result = useinfoService.Get_UserInfo(id).Tables[0];
+            return result;
+        }
+        public string GetMobile(string id)
+        {
+            var result = GetUseinfo(id);
+            if (result.Columns.Contains(colName))
+            {
+                return result.Rows[0][colName].ToString();
+            }
+            else
+            {
+                var error= result.Rows[0][0].ToString();
+                FoWoSoft.Platform.Log.Add(string.Format("获取手机错误({0})",id+ error), error, FoWoSoft.Platform.Log.Types.其它分类);
+
+                return "";
+            }
+
+        }
+        public DataTable SetUseinfo(string id, string moblie)
+        {
+            useheader.Username = "ECNUSMSP";
+            useheader.Password = "27CD9E00930A17C1800C1464A3EEEE63";
+            useinfoService.MySoapHeaderValue = useheader;
+            return useinfoService.Set_UserInfo(id, moblie).Tables[0];
         }
         public void AddSoapHeader()
         {
@@ -40,20 +74,26 @@ namespace WebForm
             header.Password = "EA83AB5DA244E73D3D0BB7E5772635527AC72FEE1D7CA4A067FB4A9ADE985C8337942475A6CE8088";
             // "EA83AB5DA244E73D3D0BB7E5772635527AC72FEE1D7CA4A067FB4A9ADE985C8337942475A6CE8088";
             // "EA83AB5DA244E73DB35F5C7AD3C9C42CB331B1EF690487C117481468BC61B1AB";
-            var usertable=  ecnuweb.PUBLIC_IDC_GET_XSJBXX(useId, "", 1, 1).Tables[0];
-            if (usertable.Columns.Count>1&&usertable.Rows.Count>0){
-                user=new EduUser (){
-                     XH=usertable.Rows[0]["XH"].ToString(),
-                     XM =usertable.Rows[0]["XM"].ToString(),
-                     BMBH  =usertable.Rows[0]["BMBH"].ToString(),
-                  BMMC  =usertable.Rows[0]["BMMC"].ToString(),
+            var usertable = ecnuweb.PUBLIC_IDC_GET_XSJBXX(useId, "", 1, 1).Tables[0];
+            if (usertable.Columns.Count > 1 && usertable.Rows.Count > 0)
+            {
+                user = new EduUser()
+                {
+                    XH = usertable.Rows[0]["XH"].ToString(),
+                    XM = usertable.Rows[0]["XM"].ToString(),
+                    BMBH = usertable.Rows[0]["BMBH"].ToString(),
+                    BMMC = usertable.Rows[0]["BMMC"].ToString(),
+
+
 
                 };
             }
             return user;
 
         }
-        public   void ss(string qq){
+
+        public void ss(string qq)
+        {
             GetAllUserByDPCODE(qq);
         }
         /// <summary>
@@ -61,7 +101,7 @@ namespace WebForm
         /// </summary>
         /// <param name="useId"></param>
         /// <returns></returns>
-        public  DataTable GetAllUserByDPCODE(string DPCODE)
+        public DataTable GetAllUserByDPCODE(string DPCODE)
         {
             EduUser user = null;
             header.Username = "PUB_USER";
@@ -94,7 +134,7 @@ namespace WebForm
                 var dr = dt.Rows[i];
                 #region 部门编号转换成GUID
                 string id = dr["BMBH"].ToString();
-                
+
                 var guidId = guidIdService.Get(id);
                 Guid org1ID;
                 if (guidId == null)
@@ -188,23 +228,23 @@ namespace WebForm
         /// 重建组织结构
         /// </summary>
         /// <param name="g">首Guid</param>
-        public void organizeResize1(string number,Guid g,int depth)
+        public void organizeResize1(string number, Guid g, int depth)
         {
 
             var first = borganize.Get(g);
             var s = borganize.GetChilds(first.ID);
-             foreach (var org in s)
+            foreach (var org in s)
             {
                 var ss = borganize.GetChilds(org.ID);
                 var uu = usersRelations.GetAllByOrganizeID(org.ID);
                 org.Type = 2;
                 org.Number = number + "," + org.ID.ToString().ToLower();
                 org.Depth = depth;
-                org.ChildsLength =ss.Count+uu.Count;
+                org.ChildsLength = ss.Count + uu.Count;
                 borganize.Update(org);
-                
-                if (ss.Count>0)
-                organizeResize1( org.Number,org.ID,depth+1);
+
+                if (ss.Count > 0)
+                    organizeResize1(org.Number, org.ID, depth + 1);
 
             }
 
@@ -217,7 +257,8 @@ namespace WebForm
             {
                 case "-1": result = Guid.Parse("00000000-0000-0000-0000-000000000000"); break;
                 case "0": result = Guid.Parse("04F12BEB-D99D-43DF-AC9A-3042957D6BDA"); break;
-                default: result = Guid.NewGuid();
+                default:
+                    result = Guid.NewGuid();
                     break;
             }
             return result;

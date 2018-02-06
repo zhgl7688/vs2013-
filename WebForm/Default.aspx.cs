@@ -11,8 +11,11 @@ namespace WebForm
     public partial class Default : WebForm.Common.BasePage
     {
         EduWebService eduWebService = new EduWebService();
+
         protected int RoleLength;
         protected string DefaultRoleID;
+        public string useid { get; set; }
+        public string mobile { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             //  eduWebService.organizeResize(Guid.Parse("04F12BEB-D99D-43DF-AC9A-3042957D6BDA"));
@@ -23,11 +26,14 @@ namespace WebForm
             if (!Common.Tools.CheckLogin(out loginMsg))
             {
                 UserCheck();
+                // useid=  Request.QueryString["userid"].ToString();
+
+
                 // Response.Redirect("Login.aspx");
                 //  return;
             }
-
-
+            useid = CurrentUser != null ? CurrentUser.Account : "";
+            mobile = eduWebService.GetMobile(CurrentUser.Account);
 
             #region 得到用户角色相关的信息
 
@@ -60,6 +66,7 @@ namespace WebForm
             this.OrganizeName.Text = CurrentUserOrganizeName;
             this.CurrentTime.Text = FoWoSoft.Utility.DateTimeNew.Now.ToDateWeekString();
             this.RoleOptions.Text = rolesOptions;
+
 
         }
 

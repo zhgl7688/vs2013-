@@ -28,6 +28,7 @@
     <SccProvider>
     </SccProvider>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -740,6 +741,12 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <Content Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
+    <Content Include="test.html" />
+    <Content Include="Web References\cn.edu.ecnu.userinfo\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\cn.edu.ecnu.userinfo\smsWebService.disco" />
     <Content Include="说明.txt" />
     <Content Include="ashx\GetMeetHandler.ashx" />
     <Content Include="ashx\TaskFlowHandler.ashx" />
@@ -1225,6 +1232,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Common\CustomFormSave.cs" />
+    <Compile Include="Common\DuanxinService.cs" />
     <Compile Include="Common\Meet.cs" />
     <Compile Include="Common\Tools.cs" />
     <Compile Include="Common\UserService.cs" />
@@ -2151,6 +2159,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\cn.edu.ecnu.duanxin\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\cn.edu.ecnu.userinfo\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\login\login2.psd" />
@@ -2232,6 +2250,12 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Web References\cn.edu.ecnu.duanxin\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\cn.edu.ecnu.duanxin\SMSService.wsdl" />
+    <None Include="Web References\cn.edu.ecnu.userinfo\smsWebService.wsdl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2307,6 +2331,28 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>WebForm_cn_edu_ecnu_datawebservice_ECNUWebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://datawebservice.ecnu.edu.cn/smsWebService.asmx%3fop=Get_UserInfo">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\cn.edu.ecnu.userinfo\</RelPath>
+      <UpdateFromURL>http://datawebservice.ecnu.edu.cn/smsWebService.asmx%3fop=Get_UserInfo</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>WebForm_cn_edu_ecnu_userinfo_SMSWebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://duanxin.ecnu.edu.cn/SMSService.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\cn.edu.ecnu.duanxin\</RelPath>
+      <UpdateFromURL>http://duanxin.ecnu.edu.cn/SMSService.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>WebForm_cn_edu_ecnu_duanxin_SMSService</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>

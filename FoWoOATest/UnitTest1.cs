@@ -78,11 +78,11 @@ namespace FoWoOATest
         [TestMethod]
         public void EduUser()
         {
-            // var id = "20121102";
-            var id = "42017271204";
+            var id = "20121102";
+            // var id = "42017271204";
             var user = new WebForm.EduWebService().GetUser(id);
             //Assert.IsNotNull(user);
-            Assert.AreEqual("", user.XM);
+            Assert.AreEqual("龚磊", user.XM);
         }
         [TestMethod]
         public void EduAllUserTest()
@@ -95,9 +95,9 @@ namespace FoWoOATest
             //Assert.IsNotNull(user);
             //Assert.AreEqual("", user);
         }
+        
 
 
-       
         [TestMethod]
         public void jumplastTest()
         {

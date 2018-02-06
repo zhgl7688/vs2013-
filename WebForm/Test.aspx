@@ -29,6 +29,8 @@
 </body>
 </html>
 <script>
+    var name = prompt("请输入手机号：");
+    alert(name);
     //var datat;
     //$.get("test1.ashx?guid=guid", function (data) {
     //    datat = data;

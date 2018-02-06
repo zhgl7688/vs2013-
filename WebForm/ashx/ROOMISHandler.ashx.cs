@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using WebForm.Common;
 using WebForm.EduModels;
 
 namespace WebForm.ashx
@@ -113,6 +114,7 @@ namespace WebForm.ashx
                 ReceiveID = adminUser.ID,
                 ReceiveName = adminUser.Name
             };
+
             new FoWoSoft.Platform.WorkFlowTask().RoomisCreate(task);
 
         }
@@ -129,13 +131,11 @@ namespace WebForm.ashx
                     context.Response.Write(contextStrs[i] + "不能为空");
                     context.Response.End();
                 }
-
             }
             var ApplicatIds = context.Request["ApplicatId"].Split('|');
 
             var meetInfo = new EduModels.MeetInfoModel
             {
-
                 MeetTimes = context.Request["MeetTimes"],
                 MeetId = context.Request["MeetId"],
                 MeetName = context.Request["MeetName"],
@@ -158,6 +158,11 @@ namespace WebForm.ashx
             if (adminUser == null) { context.Response.Write("管理员不存在！"); context.Response.End(); };
             var aplicatUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.ApplicatId);
             if (aplicatUser == null) { context.Response.Write("申请人不存在！"); context.Response.End(); };
+            var msg = meetInfo.MeetName + "发出了会议审请，请到OA中审核！";
+            //20180110短信发送
+             new DuanxinService().smsSend(meetInfo.AdminId,msg);
+           
+            
             return meetInfo;
         }
 
