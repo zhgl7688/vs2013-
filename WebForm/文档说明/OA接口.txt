@@ -1,0 +1,136 @@
+﻿ OA接口文档
+
+
+2017年8月 
+目录
+一期： 视频会议信息接口	3
+一、功能：增加会议信息	3
+二、功能：修改会议(根据会议ID(temp1)修改会议信息）	3
+二期： 直播会议信息接口	5
+一、功能：增加直播会议信息	5
+二、功能：修改会议(根据会议ID(temp1)修改会议信息）	5
+
+ 
+一期： 视频会议信息接口
+一、功能：增加会议信息
+http://115.28.168.173:8088/ashx/roomishandler.ashx?model=add
+get方式：
+申请人职工号：ApplicatId(格式：Id|phone|address)
+时间 MeetTimes   --会议正式时间
+会议室 MeetId
+会议室名称 MeetName
+管理员职工号：AdminId
+会议Id:temp1
+预约名称：temp2   --活动名称
+新增加的：
+会议测试时间 : Date1
+主办单位：test1
+简述：test
+会议类型：typeid --["论坛", "报告", "讲座", "答辩", "例会", "其他"]
+对端会场情况（可多选）type—[“校内视频会议室”,”标准H.232\SIP会议终端（如：polycom视频会议终端）”, “PC或移动终端”]
+对端会场位置:Reason--["校内", "国内异地", "国外"])
+国内异地: inland
+国外：abroad
+Demo:http://115.28.168.173:8088/ashx/roomishandler.ashx?model=add&ApplicatId=11&MeetTimes=2015-1-1%2011:13&MeetId=222&MeetName=555&AdminId=44444& temp1=666&temp2=预约名称&…
+结果：返回1成功0不成功,有会议编号相同的返回-1
+二、功能：修改会议(根据会议ID(temp1)修改会议信息）
+http://115.28.168.173:8088/ashx/roomishandler.ashx?model=modify
+get方式： 参数见下表1
+Demo:http://115.28.168.173:8088/ashx/roomishandler.ashx?model=modify& temp1=2222&MeetTimes=2015-1-1%2011:13&MeetId=222&MeetName=555&AdminId=44444&&temp1=666&temp2=预约名称&…
+结果：返回1成功0不成功
+ 
+
+
+
+
+表1
+第一期名称	字段名	备注
+活动名称	temp2	
+会议测试时间	Date1	
+主办单位	test1	
+会议正式时间	MeetTimes   	
+简述	test	
+会议类型	typeid	["哲学社会科学类的论坛", "哲学社会科学类的研讨会", "哲学社会科学类的讲座", "哲学社会科学类的报告", "答辩", "其他"]
+对端会场情况
+（可多选）	type	[“校内视频会议室”,”标准H.232\SIP会议终端（如：polycom视频会议终端）”, “PC或移动终端”]
+对端会场位置	Reason	["校内", "国内异地", "国外"]
+国内异地	inland	
+国外	abroad	
+		
+会议室id	MeetId	
+会议室名称	MeetName	
+申请人职工号	ApplicatId	ApplicatId(格式：Id|phone|address)
+管理员职工号	AdminId	
+会议Id	temp1	
+ 
+  
+
+
+
+
+
+
+
+ 
+二期： 直播会议信息接口
+一、功能：增加直播会议信息
+http:// 202.120.85.70/ashx/roomishandler.ashx?model=add
+get方式：
+1.	预约类型：typeid –“直播会议”;
+2.	申请人职工号|手机号|地址：ApplicatId(格式：Id|phone|address)
+3.	时间 MeetTimes   --会议正式时间
+4.	会议室 MeetId
+5.	会议室名称 MeetName
+6.	管理员职工号：AdminId
+7.	会议Id:temp1
+8.	预约名称：temp2   --活动名称
+9.	会议测试时间 : Date1
+10.	主办单位：test1
+11.	简述：test
+12.	直播平台type—
+取值：[“华师大直播平台”,” 校外第三方直播平台”]
+13.	直播范围|是否分会场转播:Reason—
+a)	取值：["校内", "校外"]|[“是”,”否”]  
+b)	传递格式 :”校内|是”
+14.	入场设备信息: inland
+15.	MA地址|其他需求：abroad
+传递格式：MA地址|其他需求
+备注见表2
+Demo:http://202.120.85.70/ashx/roomishandler.ashx?model=add&ApplicatId=11&MeetTimes=2015-1-1%2011:13&MeetId=222&MeetName=555&AdminId=44444& temp1=666&temp2=预约名称&…
+结果：返回1成功0不成功,有会议编号相同的返回-1
+二、功能：修改会议(根据会议ID(temp1)修改会议信息）
+http://202.120.85.70/ashx/roomishandler.ashx?model=modify
+get方式： 参数见下表2
+Demo:http://202.120.85.70/ashx/roomishandler.ashx?model=modify& temp1=2222&MeetTimes=2015-1-1%2011:13&MeetId=222&MeetName=555&AdminId=44444&&temp1=666&temp2=预约名称&…
+结果：返回1成功0不成功
+
+ 
+三、功能：取消会议(根据会议ID(temp1)取消会议信息）
+http:// 202.120.85.70/ashx/roomishandler.ashx?model=del
+get方式： 
+temp1 会议的Id
+Demo:http:// 202.120.85.70/ashx/roomishandler.ashx?model=del& temp1=2222 
+结果：返回1成功；返回0未找到流程； 
+
+
+表2
+第二期名称	字段名	备注
+活动名称	temp2	
+会议测试时间	Date1	
+主办单位	test1	
+会议正式时间	MeetTimes   	
+简述	test	
+预约类型：	typeid	 ”直播会议”
+直播平台 	type	[“华师大直播平台”,” 校外第三方直播平台”]
+直播范围|是否分会场转播	Reason	["校内", "校外"]，格式：校内|是
+入场设备信息	inland	
+Mac地址|其他需求	abroad	Mac地址|其他需求
+		
+会议室id	MeetId	
+会议室名称	MeetName	
+申请人职工号|电话|地址	ApplicatId	格式：Id|phone|address
+管理员职工号	AdminId	
+会议Id	temp1	
+ 
+  
+

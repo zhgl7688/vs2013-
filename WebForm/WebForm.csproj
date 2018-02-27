@@ -746,9 +746,12 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="文档说明\测试账号.txt" />
+    <Content Include="文档说明\远程地址.txt" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Web References\cn.edu.ecnu.userinfo\smsWebService.disco" />
-    <Content Include="说明.txt" />
+    <Content Include="文档说明\OA接口.txt" />
+    <Content Include="文档说明\说明.txt" />
     <Content Include="ashx\GetMeetHandler.ashx" />
     <Content Include="ashx\TaskFlowHandler.ashx" />
     <Content Include="ashx\ROOMISHandler.ashx" />

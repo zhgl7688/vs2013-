@@ -34,7 +34,7 @@ namespace FoWoSoft.Data.MSSQL
         }
         public Model.TempTestMeet Get(string Title)
         {
-            string sql = "SELECT * FROM Guid_id WHERE Title=@Title";
+            string sql = "SELECT * FROM TempTestMeet WHERE id=@Title";
             SqlParameter[] parameters = new SqlParameter[]{
 				new SqlParameter("@Title",SqlDbType.Char){ Value = Title }
 			};

@@ -80,6 +80,7 @@ namespace WebForm.ashx
         public void Add(HttpContext context)
         {
             context.Response.Write(Create(CheckRequest(context)));
+
         }
 
         public int Create(FoWoSoft.Data.Model.MeetInfo meetInfo)
@@ -116,6 +117,9 @@ namespace WebForm.ashx
             };
 
             new FoWoSoft.Platform.WorkFlowTask().RoomisCreate(task);
+            var msg = $"{aplicatUser.Name}发出申请：{meetInfo.temp2} ，申请会议室位于 {meetInfo.MeetName}，请审核！";
+            //20180110短信发送
+            new DuanxinService().smsSend(meetInfo.AdminId, msg);
 
         }
 
@@ -158,9 +162,7 @@ namespace WebForm.ashx
             if (adminUser == null) { context.Response.Write("管理员不存在！"); context.Response.End(); };
             var aplicatUser = new WebForm.Common.UserService().CreateNewUser(meetInfo.ApplicatId);
             if (aplicatUser == null) { context.Response.Write("申请人不存在！"); context.Response.End(); };
-            var msg = meetInfo.MeetName + "发出了会议审请，请到OA中审核！";
-            //20180110短信发送
-             new DuanxinService().smsSend(meetInfo.AdminId,msg);
+       
            
             
             return meetInfo;

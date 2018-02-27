@@ -26,6 +26,7 @@ namespace WebForm.Common
     public class Meet
     {
         private static string meetUrl = ConfigurationManager.AppSettings["meetUrl"].ToString();
+        private DuanxinService duanxinService = new DuanxinService();
         public static List<CMeet> GetMeetList()
         {
             string result = "";
@@ -104,18 +105,21 @@ namespace WebForm.Common
 
             {
                 put_reject(roomisId, execute.Sender.Account);
-                var msg =$"地址：{meetInfo.MeetName}，会议名称：{meetInfo.temp2}" +"被拒绝";
+                var msg = $"会议名称:{meetInfo.temp2};会议地址:{meetInfo.MeetName}。审核结果:没通过;审核人:{execute.Sender.Name},审核意见：{execute.Comment}";
                 //20180110短信发送
-                new DuanxinService().smsSend(execute.Sender.Account, msg);
-
+               // duanxinService.smsSend(execute.Sender.Account, msg);
+                //发给审请人
+                duanxinService.Sendapplication(execute.InstanceID, msg);
             }
             else if (execute.ExecuteType == FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Completed)
             {
                 string remarks = execute.Comment;
                 put_approve(roomisId, execute.Sender.Account, remarks);
-                var msg = $"地址：{meetInfo.MeetName}，会议名称：{meetInfo.temp2}" + "通过";
+                var msg = $"会议名称:{meetInfo.temp2};会议地址：{meetInfo.MeetName};" ;
                 //20180110短信发送
-                new DuanxinService().smsSend(execute.Sender.Account, msg);
+                //anxinService.smsSend(execute.Sender.Account, msg+ "请查看");
+                //发给审请人
+                duanxinService.Sendapplication(execute.InstanceID, msg + "审核结果：通过");
             }
             else
             {
@@ -154,13 +158,23 @@ namespace WebForm.Common
         /// <param name="eventId"></param>
         /// <param name="apperot"></param>
         /// <returns></returns>
-        public static string SendStep(string eventId, string install)
+        public string SendStep(string eventId, string instanceid)
         {
             var tasks = new FoWoSoft.Platform.WorkFlowTask().GetAll();
-            var installTasks = tasks.Where(s => s.InstanceID.ToString().Equals(install, StringComparison.OrdinalIgnoreCase)).OrderByDescending(s => s.Sort).Take(2);
-            string[] remarks = new string[] { "请处理下", "打开", "中间完成", "退回", "他人已处理", "他人已退回" };
+            var installTasks = tasks.Where(s => s.InstanceID.ToString().Equals(instanceid, StringComparison.OrdinalIgnoreCase) && s.Status == 0);
+            string[] remarks = new string[] { "请审核", "打开", "中间完成", "退回", "他人已处理", "他人已退回" };
+            var n = 0;
             foreach (var item in installTasks)
             {
+                if (n == 0)//发给审请人
+                {
+                   var task= tasks.FirstOrDefault(s => s.ID == item.PrevID);
+                    if (task!=null)
+                    duanxinService.Sendapplication(instanceid, $"{item.Title}：{task.StepName}审核通过");
+
+                }
+                n++;
+
                 var approver = new FoWoSoft.Platform.Users().Get(item.ReceiveID).Account;
                 var remark = (item.Status > -1 && item.Status < 6) ? remarks[item.Status] : "";
                 string data = JsonConvert.SerializeObject(new
@@ -170,12 +184,13 @@ namespace WebForm.Common
                     remarks = remark
                 });
                 string address = "api/booking/events/{0}/approval";
-                var msg =$"会议申请：{item.Title},状态：{remark}";
+                var msg = $"会议申请：{item.Title},{remark}";
                 //20180110短信发送
-                new DuanxinService().smsSend(approver, msg);
+                duanxinService.smsSend(approver, msg);
 
                 Put_Roomis(eventId, address, data);
             }
+
             return "1";
 
         }
@@ -192,7 +207,7 @@ namespace WebForm.Common
             string data = JsonConvert.SerializeObject(new
             {
                 approver = apperot,
-                status = "APPROVED",
+                state= "APPROVED",// status = "APPROVED",
                 remarks = remarks,// "备注文字",
             });
 
@@ -211,7 +226,7 @@ namespace WebForm.Common
             string data = JsonConvert.SerializeObject(new
             {
                 approver = apperot,
-                status = "REJECTED",
+                state= "REJECTED",//status = "REJECTED",2018-2-26
                 remarks = "退回"
             });
             return Put_Roomis(eventId, address, data);
@@ -248,8 +263,8 @@ namespace WebForm.Common
                 {
                     FoWoSoft.Platform.Log.Add(string.Format("连接有问题({0})", meetUrl), data, FoWoSoft.Platform.Log.Types.系统错误);
 
-                    return meetUrl + "连接有问题"+err.Message;
-                    
+                    return meetUrl + "连接有问题" + err.Message;
+
                 }
 
             }
