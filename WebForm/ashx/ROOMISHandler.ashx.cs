@@ -117,10 +117,19 @@ namespace WebForm.ashx
             };
 
             new FoWoSoft.Platform.WorkFlowTask().RoomisCreate(task);
-            var msg = $"{aplicatUser.Name}发出申请：{meetInfo.temp2} ，申请会议室位于 {meetInfo.MeetName}，请审核！";
-            //20180110短信发送
-            new DuanxinService().smsSend(meetInfo.AdminId, msg);
+            //由***部门，***（人名），申请的会议名称为：****会议申请，需要您审核。
+            var userInfoEdu = new EduWebService().GetUser(meetInfo.ApplicatId);
+            if (userInfoEdu != null)
+            {
 
+                // var meetMsgProgress = $"由{userInfoEdu.BMMC}部门，{userInfoEdu.XM}（人名），申请的会议名称为：{meetInfo.temp2},";
+                // var msg = $"{meetMsgProgress}会议申请，需要您审核。";
+                var msg = string.Format(DuanxinService.DuanxinSendMsg4, userInfoEdu.BMMC, userInfoEdu.XM, meetInfo.temp2);
+       
+
+                //20180110短信发送
+                new DuanxinService().smsSend(meetInfo.AdminId, msg);
+            }
         }
 
 

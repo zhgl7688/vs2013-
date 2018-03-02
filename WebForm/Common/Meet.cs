@@ -101,11 +101,16 @@ namespace WebForm.Common
             var meetInfo = new FoWoSoft.Platform.MeetInfo().GetByTemp3(execute.InstanceID);
             if (meetInfo == null) return null;
             string roomisId = meetInfo.temp1;//会议id;
+           // var meetMsg = $" 您申请的会议名称:{meetInfo.temp2}；会议地址:{meetInfo.MeetName},";
+
             if (WebForm.Common.Tools.CheckBack(execute.ExecuteType, execute.StepID))
 
             {
                 put_reject(roomisId, execute.Sender.Account);
-                var msg = $"会议名称:{meetInfo.temp2};会议地址:{meetInfo.MeetName}。审核结果:没通过;审核人:{execute.Sender.Name},审核意见：{execute.Comment}";
+
+                // 申请失败：您申请的会议名称：***；会议地址：****，审核结果：没有通过：审核人：****；审核意见：****
+                var msg = string.Format(DuanxinService.DuanxinSendMsg3, meetInfo.temp2, meetInfo.MeetName, execute.Sender.Name, execute.Comment);
+                //$" 申请失败：{meetMsg}审核结果：没有通过：审核人：{execute.Sender.Name},审核意见：{execute.Comment}";
                 //20180110短信发送
                // duanxinService.smsSend(execute.Sender.Account, msg);
                 //发给审请人
@@ -113,17 +118,23 @@ namespace WebForm.Common
             }
             else if (execute.ExecuteType == FoWoSoft.Data.Model.WorkFlowExecute.EnumType.ExecuteType.Completed)
             {
+                var tasks = new FoWoSoft.Platform.WorkFlowTask().GetAll();
+                var installTasks = tasks.Where(s => s.InstanceID.ToString().Equals(execute.InstanceID, StringComparison.OrdinalIgnoreCase) && s.Status == 0);
+
+
                 string remarks = execute.Comment;
                 put_approve(roomisId, execute.Sender.Account, remarks);
-                var msg = $"会议名称:{meetInfo.temp2};会议地址：{meetInfo.MeetName};" ;
+                //申请成功：您申请的会议名称：***；会议地址：****，已审核完毕，可以使用。
+                var msg = string.Format(DuanxinService.DuanxinSendMsg2, meetInfo.temp2, meetInfo.MeetName);
+                //var msg = $"申请成功：{meetMsg}已审核完毕，可以使用。" ;
                 //20180110短信发送
                 //anxinService.smsSend(execute.Sender.Account, msg+ "请查看");
                 //发给审请人
-                duanxinService.Sendapplication(execute.InstanceID, msg + "审核结果：通过");
+                duanxinService.Sendapplication(execute.InstanceID, msg);
             }
             else
             {
-                SendStep(roomisId, execute.InstanceID);
+                SendStep(roomisId, execute.InstanceID,meetInfo);
             }
             return 1;
         }
@@ -143,7 +154,7 @@ namespace WebForm.Common
                     //  put = put_approve;
                     break;
                 case RoomisOperation.put_step:
-                    return SendStep(eventId, installId);
+                    return SendStep(eventId, installId, meetInfo);
 
 
             }
@@ -158,20 +169,31 @@ namespace WebForm.Common
         /// <param name="eventId"></param>
         /// <param name="apperot"></param>
         /// <returns></returns>
-        public string SendStep(string eventId, string instanceid)
+        public string SendStep(string eventId, string instanceid, FoWoSoft.Data.Model.MeetInfo meetInfo)
         {
+
+            var meetMsg = $" 您申请的会议名称:{meetInfo.temp2}；会议地址:{meetInfo.MeetName},";
+         
+            var userInfoEdu = new EduWebService().GetUser(meetInfo.ApplicatId);
+            if (userInfoEdu == null) return null;
+         
             var tasks = new FoWoSoft.Platform.WorkFlowTask().GetAll();
             var installTasks = tasks.Where(s => s.InstanceID.ToString().Equals(instanceid, StringComparison.OrdinalIgnoreCase) && s.Status == 0);
             string[] remarks = new string[] { "请审核", "打开", "中间完成", "退回", "他人已处理", "他人已退回" };
             var n = 0;
             foreach (var item in installTasks)
-            {
+            { var task= tasks.FirstOrDefault(s => s.ID == item.PrevID);
                 if (n == 0)//发给审请人
                 {
-                   var task= tasks.FirstOrDefault(s => s.ID == item.PrevID);
+              
                     if (task!=null)
-                    duanxinService.Sendapplication(instanceid, $"{item.Title}：{task.StepName}审核通过");
-
+                   
+                    if (item.StepName == "信息办")
+                            //由*** 部门，***（人名），申请的会议名称为：****会议申请已通过，请确认并提供相关支持。
+                    duanxinService.Sendapplication(instanceid,string.Format(DuanxinService.DuanxinSendMsg6, userInfoEdu.BMMC, userInfoEdu.XM, meetInfo.temp2));
+                    else   
+                            //申请过程：您申请的会议名称：***；会议地址：****，****（部门）申请通过。
+                        duanxinService.Sendapplication(instanceid, string.Format(DuanxinService.DuanxinSendMsg1, meetInfo.temp2,meetInfo.MeetName, task.StepName));
                 }
                 n++;
 
@@ -184,9 +206,17 @@ namespace WebForm.Common
                     remarks = remark
                 });
                 string address = "api/booking/events/{0}/approval";
-                var msg = $"会议申请：{item.Title},{remark}";
-                //20180110短信发送
-                duanxinService.smsSend(approver, msg);
+                //由*** 部门，***（人名），申请的会议名称为：****会议申请，需要您审核。
+               //20180110短信发送
+               if (item.StepName == "各部门") {
+                    var prevName = tasks.FirstOrDefault(s => s.ID == item.PrevID).StepName;
+                duanxinService.smsSend(approver, string.Format(DuanxinService.DuanxinSendMsg5, userInfoEdu.BMMC, userInfoEdu.XM, meetInfo.temp2, prevName));
+                }
+                else
+                {
+                    duanxinService.smsSend(approver, string.Format(DuanxinService.DuanxinSendMsg4, userInfoEdu.BMMC, userInfoEdu.XM, meetInfo.temp2));
+
+                }
 
                 Put_Roomis(eventId, address, data);
             }
