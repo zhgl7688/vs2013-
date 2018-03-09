@@ -186,18 +186,12 @@ namespace WebForm.Common
                 if (n == 0)//发给审请人
                 {
               
-                    if (task!=null)
-                   
-                    if (item.StepName == "信息办")
-                            //由*** 部门，***（人名），申请的会议名称为：****会议申请已通过，请确认并提供相关支持。
-                    duanxinService.Sendapplication(instanceid,string.Format(DuanxinService.DuanxinSendMsg6, userInfoEdu.BMMC, userInfoEdu.XM, meetInfo.temp2));
-                    else   
+                    if (task!=null) 
                             //申请过程：您申请的会议名称：***；会议地址：****，****（部门）申请通过。
                         duanxinService.Sendapplication(instanceid, string.Format(DuanxinService.DuanxinSendMsg1, meetInfo.temp2,meetInfo.MeetName, task.StepName));
                 }
                 n++;
-
-                var approver = new FoWoSoft.Platform.Users().Get(item.ReceiveID).Account;
+          var approver = new FoWoSoft.Platform.Users().Get(item.ReceiveID).Account;
                 var remark = (item.Status > -1 && item.Status < 6) ? remarks[item.Status] : "";
                 string data = JsonConvert.SerializeObject(new
                 {
@@ -207,14 +201,22 @@ namespace WebForm.Common
                 });
                 string address = "api/booking/events/{0}/approval";
                 //由*** 部门，***（人名），申请的会议名称为：****会议申请，需要您审核。
-               //20180110短信发送
-               if (item.StepName == "各部门") {
+                FoWoSoft.Platform.Log.Add1(string.Format("各部门({0})", item.StepName + userInfoEdu.BMMC+ userInfoEdu.XM+ meetInfo.temp2), data, FoWoSoft.Platform.Log.Types.其它分类);
+
+
+                //20180110短信发送
+               
+                if (item.StepName == "信息办")
+                    //由*** 部门，***（人名），申请的会议名称为：****会议申请已通过，请确认并提供相关支持。
+                    duanxinService.Sendapplication(instanceid, string.Format(DuanxinService.DuanxinSendMsg6, userInfoEdu.BMMC, userInfoEdu.XM, meetInfo.MeetName, meetInfo.temp2, meetInfo.MeetTimes));
+                else  if (item.StepName.Contains( "各部门")) {
                     var prevName = tasks.FirstOrDefault(s => s.ID == item.PrevID).StepName;
-                duanxinService.smsSend(approver, string.Format(DuanxinService.DuanxinSendMsg5, userInfoEdu.BMMC, userInfoEdu.XM, meetInfo.temp2, prevName));
+
+                duanxinService.smsSend(approver, string.Format(DuanxinService.DuanxinSendMsg5, userInfoEdu.BMMC, userInfoEdu.XM, meetInfo.MeetName, meetInfo.temp2, meetInfo.MeetTimes, prevName));
                 }
                 else
                 {
-                    duanxinService.smsSend(approver, string.Format(DuanxinService.DuanxinSendMsg4, userInfoEdu.BMMC, userInfoEdu.XM, meetInfo.temp2));
+                    duanxinService.smsSend(approver, string.Format(DuanxinService.DuanxinSendMsg4, userInfoEdu.BMMC, userInfoEdu.XM, meetInfo.MeetName, meetInfo.temp2, meetInfo.MeetTimes));
 
                 }
 
